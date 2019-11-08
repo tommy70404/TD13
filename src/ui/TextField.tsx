@@ -8,11 +8,10 @@ import {
 } from '@material-ui/core';
 
 interface IMultiTextFieldProps {
+  value: any;
   onChange: (v: any) => void;
-  fields: {
-    label?: string;
-    placeholder: string;
-  }[];
+  label?: string;
+  placeholder: string;
 }
 
 const useStyles = makeStyles(
@@ -24,22 +23,15 @@ const useStyles = makeStyles(
   { name: 'MultiTextField' },
 );
 
-export const MultiTextField = (props: IMultiTextFieldProps) => {
+export const LabelTextField = ({ label, ...props }: IMultiTextFieldProps) => {
   const classes = useStyles();
+
   return (
     <Grid container alignItems="center">
-      {props.fields.map(f => (
-        <React.Fragment key={Math.random()}>
-          {f.label && <Typography variant="h4">{f.label}</Typography>}
-          <Box className={classes.field} clone>
-            <TextField
-              variant="outlined"
-              placeholder={f.placeholder}
-              {...props}
-            />
-          </Box>
-        </React.Fragment>
-      ))}
+      {label && <Typography variant="h4">{label}</Typography>}
+      <Box className={classes.field} clone>
+        <TextField variant="outlined" {...props} />
+      </Box>
     </Grid>
   );
 };

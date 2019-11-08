@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, IconButton, TextField } from '@material-ui/core';
-import { MultiTextField } from '../../ui/TextField';
+import { LabelTextField } from '../../ui/TextField';
 import { TableForm } from '../../ui/TableForm';
 import { PopRadioGroupField } from '../../ui/PopRadioGroupField';
 import { NumberControlField } from '../../ui/NumberControlField';
@@ -9,7 +9,8 @@ import { SelectField } from '../../ui/SelectField';
 import { RadioGroupField } from '../../ui/RadioGroupField';
 
 interface IRestSteelFormProps {
-  onChange: (v: any) => void;
+  state: any;
+  handleChange: (k: string) => (v: any) => void;
 }
 
 const useStyles = makeStyles(
@@ -27,7 +28,7 @@ const useStyles = makeStyles(
       },
     },
     textInput: {
-      width: 100,
+      width: 150,
       '& .MuiInputBase-input': {
         textAlign: 'center',
       },
@@ -53,20 +54,21 @@ const materialOptions = [
   { label: '融蝕' },
 ];
 
-export const RestSteelForm = ({ onChange, ...props }: IRestSteelFormProps) => {
-  const [state, setState] = useState<any>({});
+export const RestSteelForm = ({
+  handleChange,
+  state,
+  ...props
+}: IRestSteelFormProps) => {
   const classes = useStyles();
-
-  const handleChange = (k: string) => (v: any) => {
-    setState((prev: any) => ({ ...prev, [k]: v }));
-    onChange(v);
-  };
 
   const eventHandleFormField = [
     {
       label: '倒次',
       control: () => (
-        <PopRadioGroupField onChange={handleChange('倒次')}>
+        <PopRadioGroupField
+          value={state['倒次']}
+          onChange={handleChange('倒次')}
+        >
           {state['倒次']}
         </PopRadioGroupField>
       ),
@@ -74,7 +76,10 @@ export const RestSteelForm = ({ onChange, ...props }: IRestSteelFormProps) => {
     {
       label: '燒結',
       control: () => (
-        <PopRadioGroupField onChange={handleChange('燒結')}>
+        <PopRadioGroupField
+          value={state['燒結']}
+          onChange={handleChange('燒結')}
+        >
           {state['燒結']}
         </PopRadioGroupField>
       ),
@@ -82,15 +87,21 @@ export const RestSteelForm = ({ onChange, ...props }: IRestSteelFormProps) => {
     {
       label: '太薄',
       control: () => (
-        <PopRadioGroupField onChange={handleChange('燒結')}>
-          {state['燒結']}
+        <PopRadioGroupField
+          value={state['太薄']}
+          onChange={handleChange('太薄')}
+        >
+          {state['太薄']}
         </PopRadioGroupField>
       ),
     },
     {
       label: '凹襯',
       control: () => (
-        <PopRadioGroupField onChange={handleChange('凹襯')}>
+        <PopRadioGroupField
+          value={state['凹襯']}
+          onChange={handleChange('凹襯')}
+        >
           {state['凹襯']}
         </PopRadioGroupField>
       ),
@@ -98,7 +109,10 @@ export const RestSteelForm = ({ onChange, ...props }: IRestSteelFormProps) => {
     {
       label: '沖區',
       control: () => (
-        <PopRadioGroupField onChange={handleChange('沖區')}>
+        <PopRadioGroupField
+          value={state['沖區']}
+          onChange={handleChange('沖區')}
+        >
           {state['沖區']}
         </PopRadioGroupField>
       ),
@@ -119,7 +133,10 @@ export const RestSteelForm = ({ onChange, ...props }: IRestSteelFormProps) => {
     {
       label: '厚渣',
       control: () => (
-        <PopRadioGroupField onChange={handleChange('厚渣')}>
+        <PopRadioGroupField
+          value={state['厚渣']}
+          onChange={handleChange('厚渣')}
+        >
           {state['厚渣']}
         </PopRadioGroupField>
       ),
@@ -127,7 +144,10 @@ export const RestSteelForm = ({ onChange, ...props }: IRestSteelFormProps) => {
     {
       label: '頂撞',
       control: () => (
-        <PopRadioGroupField onChange={handleChange('頂撞')}>
+        <PopRadioGroupField
+          value={state['頂撞']}
+          onChange={handleChange('頂撞')}
+        >
           {state['頂撞']}
         </PopRadioGroupField>
       ),
@@ -137,15 +157,30 @@ export const RestSteelForm = ({ onChange, ...props }: IRestSteelFormProps) => {
   const repairRoundFormField = [
     {
       label: '代數',
-      control: () => <NumberControlField onChange={handleChange('代數')} />,
+      control: () => (
+        <NumberControlField
+          value={state['代數']}
+          onChange={handleChange('代數')}
+        />
+      ),
     },
     {
       label: '回數',
-      control: () => <NumberControlField onChange={handleChange('回數')} />,
+      control: () => (
+        <NumberControlField
+          value={state['回數']}
+          onChange={handleChange('回數')}
+        />
+      ),
     },
     {
       label: '爐數',
-      control: () => <NumberControlField onChange={handleChange('爐數')} />,
+      control: () => (
+        <NumberControlField
+          value={state['爐數']}
+          onChange={handleChange('爐數')}
+        />
+      ),
     },
   ];
 
@@ -154,6 +189,7 @@ export const RestSteelForm = ({ onChange, ...props }: IRestSteelFormProps) => {
       label: '塗覆料',
       control: () => (
         <SelectField
+          value={state['塗覆料']}
           options={selectOptions}
           onChange={handleChange('塗覆料')}
         />
@@ -163,6 +199,7 @@ export const RestSteelForm = ({ onChange, ...props }: IRestSteelFormProps) => {
       label: '噴漿料',
       control: () => (
         <SelectField
+          value={state['噴漿料']}
           options={selectOptions}
           onChange={handleChange('噴漿料')}
         />
@@ -172,6 +209,7 @@ export const RestSteelForm = ({ onChange, ...props }: IRestSteelFormProps) => {
       label: '背襯材料',
       control: () => (
         <SelectField
+          value={state['背襯材料']}
           options={selectOptions}
           onChange={handleChange('背襯材料')}
         />
@@ -184,18 +222,24 @@ export const RestSteelForm = ({ onChange, ...props }: IRestSteelFormProps) => {
       {/* 1st row */}
       <Grid item container wrap="nowrap" className={classes.row}>
         <Grid item sm={4}>
-          <MultiTextField
+          <LabelTextField
+            value={state['殘鋼噸數']}
             onChange={handleChange('殘鋼噸數')}
-            fields={[{ label: '殘鋼噸數', placeholder: 'NNN' }]}
+            label="殘鋼噸數"
+            placeholder="NNN"
           />
         </Grid>
         <Grid item sm>
-          <MultiTextField
-            onChange={handleChange('殘鋼處理完成時間')}
-            fields={[
-              { label: '殘鋼處理完成時間', placeholder: 'YYYY-MM-DD' },
-              { placeholder: 'HH:MM' },
-            ]}
+          <LabelTextField
+            value={state['殘鋼處理完成時間-0']}
+            onChange={handleChange('殘鋼處理完成時間-0')}
+            label="殘鋼處理完成時間"
+            placeholder="YYYY-MM-DD"
+          />
+          <LabelTextField
+            value={state['殘鋼處理完成時間-1']}
+            onChange={handleChange('殘鋼處理完成時間-1')}
+            placeholder="HH:MM"
           />
         </Grid>
       </Grid>
@@ -208,12 +252,19 @@ export const RestSteelForm = ({ onChange, ...props }: IRestSteelFormProps) => {
         <TableForm label="修復回數" fields={repairRoundFormField} />
       </Grid>
       {/* 4st row */}
-      <Grid item container alignItems="center" spacing={5} className={classes.row}>
+      <Grid
+        item
+        container
+        alignItems="center"
+        spacing={5}
+        className={classes.row}
+      >
         <Grid item sm="auto" style={{ width: 'auto' }}>
           <TableForm label="殘襯廠商" fields={venderFormField} />
         </Grid>
         <Grid item sm style={{ width: 'auto' }}>
           <RadioGroupField
+            value={state['擋牆材料']}
             label="擋牆材料"
             options={materialOptions}
             onChange={handleChange('擋牆材料')}

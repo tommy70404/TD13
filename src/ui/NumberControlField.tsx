@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core';
 
 interface INumberControlField {
+  value: any;
   onChange: (v: any) => void;
   children?: React.ReactNode;
 }
@@ -30,19 +31,26 @@ const useStyles = makeStyles(
     btn: {
       width: 40,
       height: 40,
+      padding: 0,
       marginRight: 4,
       marginLeft: 4,
+      // color: theme.palette.grey[700],
+      fontWeight: theme.typography.h5.fontWeight,
+      fontSize: theme.typography.h5.fontSize,
     },
   }),
   { name: 'NumberControlField' },
 );
 
-export const NumberControlField = (props: INumberControlField) => {
-  const [state, setState] = useState<number>(0);
+export const NumberControlField = ({
+  value,
+  onChange,
+  ...props
+}: INumberControlField) => {
   const classes = useStyles();
 
   const handleClick = (k: string) => () => {
-    setState(prev => (prev += parseInt(k)));
+    onChange((value += parseInt(k)));
   };
 
   return (
@@ -67,7 +75,7 @@ export const NumberControlField = (props: INumberControlField) => {
         variant="outlined"
         margin="dense"
         disabled
-        value={state}
+        value={value}
         className={classes.textInput}
       />
       <Button

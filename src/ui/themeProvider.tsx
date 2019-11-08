@@ -6,6 +6,13 @@ import {
 } from '@material-ui/core/styles';
 
 const appTheme = createMuiTheme({
+  overrides: {
+    MuiInputBase: {
+      input: {
+        fontSize: '1.4rem',
+      },
+    },
+  },
   palette: {
     primary: {
       main: '#f5a623',

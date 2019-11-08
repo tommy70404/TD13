@@ -16,13 +16,15 @@ const useStyles = makeStyles(
     'overview-header': {
       background: theme.palette.primary.main,
       color: theme.palette.getContrastText(theme.palette.divider),
-      '& > div': {
-        padding: '2px 0',
-      },
+      '& > div': {},
     },
     'overview-row': {
       '& > div': {
-        padding: '2px 0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '0',
+        height: '100%',
         borderRight: `1px solid ${theme.palette.divider}`,
       },
       '&& > div:last-child': {

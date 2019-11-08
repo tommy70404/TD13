@@ -10,9 +10,11 @@ import {
   IconButton,
   makeStyles,
   Popover,
+  Typography,
 } from '@material-ui/core';
 
 interface IPopRadioGroupFieldProps {
+  value: any;
   onChange: (v: any) => void;
   children?: React.ReactNode;
 }
@@ -23,14 +25,29 @@ const useStyles = makeStyles(
       padding: theme.spacing(1),
     },
     radioGroup: {
-      fontSize: theme.typography.h5.fontSize,
+      '& .MuiFormControlLabel-root': {
+        // alignItems: 'flex-end',
+      },
+      '& .MuiSvgIcon-root': {
+        width: 30,
+        height: 30,
+      },
+      '& .MuiTypography-body1': {
+        fontSize: theme.typography.h5.fontSize,
+      },
+    },
+    btn: {
+      color: theme.palette.grey[700],
     },
   }),
   { name: 'PopRadioGroupField' },
 );
 
-export const PopRadioGroupField = (props: IPopRadioGroupFieldProps) => {
-  const [state, setState] = useState<any>({});
+export const PopRadioGroupField = ({
+  onChange,
+  value,
+  ...props
+}: IPopRadioGroupFieldProps) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
 
@@ -43,8 +60,7 @@ export const PopRadioGroupField = (props: IPopRadioGroupFieldProps) => {
   };
 
   const handleRadioClick = (e: any) => {
-    setState(e.target.value);
-    props.onChange(e.target.value);
+    onChange(e.target.value);
     setAnchorEl(null);
   };
 
@@ -54,7 +70,7 @@ export const PopRadioGroupField = (props: IPopRadioGroupFieldProps) => {
         <FormControl component="fieldset">
           <RadioGroup
             row
-            value={state}
+            value={value}
             onClick={handleRadioClick}
             className={classes.radioGroup}
           >
@@ -78,7 +94,9 @@ export const PopRadioGroupField = (props: IPopRadioGroupFieldProps) => {
   return (
     <>
       <Button aria-describedby={id} onClick={handleClick}>
-        {props.children || 0}
+        <Typography variant="h5" className={classes.btn}>
+          {props.children || 0}
+        </Typography>
       </Button>
       <Popover id={id} open={open} anchorEl={anchorEl} onClose={handleClose}>
         <Paper className={classes.popperPaper}>{renderNumberRadios(9)}</Paper>

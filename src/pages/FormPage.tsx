@@ -7,16 +7,13 @@ import {
   AppBar,
   Typography,
   Grid,
-  FormControl,
-  RadioGroup,
-  FormControlLabel,
   Radio,
   Tabs,
   Tab,
   Button,
 } from '@material-ui/core';
 import { RestSteelForm } from '../components/forms/RestSteelForm';
-import { MultiTextField } from '../ui/TextField';
+import { LabelTextField } from '../ui/TextField';
 import { RadioGroupField } from '../ui/RadioGroupField';
 
 const useStyles = makeStyles(
@@ -52,17 +49,20 @@ const useStyles = makeStyles(
 );
 
 export const FormPage = () => {
-  const [state, setState] = useState({ tab: '殘鋼處理' });
-
+  const [state, setState] = useState<any>({ tab: '殘鋼處理' });
+  console.log('state', state);
   const classes = useStyles();
 
-  const handleChange = (k: string) => (v: any) =>
-    setState(prev => ({ ...prev, [k]: v }));
+  const handleChange = (k: string) => (v: any) => {
+    console.log('k', k);
+    console.log('v', v);
+    setState((prev: any) => ({ ...prev, [k]: v }));
+  };
 
   const renderFormSwitch = () => {
     switch (state.tab) {
       case '殘鋼處理':
-        return <RestSteelForm onChange={handleChange('殘鋼處理')} />;
+        return <RestSteelForm state={state} handleChange={handleChange} />;
       // case '整修範圍':
       //   return <MaintRangeForm />;
       // case '修護塗附':
@@ -70,7 +70,7 @@ export const FormPage = () => {
       // case '材料類別':
       //   return <MaterialCategForm />;
       default:
-        return <RestSteelForm onChange={handleChange('殘鋼處理')} />;
+        return <RestSteelForm state={state} handleChange={handleChange} />;
     }
   };
 
@@ -86,19 +86,22 @@ export const FormPage = () => {
           {/* 1st row */}
           <Grid container className={classes.row}>
             <Grid item sm={3}>
-              <MultiTextField
+              <LabelTextField
+                value={state['送修序號']}
                 onChange={handleChange('送修序號')}
                 fields={[{ label: '送修序號', placeholder: 'YYYMM.NNN' }]}
               />
             </Grid>
             <Grid item sm={3}>
-              <MultiTextField
+              <LabelTextField
+                value={state['T/D 編號']}
                 onChange={handleChange('T/D 編號')}
                 fields={[{ label: 'T/D 編號', placeholder: 'NN' }]}
               />
             </Grid>
             <Grid item sm={3}>
-              <MultiTextField
+              <LabelTextField
+                value={state['鋼種']}
                 onChange={handleChange('鋼種')}
                 fields={[{ label: '鋼種', placeholder: 'xxx' }]}
               />
@@ -106,6 +109,7 @@ export const FormPage = () => {
             <Grid container item sm={3} alignItems="center" wrap="nowrap">
               <RadioGroupField
                 label="班別"
+                value={state['班別']}
                 options={[
                   { label: '早班' },
                   { label: '午班' },
@@ -118,21 +122,29 @@ export const FormPage = () => {
           {/* 2nd row */}
           <Grid container wrap="nowrap" className={classes.row}>
             <Grid item container alignItems="center">
-              <MultiTextField
-                onChange={handleChange('送修時間')}
-                fields={[
-                  { label: '送修時間', placeholder: 'YYYY-MM-DD' },
-                  { placeholder: 'HH:MM' },
-                ]}
+              <LabelTextField
+                value={state['送修時間-0']}
+                onChange={handleChange('送修時間-0')}
+                label="送修時間"
+                placeholder="YYYY-MM-DD"
+              />
+              <LabelTextField
+                value={state['送修時間-1']}
+                onChange={handleChange('送修時間-1')}
+                placeholder="HH:MM"
               />
             </Grid>
             <Grid item container alignItems="center">
-              <MultiTextField
-                onChange={handleChange('S/N 到除時間')}
-                fields={[
-                  { label: 'S/N 到除時間', placeholder: 'YYYY-MM-DD' },
-                  { placeholder: 'HH:MM' },
-                ]}
+              <LabelTextField
+                value={state['S/N 到除時間-0']}
+                onChange={handleChange('S/N 到除時間-0')}
+                label="送修時間"
+                placeholder="YYYY-MM-DD"
+              />
+              <LabelTextField
+                value={state['S/N 到除時間-1']}
+                onChange={handleChange('S/N 到除時間-1')}
+                placeholder="HH:MM"
               />
             </Grid>
           </Grid>
@@ -143,7 +155,7 @@ export const FormPage = () => {
               indicatorColor="primary"
               textColor="primary"
               onChange={(e, v) => {
-                setState(prev => ({ ...prev, tab: v }));
+                setState((prev: any) => ({ ...prev, tab: v }));
               }}
               TabIndicatorProps={{ style: { height: '100%', zIndex: 1 } }}
               className={classes.tabs}

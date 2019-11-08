@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 
 interface IRadioGroupFieldProps {
+  value: any;
   onChange: (v: any) => void;
   options: {
     value?: any;
@@ -45,10 +46,12 @@ export const RadioGroupField = ({
   onChange,
   options,
   label,
+  value,
   ...props
 }: IRadioGroupFieldProps) => {
   const classes = useStyles();
   const handleRadioClick = (e: any) => {
+    console.log('e', e.target.value);
     onChange(e.target.value);
   };
 
@@ -60,6 +63,7 @@ export const RadioGroupField = ({
       <FormControl component="fieldset">
         <RadioGroup
           row
+          value={value}
           onChange={handleRadioClick}
           className={classes.radioGroup}
         >
@@ -69,6 +73,7 @@ export const RadioGroupField = ({
               control={<Radio />}
               label={o.label}
               style={{ marginLeft: 12 }}
+              key={o.label}
             />
           ))}
         </RadioGroup>

@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, Grid, Select, MenuItem } from '@material-ui/core';
 
 interface ISelectFieldField {
+  value: any;
   onChange: (v: any) => void;
   options: {
     value: any;
@@ -27,9 +28,10 @@ const useStyles = makeStyles(
 );
 
 export const SelectField = ({
-  onChange,
+  value,
   options,
   defaultText,
+  onChange,
   ...props
 }: ISelectFieldField) => {
   const classes = useStyles();
@@ -41,6 +43,7 @@ export const SelectField = ({
   return (
     <Grid container justify="center" alignItems="center">
       <Select
+        value={value}
         defaultValue=""
         displayEmpty
         variant="outlined"
