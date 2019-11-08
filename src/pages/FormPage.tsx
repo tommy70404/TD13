@@ -13,7 +13,7 @@ import {
   Button,
 } from '@material-ui/core';
 import { RestSteelForm } from '../components/forms/RestSteelForm';
-import { LabelTextField } from '../ui/TextField';
+import { MultiTextField } from '../ui/TextField';
 import { RadioGroupField } from '../ui/RadioGroupField';
 
 const useStyles = makeStyles(
@@ -86,24 +86,27 @@ export const FormPage = () => {
           {/* 1st row */}
           <Grid container className={classes.row}>
             <Grid item sm={3}>
-              <LabelTextField
-                value={state['送修序號']}
-                onChange={handleChange('送修序號')}
-                fields={[{ label: '送修序號', placeholder: 'YYYMM.NNN' }]}
+              <MultiTextField
+                label="送修序號"
+                state={state}
+                onChange={handleChange}
+                fields={[{ placeholder: 'YYYMM.NNN' }]}
               />
             </Grid>
             <Grid item sm={3}>
-              <LabelTextField
-                value={state['T/D 編號']}
-                onChange={handleChange('T/D 編號')}
-                fields={[{ label: 'T/D 編號', placeholder: 'NN' }]}
+              <MultiTextField
+                label="T/D 編號"
+                state={state}
+                onChange={handleChange}
+                fields={[{ placeholder: 'NN' }]}
               />
             </Grid>
             <Grid item sm={3}>
-              <LabelTextField
-                value={state['鋼種']}
-                onChange={handleChange('鋼種')}
-                fields={[{ label: '鋼種', placeholder: 'xxx' }]}
+              <MultiTextField
+                label="鋼種"
+                state={state}
+                onChange={handleChange}
+                fields={[{ placeholder: 'xxx' }]}
               />
             </Grid>
             <Grid container item sm={3} alignItems="center" wrap="nowrap">
@@ -122,29 +125,25 @@ export const FormPage = () => {
           {/* 2nd row */}
           <Grid container wrap="nowrap" className={classes.row}>
             <Grid item container alignItems="center">
-              <LabelTextField
-                value={state['送修時間-0']}
-                onChange={handleChange('送修時間-0')}
+              <MultiTextField
                 label="送修時間"
-                placeholder="YYYY-MM-DD"
-              />
-              <LabelTextField
-                value={state['送修時間-1']}
-                onChange={handleChange('送修時間-1')}
-                placeholder="HH:MM"
+                state={state}
+                onChange={handleChange}
+                fields={[
+                  { placeholder: 'YYYY-MM-DD' },
+                  { placeholder: 'HH:MM' },
+                ]}
               />
             </Grid>
             <Grid item container alignItems="center">
-              <LabelTextField
-                value={state['S/N 到除時間-0']}
-                onChange={handleChange('S/N 到除時間-0')}
-                label="送修時間"
-                placeholder="YYYY-MM-DD"
-              />
-              <LabelTextField
-                value={state['S/N 到除時間-1']}
-                onChange={handleChange('S/N 到除時間-1')}
-                placeholder="HH:MM"
+              <MultiTextField
+                label="S/N 到除時間"
+                state={state}
+                onChange={handleChange}
+                fields={[
+                  { placeholder: 'YYYY-MM-DD' },
+                  { placeholder: 'HH:MM' },
+                ]}
               />
             </Grid>
           </Grid>

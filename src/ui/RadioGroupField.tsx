@@ -51,7 +51,6 @@ export const RadioGroupField = ({
 }: IRadioGroupFieldProps) => {
   const classes = useStyles();
   const handleRadioClick = (e: any) => {
-    console.log('e', e.target.value);
     onChange(e.target.value);
   };
 
@@ -63,13 +62,13 @@ export const RadioGroupField = ({
       <FormControl component="fieldset">
         <RadioGroup
           row
-          value={value}
+          defaultValue={value}
           onChange={handleRadioClick}
           className={classes.radioGroup}
         >
           {options.map((o, idx) => (
             <FormControlLabel
-              value={o.value || o.label + idx}
+              value={o.value || o.label + '-' + idx}
               control={<Radio />}
               label={o.label}
               style={{ marginLeft: 12 }}

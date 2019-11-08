@@ -8,12 +8,14 @@ import {
 } from '@material-ui/core';
 
 interface IMultiTextFieldProps {
-  value: any;
-  onChange: (v: any) => void;
-  label?: string;
-  placeholder: string;
+  label: string;
+  state: any;
+  onChange: (k: string) => (v: any) => void;
+  fields: {
+    placeholder: string;
+  }[];
 }
-
+// notes: it's uncontroll field
 const useStyles = makeStyles(
   theme => ({
     field: {
@@ -23,15 +25,36 @@ const useStyles = makeStyles(
   { name: 'MultiTextField' },
 );
 
-export const LabelTextField = ({ label, ...props }: IMultiTextFieldProps) => {
+export const MultiTextField = ({
+  label,
+  onChange,
+  state,
+  fields,
+  ...props
+}: IMultiTextFieldProps) => {
   const classes = useStyles();
+
+  const handleChange = (k: string) => (e: any) => {
+    onChange(k)(e.target.value);
+  };
 
   return (
     <Grid container alignItems="center">
       {label && <Typography variant="h4">{label}</Typography>}
-      <Box className={classes.field} clone>
-        <TextField variant="outlined" {...props} />
-      </Box>
+      {fields.map((f, idx) => (
+        <React.Fragment key={idx}>
+          <Box className={classes.field} clone>
+            <TextField
+              // value={state[label + '-' + idx] || ''}
+              defaultValue={state[label + '-' + idx] || ''}
+              variant="outlined"
+              placeholder={f.placeholder}
+              onBlur={handleChange(label + '-' + idx)}
+              {...props}
+            />
+          </Box>
+        </React.Fragment>
+      ))}
     </Grid>
   );
 };
