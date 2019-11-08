@@ -15,7 +15,7 @@ interface ISelectFieldField {
 const useStyles = makeStyles(
   theme => ({
     selectField: {
-      width: 100,
+      minWidth: 150,
       '& .MuiInputBase-input': {
         textAlign: 'center',
       },
@@ -43,8 +43,7 @@ export const SelectField = ({
   return (
     <Grid container justify="center" alignItems="center">
       <Select
-        value={value}
-        defaultValue=""
+        defaultValue={value || ''}
         displayEmpty
         variant="outlined"
         onClick={handleClick}

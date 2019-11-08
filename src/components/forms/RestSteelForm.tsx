@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, IconButton, TextField } from '@material-ui/core';
-import { LabelTextField } from '../../ui/TextField';
+import { MultiTextField } from '../../ui/TextField';
 import { TableForm } from '../../ui/TableForm';
 import { PopRadioGroupField } from '../../ui/PopRadioGroupField';
 import { NumberControlField } from '../../ui/NumberControlField';
@@ -124,8 +124,8 @@ export const RestSteelForm = ({
           variant="outlined"
           margin="dense"
           placeholder={'HH:MM'}
-          value={state['澆水']}
-          onChange={handleChange('澆水')}
+          defaultValue={state['澆水']}
+          onBlur={e => handleChange('澆水')(e.target.value)}
           className={classes.textInput}
         />
       ),
@@ -222,24 +222,19 @@ export const RestSteelForm = ({
       {/* 1st row */}
       <Grid item container wrap="nowrap" className={classes.row}>
         <Grid item sm={4}>
-          <LabelTextField
-            value={state['殘鋼噸數']}
-            onChange={handleChange('殘鋼噸數')}
+          <MultiTextField
             label="殘鋼噸數"
-            placeholder="NNN"
+            state={state}
+            onChange={handleChange}
+            fields={[{ placeholder: 'NNN' }]}
           />
         </Grid>
         <Grid item sm>
-          <LabelTextField
-            value={state['殘鋼處理完成時間-0']}
-            onChange={handleChange('殘鋼處理完成時間-0')}
+          <MultiTextField
             label="殘鋼處理完成時間"
-            placeholder="YYYY-MM-DD"
-          />
-          <LabelTextField
-            value={state['殘鋼處理完成時間-1']}
-            onChange={handleChange('殘鋼處理完成時間-1')}
-            placeholder="HH:MM"
+            state={state}
+            onChange={handleChange}
+            fields={[{ placeholder: 'YYYY-MM-DD' }, { placeholder: 'HH:MM' }]}
           />
         </Grid>
       </Grid>

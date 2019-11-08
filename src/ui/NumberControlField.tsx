@@ -50,7 +50,8 @@ export const NumberControlField = ({
   const classes = useStyles();
 
   const handleClick = (k: string) => () => {
-    onChange((value += parseInt(k)));
+    let prevValue = value || 0;
+    onChange((prevValue += parseInt(k)));
   };
 
   return (
@@ -75,7 +76,7 @@ export const NumberControlField = ({
         variant="outlined"
         margin="dense"
         disabled
-        value={value}
+        value={(value || 0).toString()}
         className={classes.textInput}
       />
       <Button

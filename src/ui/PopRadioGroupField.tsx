@@ -70,7 +70,7 @@ export const PopRadioGroupField = ({
         <FormControl component="fieldset">
           <RadioGroup
             row
-            value={value}
+            defaultValue={value}
             onClick={handleRadioClick}
             className={classes.radioGroup}
           >
