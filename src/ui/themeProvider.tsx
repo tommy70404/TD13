@@ -26,12 +26,15 @@ const appTheme = createMuiTheme({
       fontWeight: 'bolder',
     },
     h3: {
+      fontSize: 30,
       fontWeight: 'bolder',
     },
     h4: {
+      fontSize: 24,
       fontWeight: 'bolder',
     },
     h5: {
+      fontSize: 20,
       fontWeight: 'bolder',
     },
     h6: {

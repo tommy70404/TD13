@@ -23,13 +23,16 @@ interface INumberControlField {
 const useStyles = makeStyles(
   theme => ({
     textInput: {
-      width: 100,
+      width: 60,
+      '& .MuiInputBase-root': {
+        height: 40,
+      },
       '& .MuiInputBase-input': {
         textAlign: 'center',
       },
     },
     btn: {
-      width: 40,
+      width: 35,
       height: 40,
       padding: 0,
       marginRight: 4,

@@ -1,13 +1,21 @@
 import React from 'react';
-import { makeStyles, Grid, Select, MenuItem } from '@material-ui/core';
+import {
+  makeStyles,
+  Grid,
+  Select,
+  MenuItem,
+  Typography,
+} from '@material-ui/core';
+import { SelectProps } from '@material-ui/core/Select';
 
-interface ISelectFieldField {
+interface ISelectFieldField extends SelectProps {
   value: any;
   onChange: (v: any) => void;
   options: {
     value: any;
     label: string;
   }[];
+  label?: string;
   defaultText?: string;
   children?: React.ReactNode;
 }
@@ -32,6 +40,7 @@ export const SelectField = ({
   options,
   defaultText,
   onChange,
+  label,
   ...props
 }: ISelectFieldField) => {
   const classes = useStyles();
@@ -42,6 +51,11 @@ export const SelectField = ({
 
   return (
     <Grid container justify="center" alignItems="center">
+      {label && (
+        <Typography variant="h4" color="primary">
+          {label}
+        </Typography>
+      )}
       <Select
         defaultValue={value || ''}
         displayEmpty

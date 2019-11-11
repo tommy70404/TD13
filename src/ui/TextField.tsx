@@ -20,6 +20,11 @@ const useStyles = makeStyles(
   theme => ({
     field: {
       marginLeft: theme.spacing(2.5),
+      '& .MuiInputBase-input': {
+        boxSizing: 'border-box',
+        width: 180,
+        height: 45,
+      },
     },
   }),
   { name: 'MultiTextField' },
@@ -40,7 +45,11 @@ export const MultiTextField = ({
 
   return (
     <Grid container alignItems="center">
-      {label && <Typography variant="h4">{label}</Typography>}
+      {label && (
+        <Typography variant="h4" color="primary">
+          {label}
+        </Typography>
+      )}
       {fields.map((f, idx) => (
         <React.Fragment key={idx}>
           <Box className={classes.field} clone>

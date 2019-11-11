@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
+import Fullscreen from 'react-full-screen';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Container,
@@ -11,15 +12,26 @@ import {
   Tabs,
   Tab,
   Button,
+  IconButton,
 } from '@material-ui/core';
+import FullscreenIcon from '@material-ui/icons/Fullscreen';
+import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
+
 import { RestSteelForm } from '../components/forms/RestSteelForm';
+import { MaintRangeForm } from '../components/forms/MaintRangeForm';
 import { MultiTextField } from '../ui/TextField';
 import { RadioGroupField } from '../ui/RadioGroupField';
 
 const useStyles = makeStyles(
   theme => ({
+    '@global': {
+      '.fullscreen-enabled': {
+        background: 'white',
+        overflow: 'scroll',
+      },
+    },
     row: {
-      marginBottom: theme.spacing(4),
+      marginBottom: theme.spacing(2),
     },
     tabs: {
       '& .MuiTab-root': {
@@ -30,7 +42,7 @@ const useStyles = makeStyles(
         transition: '.5s all ease-in-out',
       },
       '& .Mui-selected': {
-        color: theme.palette.getContrastText(theme.palette.primary.main),
+        color: theme.palette.common.white,
       },
     },
     tabRenderArea: {
@@ -41,21 +53,26 @@ const useStyles = makeStyles(
       fontWeight: theme.typography.fontWeightBold,
       margin: `0 ${theme.spacing(2.5)}px`,
       fontSize: theme.typography.h6.fontSize,
+      color: theme.palette.grey[700],
       width: 226,
       height: 56,
     },
+    fieldSamll: {
+      '& .MuiInputBase-root': {
+        width: 110,
+      },
+    },
   }),
-  { name: 'formPage' },
+  { name: 'FormPage' },
 );
 
 export const FormPage = () => {
   const [state, setState] = useState<any>({ tab: '殘鋼處理' });
+  const [isFull, setFull] = useState(false);
   console.log('state', state);
   const classes = useStyles();
 
   const handleChange = (k: string) => (v: any) => {
-    console.log('k', k);
-    console.log('v', v);
     setState((prev: any) => ({ ...prev, [k]: v }));
   };
 
@@ -63,8 +80,8 @@ export const FormPage = () => {
     switch (state.tab) {
       case '殘鋼處理':
         return <RestSteelForm state={state} handleChange={handleChange} />;
-      // case '整修範圍':
-      //   return <MaintRangeForm />;
+      case '整修範圍':
+        return <MaintRangeForm state={state} handleChange={handleChange} />;
       // case '修護塗附':
       //   return <MaintPaintForm />;
       // case '材料類別':
@@ -76,117 +93,141 @@ export const FormPage = () => {
 
   return (
     <>
-      <Box padding="16px 32px" clone>
-        <AppBar>
-          <Typography variant="h4">B123 耐火內襯修護工作紀錄表單</Typography>
-        </AppBar>
-      </Box>
-      <Box marginTop="84px" padding="12px" clone>
-        <Container maxWidth="xl">
-          {/* 1st row */}
-          <Grid container className={classes.row}>
-            <Grid item sm={3}>
-              <MultiTextField
-                label="送修序號"
-                state={state}
-                onChange={handleChange}
-                fields={[{ placeholder: 'YYYMM.NNN' }]}
-              />
+      <Fullscreen enabled={isFull} onChange={isFull => setFull(isFull)}>
+        <Box padding="0px 32px" clone>
+          <AppBar position="static">
+            <Grid container justify="space-between" alignItems="center">
+              <Typography variant="h3" style={{ color: 'white' }}>
+                B123 耐火內襯修護工作紀錄表單
+              </Typography>
+              <IconButton onClick={() => setFull(prev => !prev)}>
+                {(isFull && <FullscreenExitIcon />) || <FullscreenIcon />}
+              </IconButton>
             </Grid>
-            <Grid item sm={3}>
-              <MultiTextField
-                label="T/D 編號"
-                state={state}
-                onChange={handleChange}
-                fields={[{ placeholder: 'NN' }]}
-              />
-            </Grid>
-            <Grid item sm={3}>
-              <MultiTextField
-                label="鋼種"
-                state={state}
-                onChange={handleChange}
-                fields={[{ placeholder: 'xxx' }]}
-              />
-            </Grid>
-            <Grid container item sm={3} alignItems="center" wrap="nowrap">
-              <RadioGroupField
-                label="班別"
-                value={state['班別']}
-                options={[
-                  { label: '早班' },
-                  { label: '午班' },
-                  { label: '晚班' },
-                ]}
-                onChange={handleChange('班別')}
-              />
-            </Grid>
-          </Grid>
-          {/* 2nd row */}
-          <Grid container wrap="nowrap" className={classes.row}>
-            <Grid item container alignItems="center">
-              <MultiTextField
-                label="送修時間"
-                state={state}
-                onChange={handleChange}
-                fields={[
-                  { placeholder: 'YYYY-MM-DD' },
-                  { placeholder: 'HH:MM' },
-                ]}
-              />
-            </Grid>
-            <Grid item container alignItems="center">
-              <MultiTextField
-                label="S/N 到除時間"
-                state={state}
-                onChange={handleChange}
-                fields={[
-                  { placeholder: 'YYYY-MM-DD' },
-                  { placeholder: 'HH:MM' },
-                ]}
-              />
-            </Grid>
-          </Grid>
-          {/* 3nd row */}
-          <Grid container>
-            <Tabs
-              value={state.tab}
-              indicatorColor="primary"
-              textColor="primary"
-              onChange={(e, v) => {
-                setState((prev: any) => ({ ...prev, tab: v }));
-              }}
-              TabIndicatorProps={{ style: { height: '100%', zIndex: 1 } }}
-              className={classes.tabs}
-            >
-              <Tab label="殘鋼處理" value="殘鋼處理" />
-              <Tab label="整修範圍" value="整修範圍" />
-              <Tab label="修護塗附" value="修護塗附" />
-              <Tab label="材料類別" value="材料類別" />
-            </Tabs>
-          </Grid>
-          <Grid container className={clsx(classes.row, classes.tabRenderArea)}>
-            {renderFormSwitch()}
-          </Grid>
-          <Grid container justify="space-between" className={classes.row}>
-            <Button variant="contained" className={classes.btn}>
-              取消
-            </Button>
-            <Grid item sm="auto" style={{ width: 'auto' }}>
-              <Button variant="contained" className={classes.btn}>
-                暫存
-              </Button>
-              <Button
-                color="primary"
-                variant="contained"
-                className={classes.btn}
+          </AppBar>
+        </Box>
+        <Box marginTop="12px" padding="12px" clone>
+          <Container maxWidth={false}>
+            {/* 1st row */}
+            <Grid container spacing={2} wrap="nowrap" className={classes.row}>
+              <Grid item sm="auto" style={{ width: 'auto' }}>
+                <MultiTextField
+                  label="送修序號"
+                  state={state}
+                  onChange={handleChange}
+                  fields={[{ placeholder: 'YYYMM.NNN' }]}
+                />
+              </Grid>
+              <Grid item sm="auto" style={{ width: 'auto' }}>
+                <MultiTextField
+                  label="T/D 編號"
+                  state={state}
+                  onChange={handleChange}
+                  fields={[{ placeholder: 'NN' }]}
+                />
+              </Grid>
+              <Grid
+                item
+                sm="auto"
+                style={{ width: 'auto' }}
+                className={classes.fieldSamll}
               >
-                送出
-              </Button>
+                <MultiTextField
+                  label="鋼種"
+                  state={state}
+                  onChange={handleChange}
+                  fields={[{ placeholder: 'xxx' }]}
+                />
+              </Grid>
+              <Grid
+                container
+                item
+                sm="auto"
+                alignItems="center"
+                wrap="nowrap"
+                style={{ width: 'auto' }}
+              >
+                <RadioGroupField
+                  label="班別"
+                  value={state['班別']}
+                  options={[
+                    { label: '早班' },
+                    { label: '午班' },
+                    { label: '晚班' },
+                  ]}
+                  onChange={handleChange('班別')}
+                />
+              </Grid>
             </Grid>
-          </Grid>
-        </Container>
-      </Box>
+            {/* 2nd row */}
+            <Grid container wrap="nowrap" className={classes.row}>
+              <Grid item container alignItems="center">
+                <MultiTextField
+                  label="送修時間"
+                  state={state}
+                  onChange={handleChange}
+                  fields={[
+                    { placeholder: 'YYYY-MM-DD' },
+                    { placeholder: 'HH:MM' },
+                  ]}
+                />
+              </Grid>
+              <Grid item container alignItems="center">
+                <MultiTextField
+                  label="S/N 到除時間"
+                  state={state}
+                  onChange={handleChange}
+                  fields={[
+                    { placeholder: 'YYYY-MM-DD' },
+                    { placeholder: 'HH:MM' },
+                  ]}
+                />
+              </Grid>
+            </Grid>
+            {/* 3nd row */}
+            <Grid container>
+              <Tabs
+                value={state.tab}
+                indicatorColor="primary"
+                textColor="primary"
+                onChange={(e, v) => {
+                  setState((prev: any) => ({ ...prev, tab: v }));
+                }}
+                TabIndicatorProps={{ style: { height: '100%', zIndex: 1 } }}
+                className={classes.tabs}
+              >
+                <Tab label="殘鋼處理" value="殘鋼處理" />
+                <Tab label="整修範圍" value="整修範圍" />
+                <Tab label="修護塗附" value="修護塗附" />
+                <Tab label="材料類別" value="材料類別" />
+              </Tabs>
+            </Grid>
+            <Grid
+              container
+              className={clsx(classes.row, classes.tabRenderArea)}
+            >
+              {renderFormSwitch()}
+            </Grid>
+            <Grid container justify="space-between" className={classes.row}>
+              <Button variant="contained" className={classes.btn}>
+                取消
+              </Button>
+              <Grid item sm="auto" style={{ width: 'auto' }}>
+                <Button variant="contained" className={classes.btn}>
+                  暫存
+                </Button>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  className={classes.btn}
+                >
+                  送出
+                </Button>
+              </Grid>
+            </Grid>
+          </Container>
+        </Box>
+      </Fullscreen>
     </>
   );
 };

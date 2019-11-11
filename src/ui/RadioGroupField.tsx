@@ -24,8 +24,12 @@ interface IRadioGroupFieldProps {
 const useStyles = makeStyles(
   theme => ({
     radioGroup: {
+      '&.MuiFormGroup-root': {
+        flexWrap: 'nowrap',
+      },
       '& .MuiFormControlLabel-root': {
-        // alignItems: 'flex-end',
+        marginRight: 8,
+        flexWrap: 'nowrap',
       },
       '& .MuiSvgIcon-root': {
         width: 30,
@@ -36,7 +40,7 @@ const useStyles = makeStyles(
       },
     },
     label: {
-      marginRight: theme.spacing(2.5),
+      marginRight: theme.spacing(1),
     },
   }),
   { name: 'RadioGroupField' },
@@ -56,7 +60,7 @@ export const RadioGroupField = ({
 
   return (
     <Grid container alignItems="center" wrap="nowrap">
-      <Typography variant="h4" className={classes.label}>
+      <Typography variant="h4" color="primary" className={classes.label}>
         {label}
       </Typography>
       <FormControl component="fieldset">
@@ -71,7 +75,6 @@ export const RadioGroupField = ({
               value={o.value || o.label + '-' + idx}
               control={<Radio />}
               label={o.label}
-              style={{ marginLeft: 12 }}
               key={o.label}
             />
           ))}
