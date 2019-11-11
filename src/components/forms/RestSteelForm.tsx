@@ -19,7 +19,7 @@ const useStyles = makeStyles(
       marginTop: theme.spacing(4),
     },
     row: {
-      marginBottom: theme.spacing(4),
+      marginBottom: theme.spacing(2),
     },
     tabs: {
       '& .MuiTab-root': {
@@ -254,7 +254,7 @@ export const RestSteelForm = ({
         spacing={5}
         className={classes.row}
       >
-        <Grid item sm="auto" style={{ width: 'auto' }}>
+        <Grid item sm={6}>
           <TableForm label="殘襯廠商" fields={venderFormField} />
         </Grid>
         <Grid item sm style={{ width: 'auto' }}>

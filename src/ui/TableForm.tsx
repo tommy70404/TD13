@@ -4,8 +4,7 @@ import { Grid, makeStyles, Typography } from '@material-ui/core';
 const useStyles = makeStyles(
   theme => ({
     'overview-wrapper': {
-      padding: '12px 0',
-      margin: '12px 0',
+      marginBottom: '8px',
       textAlign: 'center',
     },
     'overview-container': {
@@ -59,7 +58,7 @@ export const TableForm = (props: ITableFormProps) => {
         alignItems="center"
         className={classes.label}
       >
-        <Typography variant="h4">{props.label}</Typography>
+        <Typography variant="h4" color="primary">{props.label}</Typography>
       </Grid>
       <Grid
         item
