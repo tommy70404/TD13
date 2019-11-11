@@ -93,32 +93,31 @@ export const MaintRangeGrapgicForm = ({
     }
   };
 
-  const getB3Img = (state['B3'] && state['B3'].length > 0 ? state['B3'] : [0])
-    .reverse()
-    .reduce(
-      (acc: string, cur: number, idx: number, arr: Array<any>) =>
-        acc.concat(
-          `url(../assets/img/${B3ImgArr[cur]}) ${
-            idx === arr.length - 1 ? '' : ','
-          }`,
-        ),
-      '',
-    );
+  const getB3Img = (state['B3'] && state['B3'].length > 0
+    ? state['B3']
+    : [0]
+  ).reduce(
+    (acc: string, cur: number, idx: number, arr: Array<any>) =>
+      acc.concat(
+        `url(../assets/img/${B3ImgArr[cur]}) ${
+          idx === arr.length - 1 ? '' : ','
+        }`,
+      ),
+    '',
+  );
 
   const getB1B2Img = (state['B1B2'] && state['B1B2'].length > 0
     ? state['B1B2']
     : [0]
-  )
-    .reverse()
-    .reduce(
-      (acc: string, cur: number, idx: number, arr: Array<any>) =>
-        acc.concat(
-          `url(../assets/img/${B1B2ImgArr[cur]}) ${
-            idx === arr.length - 1 ? '' : ','
-          }`,
-        ),
-      '',
-    );
+  ).reduce(
+    (acc: string, cur: number, idx: number, arr: Array<any>) =>
+      acc.concat(
+        `url(../assets/img/${B1B2ImgArr[cur]}) ${
+          idx === arr.length - 1 ? '' : ','
+        }`,
+      ),
+    '',
+  );
 
   return (
     <Box height="200px" clone>

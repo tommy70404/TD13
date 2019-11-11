@@ -100,7 +100,7 @@ export const FormPage = () => {
               <Typography variant="h3" style={{ color: 'white' }}>
                 B123 耐火內襯修護工作紀錄表單
               </Typography>
-              <IconButton onClick={() => setFull(prev => !prev)}>
+              <IconButton onClick={() => setFull(prev => !prev)} style={{ visibility: 'hidden'}}>
                 {(isFull && <FullscreenExitIcon />) || <FullscreenIcon />}
               </IconButton>
             </Grid>
