@@ -7,6 +7,7 @@ import { PopRadioGroupField } from '../../ui/PopRadioGroupField';
 import { NumberControlField } from '../../ui/NumberControlField';
 import { SelectField } from '../../ui/SelectField';
 import { RadioGroupField } from '../../ui/RadioGroupField';
+import { venderOptions, materialOptions } from '../../data/comm';
 
 interface IRestSteelFormProps {
   state: any;
@@ -39,20 +40,6 @@ const useStyles = makeStyles(
   }),
   { name: 'RestSteelForm' },
 );
-
-const selectOptions = [
-  { label: 'A-光和', value: 'A' },
-  { label: 'B-友和', value: 'B' },
-  { label: 'C-三和', value: 'C' },
-  { label: 'D-東京', value: 'D' },
-];
-
-const materialOptions = [
-  { label: '正常' },
-  { label: '破碎' },
-  { label: '倒塌' },
-  { label: '融蝕' },
-];
 
 export const RestSteelForm = ({
   handleChange,
@@ -190,7 +177,7 @@ export const RestSteelForm = ({
       control: () => (
         <SelectField
           value={state['塗覆料']}
-          options={selectOptions}
+          options={venderOptions}
           onChange={handleChange('塗覆料')}
         />
       ),
@@ -200,7 +187,7 @@ export const RestSteelForm = ({
       control: () => (
         <SelectField
           value={state['噴漿料']}
-          options={selectOptions}
+          options={venderOptions}
           onChange={handleChange('噴漿料')}
         />
       ),
@@ -210,7 +197,7 @@ export const RestSteelForm = ({
       control: () => (
         <SelectField
           value={state['背襯材料']}
-          options={selectOptions}
+          options={venderOptions}
           onChange={handleChange('背襯材料')}
         />
       ),

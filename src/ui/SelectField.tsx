@@ -7,10 +7,11 @@ import {
   Typography,
 } from '@material-ui/core';
 import { SelectProps } from '@material-ui/core/Select';
+import clsx from 'clsx';
 
 interface ISelectFieldField extends SelectProps {
-  value: any;
-  onChange: (v: any) => void;
+  value?: any;
+  onChange?: (v: any) => void;
   options: {
     value: any;
     label: string;
@@ -18,12 +19,20 @@ interface ISelectFieldField extends SelectProps {
   label?: string;
   defaultText?: string;
   children?: React.ReactNode;
+  vertical?: boolean;
+  border?: boolean;
 }
 
 const useStyles = makeStyles(
   theme => ({
-    selectField: {
+    fieldBase: {
+      width: '100%',
       minWidth: 150,
+      '& .MuiSelect-root': {
+        backgroundColor: theme.palette.background.default,
+      },
+    },
+    selectField: {
       '& .MuiInputBase-input': {
         textAlign: 'center',
       },
@@ -41,27 +50,31 @@ export const SelectField = ({
   defaultText,
   onChange,
   label,
+  vertical = false,
+  border = false,
   ...props
 }: ISelectFieldField) => {
   const classes = useStyles();
 
   const handleClick = (e: any) => {
-    onChange(e.target.value);
+    onChange && onChange(e.target.value);
   };
 
   return (
     <Grid container justify="center" alignItems="center">
       {label && (
-        <Typography variant="h4" color="primary">
-          {label}
-        </Typography>
+        <Grid item xs={vertical ? 12 : undefined} style={{ marginBottom: 10 }}>
+          <Typography variant="h4" color="primary">
+            {label}
+          </Typography>
+        </Grid>
       )}
       <Select
         defaultValue={value || ''}
         displayEmpty
         variant="outlined"
         onClick={handleClick}
-        className={classes.selectField}
+        className={clsx(classes.fieldBase, { [classes.selectField]: !border })}
         {...props}
       >
         <MenuItem value="" disabled>

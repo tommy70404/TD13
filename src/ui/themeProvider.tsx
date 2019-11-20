@@ -30,11 +30,11 @@ const appTheme = createMuiTheme({
       fontWeight: 'bolder',
     },
     h4: {
-      fontSize: 24,
+      fontSize: 26,
       fontWeight: 'bolder',
     },
     h5: {
-      fontSize: 20,
+      fontSize: 22,
       fontWeight: 'bolder',
     },
     h6: {

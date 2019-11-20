@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(
@@ -6,6 +7,7 @@ const useStyles = makeStyles(
     'overview-wrapper': {
       marginBottom: '8px',
       textAlign: 'center',
+      padding: theme.spacing(1.5)
     },
     'overview-container': {
       border: `1px solid ${theme.palette.divider}`,
@@ -35,6 +37,9 @@ const useStyles = makeStyles(
     tableLabel: {
       color: theme.palette.grey[700],
     },
+    vertical: {
+      marginBottom: theme.spacing(1),
+    },
   }),
   { name: 'TableFrom' },
 );
@@ -45,20 +50,23 @@ interface ITableFormProps {
     label?: string;
     control: () => JSX.Element;
   }[];
+  vertical?: boolean;
 }
 
 export const TableForm = (props: ITableFormProps) => {
   const classes = useStyles();
   return (
-    <Grid container wrap="nowrap" className={classes['overview-wrapper']}>
+    <Grid container className={classes['overview-wrapper']}>
       <Grid
         item
         container
-        sm="auto"
+        sm={props.vertical ? 12 : 'auto'}
         alignItems="center"
-        className={classes.label}
+        className={clsx(classes.label, { [classes.vertical]: props.vertical })}
       >
-        <Typography variant="h4" color="primary">{props.label}</Typography>
+        <Typography variant="h4" color="primary">
+          {props.label}
+        </Typography>
       </Grid>
       <Grid
         item
