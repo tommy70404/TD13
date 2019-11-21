@@ -21,12 +21,6 @@ import { MaintRangeGrapgicFormV2 } from '../../MaintRangeGrapgicFormV2';
 
 const useStyles = makeStyles(
   theme => ({
-    '@global': {
-      '.fullscreen-enabled': {
-        background: 'white',
-        overflow: 'scroll',
-      },
-    },
     row: {
       marginBottom: theme.spacing(2),
       borderBottom: `2px solid ${theme.palette.primary.main}`,
@@ -306,7 +300,7 @@ export const MaintRangeForm = () => {
   return (
     <SectionWrapper
       icon={<TabUnselected color="primary" fontSize="large" />}
-      title="維護範圍"
+      title="修護範圍"
     >
       <Grid
         container

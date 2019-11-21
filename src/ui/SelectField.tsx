@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  makeStyles,
-  Grid,
-  Select,
-  MenuItem,
-  Typography,
-} from '@material-ui/core';
+import { makeStyles, Grid, Select, MenuItem, Typography } from '@material-ui/core';
 import { SelectProps } from '@material-ui/core/Select';
 import clsx from 'clsx';
 
@@ -21,6 +15,7 @@ interface ISelectFieldField extends SelectProps {
   children?: React.ReactNode;
   vertical?: boolean;
   border?: boolean;
+  dense?: boolean;
 }
 
 const useStyles = makeStyles(
@@ -35,9 +30,17 @@ const useStyles = makeStyles(
     selectField: {
       '& .MuiInputBase-input': {
         textAlign: 'center',
+        height: 'auto',
       },
       '& fieldset': {
         border: 'none',
+      },
+    },
+    'field-dense': {
+      '& .MuiSelect-root': {
+        boxSizing: 'border-box',
+        height: 32,
+        padding: '6px 24px 6px 0',
       },
     },
   }),
@@ -52,6 +55,7 @@ export const SelectField = ({
   label,
   vertical = false,
   border = false,
+  dense = false,
   ...props
 }: ISelectFieldField) => {
   const classes = useStyles();
@@ -74,7 +78,7 @@ export const SelectField = ({
         displayEmpty
         variant="outlined"
         onClick={handleClick}
-        className={clsx(classes.fieldBase, { [classes.selectField]: !border })}
+        className={clsx(classes.fieldBase, { [classes.selectField]: !border, [classes['field-dense']]: dense })}
         {...props}
       >
         <MenuItem value="" disabled>

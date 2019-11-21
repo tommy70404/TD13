@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Grid,
-  Typography,
-  Box,
-  TextField,
-  makeStyles,
-} from '@material-ui/core';
+import { Grid, Typography, Box, TextField, makeStyles } from '@material-ui/core';
 import { BaseTextFieldProps } from '@material-ui/core/TextField';
 import clsx from 'clsx';
 
@@ -20,6 +14,7 @@ type IMultiTextFieldProps = {
   }[];
   vertical?: boolean;
   fullWidth?: boolean;
+  dense?: boolean;
   textCenter?: boolean;
   inputProps?: any;
   style?: React.CSSProperties;
@@ -34,6 +29,12 @@ const useStyles = makeStyles(
       '& .MuiInputBase-input': {
         boxSizing: 'border-box',
         height: 45,
+      },
+    },
+    'field-dense': {
+      '& .MuiInputBase-input': {
+        boxSizing: 'border-box',
+        height: 32,
       },
     },
     'text-center': {
@@ -52,6 +53,7 @@ export const MultiTextField = ({
   fields,
   vertical = false,
   textCenter = false,
+  dense = false,
   inputProps,
   ...props
 }: IMultiTextFieldProps) => {
@@ -76,18 +78,13 @@ export const MultiTextField = ({
             <Box
               className={clsx(classes.field, {
                 [classes['text-center']]: textCenter,
+                [classes['field-dense']]: dense,
               })}
               marginLeft={idx === 0 ? 0 : 1}
               width={'100%'}
               // clone
             >
-              <Grid
-                item
-                container
-                wrap="nowrap"
-                alignItems="center"
-                spacing={2}
-              >
+              <Grid item container wrap="nowrap" alignItems="center" spacing={2}>
                 {f.prefix && (
                   <Grid item xs>
                     <Typography variant="h3" color="primary">

@@ -17,12 +17,6 @@ import { PopGraphicField } from '../../../ui/PopGraphicField';
 
 const useStyles = makeStyles(
   theme => ({
-    '@global': {
-      '.fullscreen-enabled': {
-        background: 'white',
-        overflow: 'scroll',
-      },
-    },
     row: {
       marginBottom: theme.spacing(2),
       borderBottom: `2px solid ${theme.palette.primary.main}`,

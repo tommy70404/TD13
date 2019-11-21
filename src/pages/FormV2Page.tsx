@@ -30,6 +30,7 @@ import { RadioGroupField } from '../ui/RadioGroupField';
 import { venderOptions } from '../data/comm';
 import { SelectField } from '../ui/SelectField';
 import { MaintForm } from '../components/forms/formV2/MaintForm';
+import { MaterialCumspForm } from '../components/forms/formV2/MaterialCumspForm';
 
 const useStyles = makeStyles(
   theme => ({
@@ -325,6 +326,10 @@ export const FormV2Page = () => {
               {/* 3rd row */}
               <Grid item container xs={12}>
                 <MaintRangeForm />
+              </Grid>
+              {/* 4th row */}
+              <Grid item container xs={12}>
+                <MaterialCumspForm />
               </Grid>
             </Grid>
           </Container>
