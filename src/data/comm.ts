@@ -34,3 +34,4 @@ export const paintOptions = [
 ];
 
 export const spoutOptions = [{ label: '單片式' }, { label: '砌磚式' }];
+export const newOldOptions = [{ label: '新品' }, { label: '回收品' }];

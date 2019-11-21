@@ -1,6 +1,5 @@
-import React, { useState, useReducer, createContext, useContext } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import clsx from 'clsx';
 import Fullscreen from 'react-full-screen';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -9,9 +8,6 @@ import {
   AppBar,
   Typography,
   Grid,
-  Radio,
-  Tabs,
-  Tab,
   Button,
   IconButton,
   TextField,
@@ -21,16 +17,15 @@ import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import Search from '@material-ui/icons/Search';
-import ViewList from '@material-ui/icons/ViewList';
 
-import { RestSteelForm } from '../components/forms/RestSteelForm';
 import { MaintRangeForm } from '../components/forms/formV2/MaintRangeForm';
 import { MultiTextField } from '../ui/TextField';
-import { RadioGroupField } from '../ui/RadioGroupField';
 import { venderOptions } from '../data/comm';
 import { SelectField } from '../ui/SelectField';
 import { MaintForm } from '../components/forms/formV2/MaintForm';
 import { MaterialCumspForm } from '../components/forms/formV2/MaterialCumspForm';
+import { MiscellaneousForm } from '../components/forms/formV2/MiscellaneousForm';
+import { FinishDataForm } from '../components/forms/formV2/FinishDataForm';
 
 const useStyles = makeStyles(
   theme => ({
@@ -130,14 +125,12 @@ export const FormV2Page = () => {
               spacing={3}
               className={classes.row}
             >
-              <WidthAutoGrid item xs="auto">
-                <KeyboardArrowLeft color="primary" fontSize="large" />
-              </WidthAutoGrid>
-              <WidthAutoGrid item xs="auto">
+              <Grid item container xs wrap="nowrap" alignItems="center">
+                <KeyboardArrowLeft color="primary" fontSize="large" style={{ fontSize: '3.5rem'}}/>
                 <Typography color="primary" variant="h3">
                   B123 TD-NN 耐火材料內襯修護履歷
                 </Typography>
-              </WidthAutoGrid>
+              </Grid>
               <Grid item xs="auto" style={{ width: 186 }}>
                 <Button
                   color="primary"
@@ -330,6 +323,14 @@ export const FormV2Page = () => {
               {/* 4th row */}
               <Grid item container xs={12}>
                 <MaterialCumspForm />
+              </Grid>
+              {/* 5th row */}
+              <Grid item container xs={12}>
+                <MiscellaneousForm />
+              </Grid>
+              {/* 5th row */}
+              <Grid item container xs={12}>
+                <FinishDataForm />
               </Grid>
             </Grid>
           </Container>

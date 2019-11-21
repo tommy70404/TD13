@@ -1,5 +1,5 @@
 import React from 'react';
-import SettingsApplications from '@material-ui/icons/SettingsApplications';
+import Build from '@material-ui/icons/Build';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Checkbox } from '@material-ui/core';
 
@@ -20,13 +20,13 @@ import { PopGraphicField } from '../../../ui/PopGraphicField';
 import { MaintRangeGrapgicFormV2 } from '../../MaintRangeGrapgicFormV2';
 import { Table } from '../../../ui/Table';
 
-const useStyles = makeStyles(theme => ({}), { name: 'MaterialCumspForm' });
+const useStyles = makeStyles(theme => ({}), { name: 'MiscellaneousForm' });
 
-export const MaterialCumspForm = () => {
+export const MiscellaneousForm = () => {
   const classes = useStyles();
 
   const headers = [
-    { label: '材料別', width: 250 },
+    { label: '項目', width: 250 },
     { label: '廠商', width: 200 },
     { label: '規格', width: 150 },
     { label: '數量', width: 150 },
@@ -34,32 +34,20 @@ export const MaterialCumspForm = () => {
     { label: '備註' },
   ];
   const body = [
-    { key: '塗附材', spec: '', unit: 'KG' },
-    { key: '噴漿材', spec: '', unit: 'KG' },
-    { key: '搗固材', spec: '', unit: 'KG' },
-    { key: '修補材', spec: '', unit: 'KG' },
-    { key: '澆注材_1', spec: '', unit: 'KG' },
-    { key: '澆注材_2', spec: '', unit: 'KG' },
-    { key: '澆注材_3', spec: '', unit: 'KG' },
-    { key: '大擋牆', spec: '', unit: 'PC' },
-    { key: '小擋牆', spec: '', unit: 'PC' },
-    { key: '作業磚', spec: '', unit: 'PC' },
-    { key: '回收磚', spec: '', unit: 'PC' },
-    { key: '氣密材', spec: '', unit: 'KG' },
-    { key: '耐火泥', spec: '', unit: 'KG' },
-    { key: '衝擊塊', spec: '', unit: 'PC' },
-    { key: '流鋼嘴座(第一道)', spec: '', unit: 'PC' },
-    { key: '流鋼嘴座(第二道)', spec: '', unit: 'PC' },
-    { key: '流鋼嘴座(第三道)', spec: '', unit: 'PC' },
-    { key: '流鋼嘴座(第四道)', spec: '', unit: 'PC' },
-    { key: '流鋼嘴(第一道)', spec: '', unit: 'PC' },
-    { key: '流鋼嘴(第二道)', spec: '', unit: 'PC' },
-    { key: '流鋼嘴(第三道)', spec: '', unit: 'PC' },
-    { key: '流鋼嘴(第四道)', spec: '', unit: 'PC' },
+    { key: '雜焊錨釘', spec: '', unit: 'PC' },
+    { key: '雜項澆注', spec: '', unit: 'KG' },
+    { key: '雜項砌磚', spec: '', unit: 'PC' },
+    { key: '打除中蓋', spec: '', unit: 'PC' },
+    { key: '澆注中蓋', spec: '', unit: 'KG' },
+    { key: '打除邊蓋', spec: '', unit: 'PC' },
+    { key: '澆注邊蓋', spec: '', unit: 'KG' },
+    { key: '套環回收', spec: '', unit: 'PC' },
+    { key: '氣環回收', spec: '', unit: 'PC' },
+    { key: '滑板拆卸', spec: '', unit: 'KG' },
   ].map(d => createBodyData(d));
 
   return (
-    <SectionWrapper icon={<SettingsApplications color="primary" fontSize="large" />} title="修護範圍">
+    <SectionWrapper icon={<Build color="primary" fontSize="large" />} title="雜項施工">
       <Grid container justify="space-between" alignItems="center" spacing={3}>
         <Table headers={headers} body={body} />
       </Grid>

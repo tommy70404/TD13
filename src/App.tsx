@@ -40,8 +40,8 @@ function App() {
   //   })();
   // }, []);
   return (
-    <CssBaseline>
-      <AppThemeProvider>
+    <AppThemeProvider>
+      <CssBaseline>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Router>
             {/* <Route path={['/form_1']}>
@@ -52,8 +52,8 @@ function App() {
             </Route>
           </Router>
         </MuiPickersUtilsProvider>
-      </AppThemeProvider>
-    </CssBaseline>
+      </CssBaseline>
+    </AppThemeProvider>
   );
 }
 
