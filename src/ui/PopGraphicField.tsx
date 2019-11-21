@@ -123,6 +123,7 @@ export const PopGraphicField = ({
               className={clsx(classes.imgBtn, {
                 [classes.active]: activeBtn === o.label,
               })}
+              key={o.label}
             >
               {o.label}
             </Button>

@@ -20,6 +20,8 @@ type IMultiTextFieldProps = {
   }[];
   vertical?: boolean;
   fullWidth?: boolean;
+  textCenter?: boolean;
+  inputProps?: any;
   style?: React.CSSProperties;
 };
 // notes: it's uncontroll field
@@ -31,8 +33,12 @@ const useStyles = makeStyles(
       },
       '& .MuiInputBase-input': {
         boxSizing: 'border-box',
-        width: 180,
         height: 45,
+      },
+    },
+    'text-center': {
+      '& .MuiInputBase-input': {
+        textAlign: 'center',
       },
     },
   }),
@@ -45,6 +51,8 @@ export const MultiTextField = ({
   state,
   fields,
   vertical = false,
+  textCenter = false,
+  inputProps,
   ...props
 }: IMultiTextFieldProps) => {
   const classes = useStyles();
@@ -66,7 +74,9 @@ export const MultiTextField = ({
         {fields.map((f, idx) => (
           <React.Fragment key={idx}>
             <Box
-              className={clsx(classes.field)}
+              className={clsx(classes.field, {
+                [classes['text-center']]: textCenter,
+              })}
               marginLeft={idx === 0 ? 0 : 1}
               width={'100%'}
               // clone
@@ -92,6 +102,7 @@ export const MultiTextField = ({
                     variant="outlined"
                     placeholder={f.placeholder}
                     onBlur={handleChange(label + '-' + idx)}
+                    inputProps={inputProps}
                     {...props}
                   />
                 </Grid>

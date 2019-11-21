@@ -44,9 +44,9 @@ function App() {
       <AppThemeProvider>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Router>
-            <Route path={['/form_1']}>
+            {/* <Route path={['/form_1']}>
               <FormPage />
-            </Route>
+            </Route> */}
             <Route path={['/form_2', '/']}>
               <FormV2Page />
             </Route>

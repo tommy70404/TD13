@@ -27,7 +27,7 @@ const useStyles = makeStyles(
   theme => ({
     fieldBase: {
       width: '100%',
-      minWidth: 150,
+      // minWidth: 150,
       '& .MuiSelect-root': {
         backgroundColor: theme.palette.background.default,
       },

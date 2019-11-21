@@ -7,7 +7,7 @@ const useStyles = makeStyles(
     'overview-wrapper': {
       marginBottom: '8px',
       textAlign: 'center',
-      padding: theme.spacing(1.5)
+      padding: theme.spacing(1.5),
     },
     'overview-container': {
       border: `1px solid ${theme.palette.divider}`,
@@ -33,6 +33,9 @@ const useStyles = makeStyles(
         borderRight: 'none',
       },
     },
+    'bg-white': {
+      background: theme.palette.background.default,
+    },
     label: { width: 'auto', marginRight: theme.spacing(2.5) },
     tableLabel: {
       color: theme.palette.grey[700],
@@ -45,29 +48,46 @@ const useStyles = makeStyles(
 );
 
 interface ITableFormProps {
-  label: string;
-  fields: {
+  fields?: {
     label?: string;
     control: () => JSX.Element;
   }[];
+  fieldGroup?: {
+    label: string;
+    controlGroup: {
+      label: string;
+      control: () => JSX.Element;
+    }[];
+  }[];
+  label?: string;
   vertical?: boolean;
 }
 
-export const TableForm = (props: ITableFormProps) => {
+export const TableForm = ({
+  label,
+  vertical,
+  fields,
+  fieldGroup,
+  ...props
+}: ITableFormProps) => {
   const classes = useStyles();
   return (
     <Grid container className={classes['overview-wrapper']}>
-      <Grid
-        item
-        container
-        sm={props.vertical ? 12 : 'auto'}
-        alignItems="center"
-        className={clsx(classes.label, { [classes.vertical]: props.vertical })}
-      >
-        <Typography variant="h4" color="primary">
-          {props.label}
-        </Typography>
-      </Grid>
+      {label && (
+        <Grid
+          item
+          container
+          sm={vertical ? 12 : 'auto'}
+          alignItems="center"
+          className={clsx(classes.label, {
+            [classes.vertical]: vertical,
+          })}
+        >
+          <Typography variant="h4" color="primary">
+            {label}
+          </Typography>
+        </Grid>
+      )}
       <Grid
         item
         container
@@ -75,38 +95,122 @@ export const TableForm = (props: ITableFormProps) => {
         justify="center"
         className={classes['overview-container']}
       >
-        <Grid
-          container
-          item
-          xs={12}
-          justify="center"
-          alignItems="center"
-          wrap="nowrap"
-          className={classes['overview-header']}
-        >
-          {props.fields.map(f => (
-            <Grid item xs key={f.label}>
-              <Typography variant="h5" className={classes.tableLabel}>
-                {f.label}
-              </Typography>
+        {fieldGroup && (
+          <>
+            <Grid
+              container
+              item
+              xs={12}
+              justify="center"
+              alignItems="center"
+              wrap="nowrap"
+              className={classes['overview-header']}
+            >
+              {fieldGroup.map(f => (
+                <Grid item xs key={f.label}>
+                  <Typography variant="h5" className={classes.tableLabel}>
+                    {f.label}
+                  </Typography>
+                </Grid>
+              ))}
             </Grid>
-          ))}
-        </Grid>
-        <Grid
-          container
-          item
-          xs={12}
-          justify="center"
-          alignItems="center"
-          wrap="nowrap"
-          className={classes['overview-row']}
-        >
-          {props.fields.map(f => (
-            <Grid item xs key={f.label}>
-              {f.control()}
+            <Grid
+              container
+              item
+              xs={12}
+              justify="center"
+              alignItems="center"
+              wrap="nowrap"
+              className={classes['overview-row']}
+            >
+              {fieldGroup
+                .reduce(
+                  (acc, f) => {
+                    const labelArr = f.controlGroup.reduce(
+                      (acc, c) => acc.concat(c.label),
+                      [] as string[],
+                    );
+                    return acc.concat(labelArr);
+                  },
+                  [] as string[],
+                )
+                .map(label => (
+                  <Grid item xs key={label}>
+                    <Typography
+                      variant="h5"
+                      className={classes.tableLabel}
+                      key={label}
+                    >
+                      {label}
+                    </Typography>
+                  </Grid>
+                ))}
             </Grid>
-          ))}
-        </Grid>
+            <Grid
+              container
+              item
+              xs={12}
+              justify="center"
+              alignItems="center"
+              wrap="nowrap"
+              className={clsx(classes['overview-row'], classes['bg-white'])}
+            >
+              {fieldGroup
+                .reduce(
+                  (acc, f) => {
+                    const controlArr = f.controlGroup.reduce(
+                      (acc, c) => acc.concat(c.control),
+                      [] as (() => JSX.Element)[],
+                    );
+                    return acc.concat(controlArr);
+                  },
+                  [] as (() => JSX.Element)[],
+                )
+                .map((c, idx) => (
+                  <Grid item xs key={idx}>
+                    {c()}
+                  </Grid>
+                ))}
+            </Grid>
+          </>
+        )}
+
+        {fields && (
+          <>
+            <Grid
+              container
+              item
+              xs={12}
+              justify="center"
+              alignItems="center"
+              wrap="nowrap"
+              className={classes['overview-header']}
+            >
+              {fields.map(f => (
+                <Grid item xs key={f.label}>
+                  <Typography variant="h5" className={classes.tableLabel}>
+                    {f.label}
+                  </Typography>
+                </Grid>
+              ))}
+            </Grid>
+            <Grid
+              container
+              item
+              xs={12}
+              justify="center"
+              alignItems="center"
+              wrap="nowrap"
+              className={classes['overview-row']}
+            >
+              {fields.map(f => (
+                <Grid item xs key={f.label}>
+                  {f.control()}
+                </Grid>
+              ))}
+            </Grid>
+          </>
+        )}
       </Grid>
     </Grid>
   );

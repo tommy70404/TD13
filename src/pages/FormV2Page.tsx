@@ -23,9 +23,8 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import Search from '@material-ui/icons/Search';
 import ViewList from '@material-ui/icons/ViewList';
 
-
 import { RestSteelForm } from '../components/forms/RestSteelForm';
-import { MaintRangeForm } from '../components/forms/MaintRangeForm';
+import { MaintRangeForm } from '../components/forms/formV2/MaintRangeForm';
 import { MultiTextField } from '../ui/TextField';
 import { RadioGroupField } from '../ui/RadioGroupField';
 import { venderOptions } from '../data/comm';
@@ -103,228 +102,234 @@ export const FormV2Page = () => {
   return (
     <>
       {/* <dataCtx.Provider value={dataReducer}> */}
-        <Fullscreen enabled={isFull} onChange={isFull => setFull(isFull)}>
-          <Box padding="0px 32px" clone>
-            <AppBar position="static">
-              <Grid container justify="space-between" alignItems="center">
-                <Typography variant="h3" style={{ color: 'white' }}>
-                  B123 耐火內襯修護工作紀錄表單
+      <Fullscreen enabled={isFull} onChange={isFull => setFull(isFull)}>
+        <Box padding="0px 32px" clone>
+          <AppBar position="static">
+            <Grid container justify="space-between" alignItems="center">
+              <Typography variant="h3" style={{ color: 'white' }}>
+                B123 耐火內襯修護工作紀錄表單
+              </Typography>
+              <IconButton
+                onClick={() => setFull(prev => !prev)}
+                style={{ visibility: 'hidden' }}
+              >
+                {(isFull && <FullscreenExitIcon />) || <FullscreenIcon />}
+              </IconButton>
+            </Grid>
+          </AppBar>
+        </Box>
+        <Box marginTop="12px" padding="12px" clone>
+          <Container maxWidth="lg">
+            {/* 1st section */}
+            <Grid
+              container
+              wrap="nowrap"
+              justify="space-between"
+              alignItems="center"
+              spacing={3}
+              className={classes.row}
+            >
+              <WidthAutoGrid item xs="auto">
+                <KeyboardArrowLeft color="primary" fontSize="large" />
+              </WidthAutoGrid>
+              <WidthAutoGrid item xs="auto">
+                <Typography color="primary" variant="h3">
+                  B123 TD-NN 耐火材料內襯修護履歷
                 </Typography>
-                <IconButton
-                  onClick={() => setFull(prev => !prev)}
-                  style={{ visibility: 'hidden' }}
+              </WidthAutoGrid>
+              <Grid item xs="auto" style={{ width: 186 }}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  fullWidth
+                  className={classes.flatBtn}
                 >
-                  {(isFull && <FullscreenExitIcon />) || <FullscreenIcon />}
-                </IconButton>
+                  TD 資料
+                </Button>
               </Grid>
-            </AppBar>
-          </Box>
-          <Box marginTop="12px" padding="12px" clone>
-            <Container maxWidth="lg">
-              {/* 1st section */}
+              <Grid item xs="auto" style={{ width: 186 }}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  fullWidth
+                  className={classes.flatBtn}
+                >
+                  材料表
+                </Button>
+              </Grid>
+              <Grid item xs="auto" style={{ width: 186 }}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  fullWidth
+                  className={classes.flatBtn}
+                >
+                  廠商代號
+                </Button>
+              </Grid>
+            </Grid>
+            {/* 2st section */}
+            <Grid
+              container
+              justify="space-between"
+              alignItems="center"
+              spacing={3}
+              className={classes.row}
+            >
+              {/* 1st row */}
               <Grid
+                item
                 container
+                xs={12}
                 wrap="nowrap"
                 justify="space-between"
                 alignItems="center"
                 spacing={3}
-                className={classes.row}
               >
-                <WidthAutoGrid item xs="auto">
-                  <KeyboardArrowLeft color="primary" fontSize="large" />
-                </WidthAutoGrid>
-                <WidthAutoGrid item xs="auto">
-                  <Typography color="primary" variant="h3">
-                    B123 TD-NN 耐火材料內襯修護履歷
-                  </Typography>
-                </WidthAutoGrid>
-                <Grid item xs="auto" style={{ width: 186 }}>
-                  <Button
-                    color="primary"
-                    variant="contained"
+                <Grid item xs>
+                  <MultiTextField
+                    label="T/D 編號"
+                    // state={state}
+                    // onChange={()=>()}
+                    fields={[{ placeholder: 'NN' }]}
+                    vertical
                     fullWidth
-                    className={classes.flatBtn}
-                  >
-                    TD 資料
-                  </Button>
+                  />
                 </Grid>
-                <Grid item xs="auto" style={{ width: 186 }}>
-                  <Button
-                    color="primary"
-                    variant="contained"
+                <Grid item xs>
+                  <MultiTextField
+                    label="爐代"
+                    // state={state}
+                    // onChange={()=>()}
+                    fields={[{ placeholder: 'NNN', suffix: '代' }]}
+                    vertical
                     fullWidth
-                    className={classes.flatBtn}
-                  >
-                    材料表
-                  </Button>
+                  />
                 </Grid>
-                <Grid item xs="auto" style={{ width: 186 }}>
-                  <Button
-                    color="primary"
-                    variant="contained"
+                <Grid item xs>
+                  <MultiTextField
+                    label="回數"
+                    // state={state}
+                    // onChange={()=>()}
+                    fields={[{ placeholder: 'NN', suffix: '回' }]}
+                    vertical
                     fullWidth
-                    className={classes.flatBtn}
-                  >
-                    廠商代號
-                  </Button>
+                  />
+                </Grid>
+                <Grid item xs>
+                  <MultiTextField
+                    label="下線全修日期"
+                    // state={state}
+                    // onChange={()=>()}
+                    fields={[{ placeholder: 'YYYY-MM-DD' }]}
+                    vertical
+                    fullWidth
+                  />
                 </Grid>
               </Grid>
-              {/* 2st section */}
+              {/* 2st row */}
               <Grid
+                item
                 container
+                xs={12}
+                wrap="nowrap"
                 justify="space-between"
                 alignItems="center"
                 spacing={3}
-                className={classes.row}
               >
-                {/* 1st row */}
-                <Grid
-                  item
-                  container
-                  xs={12}
-                  wrap="nowrap"
-                  justify="space-between"
-                  alignItems="center"
-                  spacing={3}
-                >
-                  <Grid item xs>
-                    <MultiTextField
-                      label="T/D 編號"
-                      // state={state}
-                      // onChange={()=>()}
-                      fields={[{ placeholder: 'NN' }]}
-                      vertical
-                      fullWidth
-                    />
-                  </Grid>
-                  <Grid item xs>
-                    <MultiTextField
-                      label="爐代"
-                      // state={state}
-                      // onChange={()=>()}
-                      fields={[{ placeholder: 'NNN', suffix: '代' }]}
-                      vertical
-                      fullWidth
-                    />
-                  </Grid>
-                  <Grid item xs>
-                    <MultiTextField
-                      label="回數"
-                      // state={state}
-                      // onChange={()=>()}
-                      fields={[{ placeholder: 'NN', suffix: '回' }]}
-                      vertical
-                      fullWidth
-                    />
-                  </Grid>
-                  <Grid item xs>
-                    <MultiTextField
-                      label="下線全修日期"
-                      // state={state}
-                      // onChange={()=>()}
-                      fields={[{ placeholder: 'YYYY-MM-DD' }]}
-                      vertical
-                      fullWidth
-                    />
-                  </Grid>
+                <Grid item xs>
+                  <MultiTextField
+                    label="澆注日期"
+                    // state={state}
+                    // onChange={()=>()}
+                    fields={[{ placeholder: 'YYYY-MM-DD' }]}
+                    vertical
+                    fullWidth
+                  />
                 </Grid>
-                {/* 2st row */}
-                <Grid
-                  item
-                  container
-                  xs={12}
-                  wrap="nowrap"
-                  justify="space-between"
-                  alignItems="center"
-                  spacing={3}
-                >
-                  <Grid item xs>
-                    <MultiTextField
-                      label="澆注日期"
-                      // state={state}
-                      // onChange={()=>()}
-                      fields={[{ placeholder: 'YYYY-MM-DD' }]}
-                      vertical
-                      fullWidth
-                    />
-                  </Grid>
-                  <Grid item xs>
-                    <MultiTextField
-                      label="澆注數量"
-                      // state={state}
-                      // onChange={()=>()}
-                      fields={[{ placeholder: 'NNNN', suffix: 'kg' }]}
-                      vertical
-                      fullWidth
-                    />
-                  </Grid>
-                  <Grid item xs>
-                    <SelectField
-                      label="材料廠商"
-                      // onChange={()=>()}
-                      options={venderOptions}
-                      defaultText="廠商中文名稱"
-                      variant="outlined"
-                      vertical
-                      autoWidth
-                      border
-                    />
-                  </Grid>
+                <Grid item xs>
+                  <MultiTextField
+                    label="澆注數量"
+                    // state={state}
+                    // onChange={()=>()}
+                    fields={[{ placeholder: 'NNNN', suffix: 'kg' }]}
+                    vertical
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs>
+                  <SelectField
+                    label="材料廠商"
+                    // onChange={()=>()}
+                    options={venderOptions}
+                    defaultText="廠商中文名稱"
+                    variant="outlined"
+                    vertical
+                    autoWidth
+                    border
+                  />
                 </Grid>
               </Grid>
-              {/* 3rd section */}
-              <Grid
-                container
-                justify="space-between"
-                alignItems="center"
-                spacing={3}
-                className={classes.row}
-              >
-                <Grid item container xs={12}>
-                  <Grid item container xs={6}>
-                    <Button
-                      color="primary"
-                      variant="contained"
-                      className={classes.flatBtn}
-                      style={{ marginRight: 20, width: 186 }}
-                    >
-                      {' < 前筆維護單'}
-                    </Button>
-                    <Button
-                      color="default"
-                      variant="contained"
-                      className={classes.flatBtn}
-                      style={{ width: 186 }}
-                    >
-                      {'次筆維護單 > '}
-                    </Button>
-                  </Grid>
-                  <Grid item container wrap="nowrap" justify="flex-end" xs={6}>
-                    <TextField
-                      // value={search}
-                      // onChange={(v: string) => setSearch(v)}
-                      variant="outlined"
-                      className={classes.colorBorderField}
-                      placeholder="請輸入維修單序號"
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton disabled>
-                              <Search color="primary" />
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                  </Grid>
+            </Grid>
+            {/* 3rd section */}
+            <Grid
+              container
+              justify="space-between"
+              alignItems="center"
+              spacing={3}
+              className={classes.row}
+            >
+              {/* 1st row */}
+              <Grid item container xs={12}>
+                <Grid item container xs={6}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    className={classes.flatBtn}
+                    style={{ marginRight: 20, width: 186 }}
+                  >
+                    {' < 前筆維護單'}
+                  </Button>
+                  <Button
+                    color="default"
+                    variant="contained"
+                    className={classes.flatBtn}
+                    style={{ width: 186 }}
+                  >
+                    {'次筆維護單 > '}
+                  </Button>
                 </Grid>
-                <Grid item container xs={12}>
-                  <MaintForm />
-                  </Grid>
+                <Grid item container wrap="nowrap" justify="flex-end" xs={6}>
+                  <TextField
+                    // value={search}
+                    // onChange={(v: string) => setSearch(v)}
+                    variant="outlined"
+                    className={classes.colorBorderField}
+                    placeholder="請輸入維修單序號"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton disabled>
+                            <Search color="primary" />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </Grid>
               </Grid>
-            </Container>
-          </Box>
-        </Fullscreen>
+              {/* 2nd row */}
+              <Grid item container xs={12}>
+                <MaintForm />
+              </Grid>
+              {/* 3rd row */}
+              <Grid item container xs={12}>
+                <MaintRangeForm />
+              </Grid>
+            </Grid>
+          </Container>
+        </Box>
+      </Fullscreen>
       {/* </dataCtx.Provider> */}
     </>
   );

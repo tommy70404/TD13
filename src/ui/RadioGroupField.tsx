@@ -89,7 +89,7 @@ export const RadioGroupField = ({
             {options.map((o, idx) => (
               <FormControlLabel
                 value={o.value || o.label + '-' + idx}
-                control={<Radio />}
+                control={<Radio color="primary" />}
                 label={o.label}
                 key={o.label}
               />

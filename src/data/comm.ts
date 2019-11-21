@@ -18,3 +18,19 @@ export const repairReasonOptions = [
   { label: '熔毀' },
   { label: '其他' },
 ];
+
+export const repairTypeOptions = [
+  { label: '小修' },
+  { label: '中修' },
+  { label: '大修' },
+  { label: '全修' },
+  { label: '其他' },
+];
+
+export const paintOptions = [
+  { label: '塗附' },
+  { label: '半噴' },
+  { label: '全噴' },
+];
+
+export const spoutOptions = [{ label: '單片式' }, { label: '砌磚式' }];
