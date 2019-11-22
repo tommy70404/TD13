@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid, Typography, Box, TextField, makeStyles } from '@material-ui/core';
-import { BaseTextFieldProps } from '@material-ui/core/TextField';
 import clsx from 'clsx';
 
 type IMultiTextFieldProps = {

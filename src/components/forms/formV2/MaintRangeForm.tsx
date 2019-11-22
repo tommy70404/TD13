@@ -17,7 +17,7 @@ import {
 import { TableForm } from '../../../ui/TableForm';
 import { RadioGroupField } from '../../../ui/RadioGroupField';
 import { PopGraphicField } from '../../../ui/PopGraphicField';
-import { MaintRangeGrapgicFormV2 } from '../../MaintRangeGrapgicFormV2';
+import { MaintRangeGraphicFormV2 } from '../../MaintRangeGraphicFormV2';
 
 const useStyles = makeStyles(
   theme => ({
@@ -319,7 +319,7 @@ export const MaintRangeForm = () => {
           alignItems="center"
           spacing={3}
         >
-          <MaintRangeGrapgicFormV2 />
+          <MaintRangeGraphicFormV2 />
         </Grid>
         {/* 2nd row */}
         <Grid

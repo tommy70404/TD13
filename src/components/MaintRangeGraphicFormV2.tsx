@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Box, makeStyles, Typography, SvgIcon } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
 
 interface IMaintRangeGrapgicFormV2Props {
@@ -9,7 +9,6 @@ interface IMaintRangeGrapgicFormV2Props {
 
 function importAll(r: any) {
   let images: any = [];
-  console.log('r', r.keys());
   r.keys().forEach((item: any, index: number) => {
     images.push(item.replace('./', ''));
   });
@@ -24,8 +23,6 @@ const images_B3 = importAll(require.context('../assets/img/B3/', false, /\.(png|
   (a: string, b: string) => parseInt(a.match(/[0-9]*/)![0]) - parseInt(b.match(/[0-9]*/)![0]),
 );
 
-console.log('images_B1B2', images_B1B2);
-console.log('images_B3', images_B3);
 const useStyles = makeStyles(
   theme => ({
     circleLabel: {
@@ -88,14 +85,14 @@ const useStyles = makeStyles(
       zIndex: 10,
     },
   }),
-  { name: 'MaintRangeGrapgicFormV2' },
+  { name: 'MaintRangeGraphicFormV2' },
 );
 
 // 順序與click oreder綁定，盡量別改動
 // const B1B2ImgArr = ['B1B2.png', 'B1B2W.png', 'B1B2N.png', 'B1B2E.png', 'B1B2S.png'];
 // const B3ImgArr = ['B3.png', 'B3W.png', 'B3N.png', 'B3E.png', 'B3S.png'];
 
-export const MaintRangeGrapgicFormV2 = ({ state, handleChange }: IMaintRangeGrapgicFormV2Props) => {
+export const MaintRangeGraphicFormV2 = ({ state, handleChange }: IMaintRangeGrapgicFormV2Props) => {
   const [innerState, setInnerState] = useState<any>({});
   const classes = useStyles();
 

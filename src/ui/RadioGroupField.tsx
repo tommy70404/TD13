@@ -1,14 +1,5 @@
-import React, { useState } from 'react';
-import {
-  FormControl,
-  Box,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  makeStyles,
-  Grid,
-  Typography,
-} from '@material-ui/core';
+import React from 'react';
+import { FormControl, RadioGroup, FormControlLabel, Radio, makeStyles, Grid, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 
 interface IRadioGroupFieldProps {
@@ -69,23 +60,14 @@ export const RadioGroupField = ({
 
   return (
     <Grid container alignItems="center" className={classes.wrapper}>
-      <Grid
-        item
-        xs={vertical ? 12 : 'auto'}
-        className={clsx({ [classes.vertical]: vertical })}
-      >
+      <Grid item xs={vertical ? 12 : 'auto'} className={clsx({ [classes.vertical]: vertical })}>
         <Typography variant="h4" color="primary" className={classes.label}>
           {label}
         </Typography>
       </Grid>
       <Grid item xs={12}>
         <FormControl component="fieldset">
-          <RadioGroup
-            row
-            defaultValue={value || ''}
-            onChange={handleRadioClick}
-            className={classes.radioGroup}
-          >
+          <RadioGroup row defaultValue={value || ''} onChange={handleRadioClick} className={classes.radioGroup}>
             {options.map((o, idx) => (
               <FormControlLabel
                 value={o.value || o.label + '-' + idx}

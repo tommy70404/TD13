@@ -1,5 +1,5 @@
 import React from 'react';
-import { MuiThemeProvider, createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import NotoSansTCRegularOtf from '../assets/font/NotoSansTC-Regular.otf';
 import NotoSansTCMediumOtf from '../assets/font/NotoSansTC-Medium.otf';
 import NotoSansTCBoldOtf from '../assets/font/NotoSansTC-Bold.otf';

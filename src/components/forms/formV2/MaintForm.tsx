@@ -1,19 +1,16 @@
 import React from 'react';
 import ViewList from '@material-ui/icons/ViewList';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Checkbox } from '@material-ui/core';
+import { Grid, Checkbox } from '@material-ui/core';
 
 import { SectionWrapper } from '../../../ui/SectionWrapper';
 import { MultiTextField } from '../../../ui/TextField';
 import { SelectField } from '../../../ui/SelectField';
-import {
-  venderOptions,
-  materialOptions,
-  repairReasonOptions,
-} from '../../../data/comm';
+import { venderOptions, materialOptions, repairReasonOptions } from '../../../data/comm';
 import { TableForm } from '../../../ui/TableForm';
 import { RadioGroupField } from '../../../ui/RadioGroupField';
 import { PopGraphicField } from '../../../ui/PopGraphicField';
+import { DateField } from '../../../ui/DateField';
 
 const useStyles = makeStyles(
   theme => ({
@@ -56,32 +53,21 @@ export const MaintForm = () => {
   const venderFormField = [
     {
       label: '塗覆料',
-      control: () => (
-        <SelectField defaultText="廠商中文名稱" options={venderOptions} />
-      ),
+      control: () => <SelectField defaultText="廠商中文名稱" options={venderOptions} />,
     },
     {
       label: '噴漿料',
-      control: () => (
-        <SelectField defaultText="廠商中文名稱" options={venderOptions} />
-      ),
+      control: () => <SelectField defaultText="廠商中文名稱" options={venderOptions} />,
     },
     {
       label: '背襯材料',
-      control: () => (
-        <SelectField defaultText="廠商中文名稱" options={venderOptions} />
-      ),
+      control: () => <SelectField defaultText="廠商中文名稱" options={venderOptions} />,
     },
   ];
   const eventHandleFormField = [
     {
       label: '倒次',
-      control: () => (
-        <MultiTextField
-          fields={[{ placeholder: 'NN' }]}
-          style={{ width: 102, padding: 4 }}
-        />
-      ),
+      control: () => <MultiTextField fields={[{ placeholder: 'NN' }]} style={{ width: 102, padding: 4 }} />,
     },
     {
       label: '燒結',
@@ -114,46 +100,22 @@ export const MaintForm = () => {
   ];
 
   return (
-    <SectionWrapper
-      icon={<ViewList color="primary" fontSize="large" />}
-      title="送修資料"
-    >
-      <Grid
-        container
-        justify="space-between"
-        alignItems="center"
-        spacing={3}
-        className={classes.row}
-      >
+    <SectionWrapper icon={<ViewList color="primary" fontSize="large" />} title="送修資料">
+      <Grid container justify="space-between" alignItems="center" spacing={3} className={classes.row}>
         {/* 1st row */}
-        <Grid
-          item
-          container
-          xs={12}
-          wrap="nowrap"
-          justify="space-between"
-          alignItems="center"
-          spacing={3}
-        >
+        <Grid item container xs={12} wrap="nowrap" justify="space-between" alignItems="center" spacing={3}>
           <Grid item xs={4}>
             <MultiTextField
               label="送修序號"
               // state={state}
               // onChange={()=>()}
-              fields={[{ placeholder: 'YYYY-MM-DD' }]}
+              fields={[{ placeholder: 'YYYY-MM-NNN' }]}
               vertical
               fullWidth
             />
           </Grid>
           <Grid item xs={4}>
-            <MultiTextField
-              label="送修時間"
-              // state={state}
-              // onChange={()=>()}
-              fields={[{ placeholder: 'YYYY-MM-DD' }, { placeholder: 'HH:MM' }]}
-              vertical
-              fullWidth
-            />
+            <DateField label="送修時間" placeholder="YYYY-MM-DD" withDayTime />
           </Grid>
           <Grid item xs={4}>
             <MultiTextField
@@ -167,33 +129,15 @@ export const MaintForm = () => {
           </Grid>
         </Grid>
         {/* 2nd row */}
-        <Grid
-          item
-          container
-          xs={12}
-          wrap="nowrap"
-          justify="space-between"
-          alignItems="center"
-          spacing={3}
-        >
+        <Grid item container xs={12} wrap="nowrap" justify="space-between" alignItems="center" spacing={3}>
           <Grid item xs={4}>
-            <MultiTextField
-              label="S/N 到除時間"
-              // state={state}
-              // onChange={()=>()}
-              fields={[{ placeholder: 'YYYY-MM-DD' }, { placeholder: 'HH:MM' }]}
-              vertical
-              fullWidth
-            />
+            <DateField label="S/N 到除時間" placeholder="YYYY-MM-DD" withDayTime />
           </Grid>
           <Grid item xs={4}>
-            <MultiTextField
+            <DateField
               label="殘剛處理完成時間"
-              // state={state}
-              // onChange={()=>()}
-              fields={[{ placeholder: 'YYYY-MM-DD' }, { placeholder: 'HH:MM' }]}
-              vertical
-              fullWidth
+              placeholder="YYYY-MM-DD"
+              withDayTime
             />
           </Grid>
           <Grid item xs={4}>
@@ -208,48 +152,16 @@ export const MaintForm = () => {
           </Grid>
         </Grid>
         {/* 3rd row */}
-        <Grid
-          item
-          container
-          xs={12}
-          wrap="nowrap"
-          justify="space-between"
-          alignItems="center"
-          spacing={3}
-        >
+        <Grid item container xs={12} wrap="nowrap" justify="space-between" alignItems="center" spacing={3}>
           <TableForm label="殘趁廠商" fields={venderFormField} vertical />
         </Grid>
         {/* 4th row */}
-        <Grid
-          item
-          container
-          xs={12}
-          wrap="nowrap"
-          justify="space-between"
-          alignItems="center"
-          spacing={3}
-        >
-          <RadioGroupField
-            label="擋牆狀況"
-            options={materialOptions}
-            vertical
-          />
-          <RadioGroupField
-            label="修復原因"
-            options={repairReasonOptions}
-            vertical
-          />
+        <Grid item container xs={12} wrap="nowrap" justify="space-between" alignItems="center" spacing={3}>
+          <RadioGroupField label="擋牆狀況" options={materialOptions} vertical />
+          <RadioGroupField label="修復原因" options={repairReasonOptions} vertical />
         </Grid>
         {/* 5th row */}
-        <Grid
-          item
-          container
-          xs={12}
-          wrap="nowrap"
-          justify="space-between"
-          alignItems="center"
-          spacing={3}
-        >
+        <Grid item container xs={12} wrap="nowrap" justify="space-between" alignItems="center" spacing={3}>
           <TableForm label="處理狀況" fields={eventHandleFormField} vertical />
         </Grid>
       </Grid>

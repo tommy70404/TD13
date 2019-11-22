@@ -1,23 +1,12 @@
 import React from 'react';
 import Build from '@material-ui/icons/Build';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Checkbox } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
 import { SectionWrapper } from '../../../ui/SectionWrapper';
 import { MultiTextField } from '../../../ui/TextField';
 import { SelectField } from '../../../ui/SelectField';
-import {
-  venderOptions,
-  materialOptions,
-  repairReasonOptions,
-  repairTypeOptions,
-  paintOptions,
-  spoutOptions,
-} from '../../../data/comm';
-import { TableForm } from '../../../ui/TableForm';
-import { RadioGroupField } from '../../../ui/RadioGroupField';
-import { PopGraphicField } from '../../../ui/PopGraphicField';
-import { MaintRangeGrapgicFormV2 } from '../../MaintRangeGrapgicFormV2';
+import { venderOptions } from '../../../data/comm';
 import { Table } from '../../../ui/Table';
 
 const useStyles = makeStyles(theme => ({}), { name: 'MiscellaneousForm' });

@@ -7,7 +7,6 @@ import {
   Radio,
   Paper,
   Button,
-  IconButton,
   makeStyles,
   Popover,
   Typography,
@@ -43,11 +42,7 @@ const useStyles = makeStyles(
   { name: 'PopRadioGroupField' },
 );
 
-export const PopRadioGroupField = ({
-  onChange,
-  value,
-  ...props
-}: IPopRadioGroupFieldProps) => {
+export const PopRadioGroupField = ({ onChange, value, ...props }: IPopRadioGroupFieldProps) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
 
@@ -68,19 +63,9 @@ export const PopRadioGroupField = ({
     return (
       <Box marginLeft="12px" clone>
         <FormControl component="fieldset">
-          <RadioGroup
-            row
-            defaultValue={value}
-            onClick={handleRadioClick}
-            className={classes.radioGroup}
-          >
+          <RadioGroup row defaultValue={value} onClick={handleRadioClick} className={classes.radioGroup}>
             {new Array(optionNum).fill(0).map((v, idx) => (
-              <FormControlLabel
-                value={idx.toString()}
-                label={idx.toString()}
-                control={<Radio />}
-                key={idx}
-              />
+              <FormControlLabel value={idx.toString()} label={idx.toString()} control={<Radio />} key={idx} />
             ))}
           </RadioGroup>
         </FormControl>

@@ -1,22 +1,12 @@
 import React from 'react';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Checkbox } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
 import { SectionWrapper } from '../../../ui/SectionWrapper';
-import { MultiTextField } from '../../../ui/TextField';
-import { SelectField } from '../../../ui/SelectField';
-import {
-  venderOptions,
-  materialOptions,
-  repairReasonOptions,
-  repairTypeOptions,
-  paintOptions,
-  spoutOptions,
-  newOldOptions,
-} from '../../../data/comm';
-import { Table } from '../../../ui/Table';
+import { newOldOptions } from '../../../data/comm';
 import { RadioGroupField } from '../../../ui/RadioGroupField';
+import { DateField } from '../../../ui/DateField';
 
 const useStyles = makeStyles(theme => ({}), { name: 'FinishDataForm' });
 
@@ -37,16 +27,13 @@ export const FinishDataForm = () => {
           </Grid>
           <Grid item container xs={12} spacing={3}>
             <Grid item xs>
-              <MultiTextField label="塗附完成時間" fields={[{ placeholder: 'YYYY-MM-DD' }, { placeholder: 'HH:MM' }]} />
+              <DateField label="塗附完成時間" placeholder="YYYY-MM-DD" withDayTime />
             </Grid>
             <Grid item xs>
-              <MultiTextField
-                label="BTD 送澆鑄時間"
-                fields={[{ placeholder: 'YYYY-MM-DD' }, { placeholder: 'HH:MM' }]}
-              />
+              <DateField label="BTD 送澆鑄時間" placeholder="YYYY-MM-DD" withDayTime />
             </Grid>
             <Grid item xs>
-              <MultiTextField label="交件時間" fields={[{ placeholder: 'YYYY-MM-DD' }, { placeholder: 'HH:MM' }]} />
+              <DateField label="交件時間" placeholder="YYYY-MM-DD" withDayTime />
             </Grid>
           </Grid>
         </Grid>

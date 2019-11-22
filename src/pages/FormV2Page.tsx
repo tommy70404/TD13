@@ -26,6 +26,7 @@ import { MaintForm } from '../components/forms/formV2/MaintForm';
 import { MaterialCumspForm } from '../components/forms/formV2/MaterialCumspForm';
 import { MiscellaneousForm } from '../components/forms/formV2/MiscellaneousForm';
 import { FinishDataForm } from '../components/forms/formV2/FinishDataForm';
+import { DateField } from '../ui/DateField';
 
 const useStyles = makeStyles(
   theme => ({
@@ -182,27 +183,21 @@ export const FormV2Page = () => {
                   />
                 </Grid>
                 <Grid item xs>
-                  <MultiTextField
+                  <DateField label="下線全修日期" placeholder="YYYY-MM-DD" />
+                  {/* <MultiTextField
                     label="下線全修日期"
                     // state={state}
                     // onChange={()=>()}
                     fields={[{ placeholder: 'YYYY-MM-DD' }]}
                     vertical
                     fullWidth
-                  />
+                  /> */}
                 </Grid>
               </Grid>
               {/* 2st row */}
               <Grid item container xs={12} wrap="nowrap" justify="space-between" alignItems="center" spacing={3}>
                 <Grid item xs>
-                  <MultiTextField
-                    label="澆注日期"
-                    // state={state}
-                    // onChange={()=>()}
-                    fields={[{ placeholder: 'YYYY-MM-DD' }]}
-                    vertical
-                    fullWidth
-                  />
+                  <DateField label="澆注時間" placeholder="YYYY-MM-DD" />
                 </Grid>
                 <Grid item xs>
                   <MultiTextField
