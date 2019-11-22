@@ -55,20 +55,20 @@ const useStyles = makeStyles(
   { name: 'PageWrapper' },
 );
 
-const menu = [
+export const menu = [
   {
     text: '護單管理',
-    target: '/maintenance',
+    target: '',
     icon: <AssignmentIndRounded color="inherit" />,
     subMenu: [
       {
         text: '新增 / 修改維護單',
-        target: '/maintenance',
+        target: '/maintenance/menu',
         subMenu: [],
       },
       {
         text: '查詢維護單',
-        target: '/maintenance',
+        target: '/maintenance/menu',
         subMenu: [],
       },
     ],
@@ -96,19 +96,6 @@ const menu = [
 export const PageWrapper = ({ title }: IPageWrapperProps) => {
   const [state, setstate] = useState({ menu: false });
   const classes = useStyles();
-
-  // const sideList = () => (
-  //   <div className={classes.list}>
-  //     <List>
-  //       {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-  //         <ListItem button key={text}>
-  //           <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-  //           <ListItemText primary={text} />
-  //         </ListItem>
-  //       ))}
-  //     </List>
-  //   </div>
-  // );
 
   return (
     <>
@@ -171,7 +158,7 @@ function MenuItem(props: IMenuItemProps) {
           }}
           className={clsx(classes.listItem, { [classes.nested]: nested })}
         >
-          {item.icon && <ListItemIcon style={{color: 'white'}}>{item.icon}</ListItemIcon>}
+          {item.icon && <ListItemIcon style={{ color: 'white' }}>{item.icon}</ListItemIcon>}
           <ListItemText>{item.text}</ListItemText>
           {subMenu ? <ExpandLessRounded /> : <ExpandMoreRounded />}
         </ListItem>
@@ -192,7 +179,7 @@ function MenuItem(props: IMenuItemProps) {
       className={clsx(classes.listItem, { [classes.nested]: nested })}
       onClick={() => handleNavClick(item.target)}
     >
-      {item.icon && <ListItemIcon style={{color: 'white'}}>{item.icon}</ListItemIcon>}
+      {item.icon && <ListItemIcon style={{ color: 'white' }}>{item.icon}</ListItemIcon>}
       <ListItemText>{item.text}</ListItemText>
     </ListItem>
   );
