@@ -1,18 +1,5 @@
-import React, { useState } from 'react';
-import {
-  FormControl,
-  Box,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  Paper,
-  Button,
-  IconButton,
-  makeStyles,
-  Popover,
-  Grid,
-  TextField,
-} from '@material-ui/core';
+import React from 'react';
+import { Button, makeStyles, Grid, TextField } from '@material-ui/core';
 
 interface INumberControlField {
   value: any;
@@ -45,11 +32,7 @@ const useStyles = makeStyles(
   { name: 'NumberControlField' },
 );
 
-export const NumberControlField = ({
-  value,
-  onChange,
-  ...props
-}: INumberControlField) => {
+export const NumberControlField = ({ value, onChange, ...props }: INumberControlField) => {
   const classes = useStyles();
 
   const handleClick = (k: string) => () => {
@@ -59,20 +42,10 @@ export const NumberControlField = ({
 
   return (
     <Grid container justify="center" alignItems="center">
-      <Button
-        variant="contained"
-        size="small"
-        onClick={handleClick('-10')}
-        className={classes.btn}
-      >
+      <Button variant="contained" size="small" onClick={handleClick('-10')} className={classes.btn}>
         -10
       </Button>
-      <Button
-        variant="contained"
-        size="small"
-        onClick={handleClick('-1')}
-        className={classes.btn}
-      >
+      <Button variant="contained" size="small" onClick={handleClick('-1')} className={classes.btn}>
         -
       </Button>
       <TextField
@@ -82,20 +55,10 @@ export const NumberControlField = ({
         value={(value || 0).toString()}
         className={classes.textInput}
       />
-      <Button
-        variant="contained"
-        size="small"
-        onClick={handleClick('+1')}
-        className={classes.btn}
-      >
+      <Button variant="contained" size="small" onClick={handleClick('+1')} className={classes.btn}>
         +
       </Button>
-      <Button
-        variant="contained"
-        size="small"
-        onClick={handleClick('+10')}
-        className={classes.btn}
-      >
+      <Button variant="contained" size="small" onClick={handleClick('+10')} className={classes.btn}>
         +10
       </Button>
     </Grid>

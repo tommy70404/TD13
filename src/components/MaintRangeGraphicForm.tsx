@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Grid, Box, makeStyles, Typography, SvgIcon } from '@material-ui/core';
+import React from 'react';
+import { Grid, Box, makeStyles, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 
 interface IMaintRangeGrapgicFormProps {
@@ -63,23 +63,14 @@ const useStyles = makeStyles(
       top: -85,
     },
   }),
-  { name: 'MaintRangeGrapgicForm' },
+  { name: 'MaintRangeGraphicForm' },
 );
 
 // 順序與click oreder綁定，盡量別改動
 const B3ImgArr = ['B3.png', 'B3W.png', 'B3N.png', 'B3E.png', 'B3S.png'];
-const B1B2ImgArr = [
-  'B1B2.png',
-  'B1B2W.png',
-  'B1B2N.png',
-  'B1B2E.png',
-  'B1B2S.png',
-];
+const B1B2ImgArr = ['B1B2.png', 'B1B2W.png', 'B1B2N.png', 'B1B2E.png', 'B1B2S.png'];
 
-export const MaintRangeGrapgicForm = ({
-  state,
-  handleChange,
-}: IMaintRangeGrapgicFormProps) => {
+export const MaintRangeGraphicForm = ({ state, handleChange }: IMaintRangeGrapgicFormProps) => {
   const classes = useStyles();
 
   const handleClick = (k: string) => (v: number) => {
@@ -93,29 +84,15 @@ export const MaintRangeGrapgicForm = ({
     }
   };
 
-  const getB3Img = (state['B3'] && state['B3'].length > 0
-    ? state['B3']
-    : [0]
-  ).reduce(
+  const getB3Img = (state['B3'] && state['B3'].length > 0 ? state['B3'] : [0]).reduce(
     (acc: string, cur: number, idx: number, arr: Array<any>) =>
-      acc.concat(
-        `url(../assets/img/${B3ImgArr[cur]}) ${
-          idx === arr.length - 1 ? '' : ','
-        }`,
-      ),
+      acc.concat(`url(../assets/img/${B3ImgArr[cur]}) ${idx === arr.length - 1 ? '' : ','}`),
     '',
   );
 
-  const getB1B2Img = (state['B1B2'] && state['B1B2'].length > 0
-    ? state['B1B2']
-    : [0]
-  ).reduce(
+  const getB1B2Img = (state['B1B2'] && state['B1B2'].length > 0 ? state['B1B2'] : [0]).reduce(
     (acc: string, cur: number, idx: number, arr: Array<any>) =>
-      acc.concat(
-        `url(../assets/img/${B1B2ImgArr[cur]}) ${
-          idx === arr.length - 1 ? '' : ','
-        }`,
-      ),
+      acc.concat(`url(../assets/img/${B1B2ImgArr[cur]}) ${idx === arr.length - 1 ? '' : ','}`),
     '',
   );
 
@@ -129,26 +106,11 @@ export const MaintRangeGrapgicForm = ({
           <div className={classes.navigator} />
         </Grid>
         <Grid item container sm={6}>
-          <Grid
-            item
-            container
-            sm="auto"
-            alignItems="flex-start"
-            style={{ width: 'auto' }}
-          >
+          <Grid item container sm="auto" alignItems="flex-start" style={{ width: 'auto' }}>
             <div className={classes.circleLabel}>B3</div>
           </Grid>
-          <Grid
-            item
-            container
-            sm
-            alignItems="center"
-            className={classes.graphicContainer}
-          >
-            <div
-              style={{ backgroundImage: getB3Img }}
-              className={clsx([classes.graphicBtn, classes.B3Img])}
-            >
+          <Grid item container sm alignItems="center" className={classes.graphicContainer}>
+            <div style={{ backgroundImage: getB3Img }} className={clsx([classes.graphicBtn, classes.B3Img])}>
               <svg viewBox="0 0 425 174.6" height="180" width="350">
                 <g style={{ transform: 'translateY(-20px)' }}>
                   <path
@@ -166,37 +128,18 @@ export const MaintRangeGrapgicForm = ({
                     fill="transparent"
                     onClick={() => handleClick('B3')(3)}
                   />
-                  <path
-                    d="M 89 154 L 0 205 L 0 44 L 90 98 Z"
-                    fill="transparent"
-                    onClick={() => handleClick('B3')(4)}
-                  />
+                  <path d="M 89 154 L 0 205 L 0 44 L 90 98 Z" fill="transparent" onClick={() => handleClick('B3')(4)} />
                 </g>
               </svg>
             </div>
           </Grid>
         </Grid>
         <Grid item container sm={6}>
-          <Grid
-            item
-            container
-            sm="auto"
-            alignItems="flex-start"
-            style={{ width: 'auto' }}
-          >
+          <Grid item container sm="auto" alignItems="flex-start" style={{ width: 'auto' }}>
             <div className={classes.circleLabel}>B1 + B2</div>
           </Grid>
-          <Grid
-            item
-            container
-            sm
-            alignItems="center"
-            className={classes.graphicContainer}
-          >
-            <div
-              style={{ backgroundImage: getB1B2Img }}
-              className={clsx([classes.graphicBtn, classes.B1B2Img])}
-            >
+          <Grid item container sm alignItems="center" className={classes.graphicContainer}>
+            <div style={{ backgroundImage: getB1B2Img }} className={clsx([classes.graphicBtn, classes.B1B2Img])}>
               <svg viewBox="0 0 435 260" height="220" width="375">
                 <path
                   d="M 0 84 L 137 84 L 170 0 L 222 0 L 255 84 L 427 84 L 340 136 L 243 106 L 208 14 L 186 14 L 150 106 L 87 136 Z"

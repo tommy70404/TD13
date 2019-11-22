@@ -1,11 +1,9 @@
 import React from 'react';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 import { MultiTextField } from '../../ui/TextField';
-import { TableForm } from '../../ui/TableForm';
-import { RadioGroupField } from '../../ui/RadioGroupField';
 import { SelectField } from '../../ui/SelectField';
 import { MaintRangeTable } from '../MaintRangeTable';
-import { MaintRangeGrapgicForm } from '../MaintRangeGrapgicForm';
+import { MaintRangeGraphicForm } from '../MaintRangeGraphicForm';
 
 interface IMaintRangeFormProps {
   state: any;
@@ -94,7 +92,7 @@ export const MaintRangeForm = ({
           alignItems="center"
           style={{ width: 'auto' }}
         >
-          <MaintRangeGrapgicForm state={state} handleChange={handleChange} />
+          <MaintRangeGraphicForm state={state} handleChange={handleChange} />
         </Grid>
       </Grid>
       {/* 3st row */}
