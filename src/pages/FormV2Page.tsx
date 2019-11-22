@@ -35,6 +35,9 @@ const useStyles = makeStyles(
         overflow: 'scroll',
       },
     },
+    header: {
+      color: '#424242',
+    },
     row: {
       marginBottom: theme.spacing(2),
       borderBottom: `2px solid ${theme.palette.primary.main}`,
@@ -100,15 +103,12 @@ export const FormV2Page = () => {
       {/* <dataCtx.Provider value={dataReducer}> */}
       <Fullscreen enabled={isFull} onChange={isFull => setFull(isFull)}>
         <Box padding="0px 32px" clone>
-          <AppBar position="static">
+          <AppBar position="static" className={classes.header}>
             <Grid container justify="space-between" alignItems="center">
-              <Typography variant="h3" style={{ color: 'white' }}>
-                B123 耐火內襯修護工作紀錄表單
+              <Typography variant="h4" color="inherit">
+                TD13 耐火材管理系統
               </Typography>
-              <IconButton
-                onClick={() => setFull(prev => !prev)}
-                style={{ visibility: 'hidden' }}
-              >
+              <IconButton onClick={() => setFull(prev => !prev)} style={{ visibility: 'hidden' }}>
                 {(isFull && <FullscreenExitIcon />) || <FullscreenIcon />}
               </IconButton>
             </Grid>
@@ -126,60 +126,31 @@ export const FormV2Page = () => {
               className={classes.row}
             >
               <Grid item container xs wrap="nowrap" alignItems="center">
-                <KeyboardArrowLeft color="primary" fontSize="large" style={{ fontSize: '3.5rem'}}/>
+                <KeyboardArrowLeft color="primary" fontSize="large" style={{ fontSize: '3.5rem' }} />
                 <Typography color="primary" variant="h3">
                   B123 TD-NN 耐火材料內襯修護履歷
                 </Typography>
               </Grid>
               <Grid item xs="auto" style={{ width: 186 }}>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  fullWidth
-                  className={classes.flatBtn}
-                >
+                <Button color="primary" variant="contained" fullWidth className={classes.flatBtn}>
                   TD 資料
                 </Button>
               </Grid>
               <Grid item xs="auto" style={{ width: 186 }}>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  fullWidth
-                  className={classes.flatBtn}
-                >
+                <Button color="primary" variant="contained" fullWidth className={classes.flatBtn}>
                   材料表
                 </Button>
               </Grid>
               <Grid item xs="auto" style={{ width: 186 }}>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  fullWidth
-                  className={classes.flatBtn}
-                >
+                <Button color="primary" variant="contained" fullWidth className={classes.flatBtn}>
                   廠商代號
                 </Button>
               </Grid>
             </Grid>
             {/* 2st section */}
-            <Grid
-              container
-              justify="space-between"
-              alignItems="center"
-              spacing={3}
-              className={classes.row}
-            >
+            <Grid container justify="space-between" alignItems="center" spacing={3} className={classes.row}>
               {/* 1st row */}
-              <Grid
-                item
-                container
-                xs={12}
-                wrap="nowrap"
-                justify="space-between"
-                alignItems="center"
-                spacing={3}
-              >
+              <Grid item container xs={12} wrap="nowrap" justify="space-between" alignItems="center" spacing={3}>
                 <Grid item xs>
                   <MultiTextField
                     label="T/D 編號"
@@ -222,15 +193,7 @@ export const FormV2Page = () => {
                 </Grid>
               </Grid>
               {/* 2st row */}
-              <Grid
-                item
-                container
-                xs={12}
-                wrap="nowrap"
-                justify="space-between"
-                alignItems="center"
-                spacing={3}
-              >
+              <Grid item container xs={12} wrap="nowrap" justify="space-between" alignItems="center" spacing={3}>
                 <Grid item xs>
                   <MultiTextField
                     label="澆注日期"
@@ -266,13 +229,7 @@ export const FormV2Page = () => {
               </Grid>
             </Grid>
             {/* 3rd section */}
-            <Grid
-              container
-              justify="space-between"
-              alignItems="center"
-              spacing={3}
-              className={classes.row}
-            >
+            <Grid container justify="space-between" alignItems="center" spacing={3} className={classes.row}>
               {/* 1st row */}
               <Grid item container xs={12}>
                 <Grid item container xs={6}>
@@ -284,12 +241,7 @@ export const FormV2Page = () => {
                   >
                     {' < 前筆維護單'}
                   </Button>
-                  <Button
-                    color="default"
-                    variant="contained"
-                    className={classes.flatBtn}
-                    style={{ width: 186 }}
-                  >
+                  <Button color="default" variant="contained" className={classes.flatBtn} style={{ width: 186 }}>
                     {'次筆維護單 > '}
                   </Button>
                 </Grid>
