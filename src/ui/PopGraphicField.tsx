@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
 import Close from '@material-ui/icons/Close';
-import {
-  Paper,
-  Button,
-  IconButton,
-  makeStyles,
-  Popover,
-  Typography,
-  Grid,
-} from '@material-ui/core';
+import { Paper, Button, IconButton, makeStyles, Popover, Typography, Grid } from '@material-ui/core';
 import clsx from 'clsx';
 
 interface IPopGraphicFieldProps {
@@ -59,14 +51,13 @@ const useStyles = makeStyles(
   { name: 'PopGraphicField' },
 );
 
-const DEFAULT_OPTIONS = [{ label: '低' }, { label: '中' }, { label: '高' }];
+const DEFAULT_OPTIONS = [
+  { label: '低', img: 'option_low.png', imgActive: 'option_low_active.png' },
+  { label: '中', img: 'option_medium.png', imgActive: 'option_medium_active.png' },
+  { label: '高', img: 'option_high.png', imgActive: 'option_high_active.png' },
+];
 
-export const PopGraphicField = ({
-  onChange,
-  value,
-  title,
-  ...props
-}: IPopGraphicFieldProps) => {
+export const PopGraphicField = ({ onChange, value, title, ...props }: IPopGraphicFieldProps) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [activeBtn, setActiveBtn] = useState<null | string>(null);
   const classes = useStyles();
@@ -95,27 +86,13 @@ export const PopGraphicField = ({
   const renderGrphicOptions = () => {
     return (
       <Grid container style={{ width: 'auto', height: 'auto' }}>
-        <Grid
-          item
-          container
-          xs={12}
-          justify="space-between"
-          alignItems="center"
-          className={classes.poperTitleRow}
-        >
+        <Grid item container xs={12} justify="space-between" alignItems="center" className={classes.poperTitleRow}>
           <Typography variant="h4">{title}</Typography>
           <IconButton color="inherit" onClick={handleClose}>
             <Close color="inherit" />
           </IconButton>
         </Grid>
-        <Grid
-          item
-          container
-          xs={12}
-          justify="center"
-          alignItems="stretch"
-          className={classes.imgBtnWrapper}
-        >
+        <Grid item container xs={12} justify="space-around" alignItems="stretch" className={classes.imgBtnWrapper}>
           {DEFAULT_OPTIONS.map(o => (
             <Button
               disableRipple
@@ -123,10 +100,9 @@ export const PopGraphicField = ({
               className={clsx(classes.imgBtn, {
                 [classes.active]: activeBtn === o.label,
               })}
+              style={{ background: `url(../assets/img/${activeBtn === o.label ? o.imgActive : o.img})` }}
               key={o.label}
-            >
-              {o.label}
-            </Button>
+            />
           ))}
         </Grid>
       </Grid>
