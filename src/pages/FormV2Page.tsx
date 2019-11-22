@@ -27,6 +27,7 @@ import { MaterialCumspForm } from '../components/forms/formV2/MaterialCumspForm'
 import { MiscellaneousForm } from '../components/forms/formV2/MiscellaneousForm';
 import { FinishDataForm } from '../components/forms/formV2/FinishDataForm';
 import { DateField } from '../ui/DateField';
+import { PageWrapper } from '../ui/PageWrapper';
 
 const useStyles = makeStyles(
   theme => ({
@@ -35,9 +36,6 @@ const useStyles = makeStyles(
         background: 'white',
         overflow: 'scroll',
       },
-    },
-    header: {
-      color: '#424242',
     },
     row: {
       marginBottom: theme.spacing(2),
@@ -91,7 +89,7 @@ const useStyles = makeStyles(
 
 export const FormV2Page = () => {
   // const [data, updateData] = useContext(dataCtx);
-  const [isFull, setFull] = useState(false);
+  // const [isFull, setFull] = useState(false);
   const classes = useStyles();
   // const dataReducer = useReducer(dataReducers, {});
 
@@ -102,19 +100,9 @@ export const FormV2Page = () => {
   return (
     <>
       {/* <dataCtx.Provider value={dataReducer}> */}
-      <Fullscreen enabled={isFull} onChange={isFull => setFull(isFull)}>
-        <Box padding="0px 32px" clone>
-          <AppBar position="static" className={classes.header}>
-            <Grid container justify="space-between" alignItems="center">
-              <Typography variant="h4" color="inherit">
-                TD13 耐火材管理系統
-              </Typography>
-              <IconButton onClick={() => setFull(prev => !prev)} style={{ visibility: 'hidden' }}>
-                {(isFull && <FullscreenExitIcon />) || <FullscreenIcon />}
-              </IconButton>
-            </Grid>
-          </AppBar>
-        </Box>
+      {/* <Fullscreen enabled={isFull} onChange={isFull => setFull(isFull)}> */}
+        <PageWrapper title="TD13 耐火材管理系統"/>
+        
         <Box marginTop="12px" padding="12px" clone>
           <Container maxWidth="lg">
             {/* 1st section */}
@@ -282,7 +270,7 @@ export const FormV2Page = () => {
             </Grid>
           </Container>
         </Box>
-      </Fullscreen>
+      {/* </Fullscreen> */}
       {/* </dataCtx.Provider> */}
     </>
   );
