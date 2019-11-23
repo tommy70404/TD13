@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import clsx from 'clsx';
 import { useHistory } from 'react-router-dom';
 import MenuRounded from '@material-ui/icons/MenuRounded';
 import AssignmentIndRounded from '@material-ui/icons/AssignmentIndRounded';
@@ -22,7 +23,8 @@ import {
   Divider,
   Collapse,
 } from '@material-ui/core';
-import clsx from 'clsx';
+
+import background from '../assets/img/background.png';
 
 interface IPageWrapperProps {
   title: string;
@@ -50,6 +52,17 @@ const useStyles = makeStyles(
     },
     nested: {
       paddingLeft: 62,
+    },
+    background: {
+      background: `url(${background})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      zIndex: -1,
     },
   }),
   { name: 'PageWrapper' },
@@ -121,6 +134,7 @@ export const PageWrapper = ({ title }: IPageWrapperProps) => {
           ))}
         </List>
       </Drawer>
+      <div className={classes.background} />
     </>
   );
 };
