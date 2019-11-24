@@ -41,26 +41,6 @@ const useStyles = makeStyles(
       position: 'relative',
       // marginLeft: theme.spacing(2.5),
     },
-    graphicBtn: {
-      position: 'absolute',
-      left: '60%',
-      transform: 'translateX(-50%)',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'contain',
-      backgroundPosition: '0% 0%',
-      '&::after': {
-        position: 'absolute',
-        width: 0,
-        height: 0,
-        overflow: 'hidden',
-        zIndex: -1,
-        // preload background
-        // content: `${images_B1B2
-        //   .map((s: string) => `url(../assets/img/B1+B2/${s})`)
-        //   .concat(images_B3.map((s: string) => `url(../assets/img/B3/${s})`))
-        //   .join(' ')}`,
-      },
-    },
     navigator: {
       backgroundImage: 'url(../assets/img/navigator.png)',
       // position: 'absolute',
@@ -72,16 +52,24 @@ const useStyles = makeStyles(
       backgroundSize: 'contain',
       backgroundPosition: '0% 0%',
     },
-    B3Img: {
-      width: '500px',
-      height: '180px',
-      // top: -50,
-      zIndex: 10,
+    graphicBtn: {
+      position: 'absolute',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'contain',
+      backgroundPosition: '0% 0%',
     },
     B1B2Img: {
-      width: '500px',
-      height: '220px',
+      width: '529px',
+      height: '310px',
       // top: -85,
+      zIndex: 10,
+    },
+    B3Img: {
+      width: '533px',
+      height: '263px',
+      // top: -50,
       zIndex: 10,
     },
   }),
@@ -147,63 +135,76 @@ export const MaintRangeGraphicFormV2 = ({ state, handleChange }: IMaintRangeGrap
 
   return (
     <Grid container style={{ height: 'auto' }}>
-      <Grid item container wrap="nowrap" sm={12}>
-        {/* <Typography variant="h4" color="primary">
-            澆鑄機
-          </Typography> */}
+      <Grid item container sm={12}>
         <Grid item container sm={6} alignItems="flex-start" style={{ width: 'auto' }}>
           <div className={classes.circleLabel}>B1 + B2</div>
         </Grid>
-        <Grid item container sm={6} alignItems="flex-start" style={{ width: 'auto' }}>
-          <div className={classes.circleLabel}>B3</div>
+        <Grid item container wrap="nowrap" justify="flex-end" sm={6}>
+          <div className={classes.navigator} />
         </Grid>
-        <div className={classes.navigator} />
-      </Grid>
-      <Grid item container sm={12} style={{ height: '300px' }}>
-        <Grid item container sm alignItems="center" className={classes.graphicContainer}>
+        <Grid
+          item
+          container
+          sm={12}
+          alignItems="center"
+          className={classes.graphicContainer}
+          style={{ height: '300px' }}
+        >
           <div
             style={{ backgroundImage: `url(../assets/img/B1B2/0.png` }}
             className={clsx([classes.graphicBtn, classes.B1B2Img])}
           />
           <svg
             viewBox="0 0 529 310"
-            height="220"
-            width="375"
+            width="529"
+            height="310"
             className={clsx([classes.graphicBtn, classes.B1B2Img])}
-            style={{ left: '49.2%', zIndex: 50 }}
+            style={{ left: '50.1%', zIndex: 50 }}
           >
             {renderB1B2SvgTouch()}
           </svg>
           <svg
             viewBox="0 0 529 310"
-            height="220"
-            width="375"
+            height="529"
+            width="310"
             className={clsx([classes.graphicBtn, classes.B1B2Img])}
-            style={{ left: '49.2%', zIndex: 1 }}
+            style={{ left: '50.1%', zIndex: 1 }}
           >
             {rederB1B2SvgView()}
           </svg>
         </Grid>
-        <Grid item container sm alignItems="center" className={classes.graphicContainer}>
+      </Grid>
+      <Grid item container sm={12}>
+        <Grid item container sm={6} alignItems="flex-start" style={{ width: 'auto' }}>
+          <div className={classes.circleLabel}>B3</div>
+        </Grid>
+        <Grid
+          item
+          container
+          sm={12}
+          alignItems="center"
+          className={classes.graphicContainer}
+          style={{ height: '300px' }}
+        >
           <div
             style={{ backgroundImage: `url(../assets/img/B3/0.png` }}
             className={clsx([classes.graphicBtn, classes.B3Img])}
           />
           <svg
-            viewBox="0 0 535 265.42"
-            height="180"
-            width="350"
+            viewBox="0 0 533 263"
+            width="533"
+            height="263"
             className={clsx([classes.graphicBtn, classes.B3Img])}
-            style={{ left: '48.3%', top:"20.3%", zIndex: 50 }}
+            style={{ zIndex: 50 }}
           >
             {renderB3SvgTouch()}
           </svg>
           <svg
             viewBox="0 0 533 263"
-            height="180"
-            width="350"
+            width="533"
+            height="263"
             className={clsx([classes.graphicBtn, classes.B3Img])}
-            style={{ left: '48.3%', top:"20.3%", zIndex: 1 }}
+            style={{ zIndex: 1 }}
           >
             >{rederB3SvgView()}
           </svg>

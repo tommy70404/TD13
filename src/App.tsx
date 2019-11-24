@@ -7,6 +7,8 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { FormPage } from './pages/FormPage';
 import { AppThemeProvider } from './ui/themeProvider';
 import { FormV2Page } from './pages/FormV2Page';
+import { FormMenuPage } from './pages/FormMenuPage';
+import { TDListPage } from './pages/TDListPage';
 
 function App() {
   // useEffect(() => {
@@ -47,8 +49,14 @@ function App() {
             {/* <Route path={['/form_1']}>
               <FormPage />
             </Route> */}
-            <Route path={['/form_2', '/']}>
+            <Route path={['/form/:id']}>
               <FormV2Page />
+            </Route>
+            <Route path={['/', '/maintenance/menu']} exact>
+              <FormMenuPage />
+            </Route>
+            <Route path={['/maintenance/td-menu/:id']}>
+              <TDListPage />
             </Route>
           </Router>
         </MuiPickersUtilsProvider>
