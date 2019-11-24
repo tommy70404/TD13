@@ -29,6 +29,9 @@ const useStyles = makeStyles(
         height: 45,
       },
     },
+    dateModal: {
+      transform: 'scale(1.3)',
+    },
   }),
   { name: 'DateField' },
 );
@@ -71,7 +74,12 @@ export const DateField = ({
               onChange={handleChange('date')}
               placeholder={placeholder}
               format="yyyy-MM-dd"
+              showTodayButton
+              disableToolbar
               className={classes.field}
+              DialogProps={{
+                className: classes.dateModal,
+              }}
             />
           </Grid>
           {withDayTime && (
@@ -83,7 +91,12 @@ export const DateField = ({
                 onChange={handleChange('time')}
                 placeholder={'HH:MM'}
                 format="HH:mm"
+                disableToolbar
+                ampm={false}
                 className={classes.field}
+                DialogProps={{
+                  className: classes.dateModal,
+                }}
               />
             </Grid>
           )}

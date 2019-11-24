@@ -47,7 +47,7 @@ export const Table = ({ headers, body }: ITableProps) => {
       <MuiTableHead className={classes.head}>
         <MuiTableRow>
           {headers.map(h => (
-            <MuiTableCell align="center" style={{ minWidth: h.width || undefined }}>
+            <MuiTableCell align="center" style={{ minWidth: h.width || undefined }} key={h.label}>
               {h.label}
             </MuiTableCell>
           ))}

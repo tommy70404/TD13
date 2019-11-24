@@ -69,7 +69,7 @@ export const TDListPage = () => {
             </Grid>
             <Grid item container xs={12} justify="center" alignItems="center" className={classes.cardContainer}>
               {OPTIONS.map(o => (
-                <Grid item container xs={3} justify="center">
+                <Grid item container xs={3} justify="center" key={o.label}>
                   <PaperButton onClick={() => handleClick(o.to)} dense key={o.label}>
                     {o.label}
                   </PaperButton>

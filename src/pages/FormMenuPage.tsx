@@ -36,7 +36,7 @@ export const FormMenuPage = () => {
   return (
     <>
       <PageWrapper title="TD13 耐火材管理系統" />
-      <Box marginTop="12px" padding clone>
+      <Box marginTop="12px" clone>
         <Container maxWidth="lg">
           {/* 1st section */}
           <Grid container wrap="nowrap" justify="space-between" alignItems="center" spacing={3} className={classes.row}>

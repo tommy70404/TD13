@@ -111,24 +111,36 @@ export const MaintRangeGraphicFormV2 = ({ state, handleChange }: IMaintRangeGrap
 
   const renderB1B2SvgTouch = () =>
     B1B2SvgArr.map((point, i) => (
-      <polygon points={point} fill="transparent" onClick={() => handleClick('B1B2')(i + 1)} style={{ zIndex: 100 }} />
+      <polygon
+        points={point}
+        fill="transparent"
+        onClick={() => handleClick('B1B2')(i + 1)}
+        style={{ zIndex: 100 }}
+        key={i}
+      />
     ));
   const rederB1B2SvgView = () =>
     B1B2SvgArr.map((point, i) => {
       if ((innerState['B1B2'] && innerState['B1B2'].includes(i + 1)) || false) {
-        return <polygon points={point} fill="#f5a623" style={{ zIndex: 1 }} />;
+        return <polygon points={point} fill="#f5a623" style={{ zIndex: 1 }} key={i} />;
       }
       return undefined;
     });
 
   const renderB3SvgTouch = () =>
     B3SvgArr.map((point, i) => (
-      <polygon points={point} fill="transparent" onClick={() => handleClick('B3')(i + 1)} style={{ zIndex: 100 }} />
+      <polygon
+        points={point}
+        fill="transparent"
+        onClick={() => handleClick('B3')(i + 1)}
+        style={{ zIndex: 100 }}
+        key={i}
+      />
     ));
   const rederB3SvgView = () =>
     B3SvgArr.map((point, i) => {
       if ((innerState['B3'] && innerState['B3'].includes(i + 1)) || false) {
-        return <polygon points={point} fill="#f5a623" style={{ zIndex: 1 }} />;
+        return <polygon points={point} fill="#f5a623" style={{ zIndex: 1 }} key={i} />;
       }
       return undefined;
     });

@@ -88,19 +88,19 @@ export const menu = [
   },
   {
     text: 'TD 管理',
-    target: '/td',
+    target: '/',
     icon: <ViewListRounded color="inherit" />,
     subMenu: [],
   },
   {
     text: '廠商管理',
-    target: '/vendor',
+    target: '/',
     icon: <HomeWorkRounded color="inherit" />,
     subMenu: [],
   },
   {
     text: '材料管理',
-    target: 'material',
+    target: '/',
     icon: <SettingsApplicationsRounded color="inherit" />,
     subMenu: [],
   },

@@ -63,13 +63,7 @@ interface ITableFormProps {
   vertical?: boolean;
 }
 
-export const TableForm = ({
-  label,
-  vertical,
-  fields,
-  fieldGroup,
-  ...props
-}: ITableFormProps) => {
+export const TableForm = ({ label, vertical, fields, fieldGroup, ...props }: ITableFormProps) => {
   const classes = useStyles();
   return (
     <Grid container className={classes['overview-wrapper']}>
@@ -88,13 +82,7 @@ export const TableForm = ({
           </Typography>
         </Grid>
       )}
-      <Grid
-        item
-        container
-        sm
-        justify="center"
-        className={classes['overview-container']}
-      >
+      <Grid item container sm justify="center" className={classes['overview-container']}>
         {fieldGroup && (
           <>
             <Grid
@@ -106,8 +94,8 @@ export const TableForm = ({
               wrap="nowrap"
               className={classes['overview-header']}
             >
-              {fieldGroup.map(f => (
-                <Grid item xs key={f.label}>
+              {fieldGroup.map((f, i) => (
+                <Grid item xs key={i}>
                   <Typography variant="h5" className={classes.tableLabel}>
                     {f.label}
                   </Typography>
@@ -126,21 +114,14 @@ export const TableForm = ({
               {fieldGroup
                 .reduce(
                   (acc, f) => {
-                    const labelArr = f.controlGroup.reduce(
-                      (acc, c) => acc.concat(c.label),
-                      [] as string[],
-                    );
+                    const labelArr = f.controlGroup.reduce((acc, c) => acc.concat(c.label), [] as string[]);
                     return acc.concat(labelArr);
                   },
                   [] as string[],
                 )
-                .map(label => (
-                  <Grid item xs key={label}>
-                    <Typography
-                      variant="h5"
-                      className={classes.tableLabel}
-                      key={label}
-                    >
+                .map((label, i) => (
+                  <Grid item xs key={i}>
+                    <Typography variant="h5" className={classes.tableLabel} key={label}>
                       {label}
                     </Typography>
                   </Grid>
@@ -166,8 +147,8 @@ export const TableForm = ({
                   },
                   [] as (() => JSX.Element)[],
                 )
-                .map((c, idx) => (
-                  <Grid item xs key={idx}>
+                .map((c, i) => (
+                  <Grid item xs key={i}>
                     {c()}
                   </Grid>
                 ))}
@@ -186,8 +167,8 @@ export const TableForm = ({
               wrap="nowrap"
               className={classes['overview-header']}
             >
-              {fields.map(f => (
-                <Grid item xs key={f.label}>
+              {fields.map((f, i) => (
+                <Grid item xs key={i}>
                   <Typography variant="h5" className={classes.tableLabel}>
                     {f.label}
                   </Typography>
@@ -203,8 +184,8 @@ export const TableForm = ({
               wrap="nowrap"
               className={classes['overview-row']}
             >
-              {fields.map(f => (
-                <Grid item xs key={f.label}>
+              {fields.map((f, i) => (
+                <Grid item xs key={i}>
                   {f.control()}
                 </Grid>
               ))}
