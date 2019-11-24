@@ -6,9 +6,8 @@ yarn install
 ```
 2. 起始web develop server，demo使用此版本即可
 ```
-yarn start
-
- //server on 3000 port
+yarn start //build develop server on port 3000
+yarn start:3001 //build dvelop server on port 3001
 ```
 3. 執行指令建構production版本
 ```
