@@ -39,12 +39,13 @@ const useStyles = makeStyles(
       paddingTop: theme.spacing(3),
       height: '100%',
       background: '#9b9b9b',
-      width: 240,
+      width: 300,
     },
     listItem: {
       padding: theme.spacing(1),
       color: 'white',
       textDecoration: 'none',
+      fontSize: '24px',
       '& p:link': {
         textDecoration: 'none',
       },
@@ -72,7 +73,7 @@ export const menu = [
   {
     text: '護單管理',
     target: '',
-    icon: <AssignmentIndRounded color="inherit" />,
+    icon: <AssignmentIndRounded color="inherit" fontSize="large" />,
     subMenu: [
       {
         text: '新增 / 修改維護單',
@@ -89,19 +90,19 @@ export const menu = [
   {
     text: 'TD 管理',
     target: '/',
-    icon: <ViewListRounded color="inherit" />,
+    icon: <ViewListRounded color="inherit" fontSize="large" />,
     subMenu: [],
   },
   {
     text: '廠商管理',
     target: '/',
-    icon: <HomeWorkRounded color="inherit" />,
+    icon: <HomeWorkRounded color="inherit" fontSize="large" />,
     subMenu: [],
   },
   {
     text: '材料管理',
     target: '/',
-    icon: <SettingsApplicationsRounded color="inherit" />,
+    icon: <SettingsApplicationsRounded color="inherit" fontSize="large" />,
     subMenu: [],
   },
 ];
@@ -115,7 +116,7 @@ export const PageWrapper = ({ title }: IPageWrapperProps) => {
       <AppBar position="static" className={classes.header}>
         <Box padding="0px 32px">
           <Grid container alignItems="center">
-            <IconButton onClick={() => setstate(prev => ({ ...prev, menu: !prev.menu }))}>
+            <IconButton onClick={() => setstate(prev => ({ ...prev, menu: !prev.menu }))} style={{ marginRight: 8 }}>
               <MenuRounded fontSize="large" color="inherit" />
             </IconButton>
             <Typography variant="h4" color="inherit">
@@ -173,7 +174,7 @@ function MenuItem(props: IMenuItemProps) {
           className={clsx(classes.listItem, { [classes.nested]: nested })}
         >
           {item.icon && <ListItemIcon style={{ color: 'white' }}>{item.icon}</ListItemIcon>}
-          <ListItemText>{item.text}</ListItemText>
+          <ListItemText disableTypography>{item.text}</ListItemText>
           {subMenu ? <ExpandLessRounded /> : <ExpandMoreRounded />}
         </ListItem>
         <Collapse in={subMenu} timeout="auto" unmountOnExit>
@@ -194,7 +195,7 @@ function MenuItem(props: IMenuItemProps) {
       onClick={() => handleNavClick(item.target)}
     >
       {item.icon && <ListItemIcon style={{ color: 'white' }}>{item.icon}</ListItemIcon>}
-      <ListItemText>{item.text}</ListItemText>
+      <ListItemText disableTypography>{item.text}</ListItemText>
     </ListItem>
   );
 }

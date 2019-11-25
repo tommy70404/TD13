@@ -91,7 +91,7 @@ export const DateField = ({
                 onChange={handleChange('time')}
                 placeholder={'HH:MM'}
                 format="HH:mm"
-                disableToolbar
+                // disableToolbar
                 ampm={false}
                 className={classes.field}
                 DialogProps={{

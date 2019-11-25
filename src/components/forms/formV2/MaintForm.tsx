@@ -9,7 +9,7 @@ import { SelectField } from '../../../ui/SelectField';
 import { venderOptions, materialOptions, repairReasonOptions } from '../../../data/comm';
 import { TableForm } from '../../../ui/TableForm';
 import { RadioGroupField } from '../../../ui/RadioGroupField';
-import { PopGraphicField } from '../../../ui/PopGraphicField';
+import { PopGraphicField } from '../../popup/PopGraphicField';
 import { DateField } from '../../../ui/DateField';
 
 const useStyles = makeStyles(

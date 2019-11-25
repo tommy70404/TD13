@@ -29,6 +29,7 @@ import { MiscellaneousForm } from '../components/forms/formV2/MiscellaneousForm'
 import { FinishDataForm } from '../components/forms/formV2/FinishDataForm';
 import { DateField } from '../ui/DateField';
 import { PageWrapper } from '../ui/PageWrapper';
+import { PopTdInfoButton } from '../components/popup/PopTdInfoButton';
 
 const useStyles = makeStyles(
   theme => ({
@@ -74,6 +75,14 @@ const useStyles = makeStyles(
         color: theme.palette.primary.main,
         opacity: 1,
       },
+    },
+    btn: {
+      fontWeight: theme.typography.fontWeightBold,
+      margin: `0 ${theme.spacing(2.5)}px`,
+      fontSize: theme.typography.h6.fontSize,
+      color: theme.palette.grey[700],
+      width: 226,
+      height: 56,
     },
   }),
   { name: 'Form2Page' },
@@ -125,9 +134,7 @@ export const FormV2Page = () => {
               </Typography>
             </Grid>
             <Grid item xs="auto" style={{ width: 186 }}>
-              <Button color="primary" variant="contained" fullWidth className={classes.flatBtn}>
-                TD 資料
-              </Button>
+              <PopTdInfoButton />
             </Grid>
             <Grid item xs="auto" style={{ width: 186 }}>
               <Button color="primary" variant="contained" fullWidth className={classes.flatBtn}>
@@ -270,6 +277,20 @@ export const FormV2Page = () => {
             {/* 5th row */}
             <Grid item container xs={12}>
               <FinishDataForm />
+            </Grid>
+          </Grid>
+          {/* footer */}
+          <Grid container justify="space-between">
+            <Button variant="contained" className={classes.btn}>
+              取消
+            </Button>
+            <Grid item sm="auto" style={{ width: 'auto' }}>
+              <Button variant="contained" className={classes.btn}>
+                暫存
+              </Button>
+              <Button color="primary" variant="contained" className={classes.btn}>
+                送出
+              </Button>
             </Grid>
           </Grid>
         </Container>

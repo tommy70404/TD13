@@ -49,7 +49,7 @@ export const PaperButton = ({ children, dense = false, ...props }: IPaperButtonP
           [classes.dense]: dense,
         })}
       >
-        <Typography color="inherit">{children}</Typography>
+        <Typography color="inherit" variant="h3">{children}</Typography>
       </Grid>
     </Button>
   );
