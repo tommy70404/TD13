@@ -1,8 +1,8 @@
 export const venderOptions = [
-  { label: 'A-光和', value: 'A' },
-  { label: 'B-友和', value: 'B' },
-  { label: 'C-三和', value: 'C' },
-  { label: 'D-東京', value: 'D' },
+  { label: '光和', value: 'A' },
+  { label: '友和', value: 'B' },
+  { label: '三和', value: 'C' },
+  { label: '東京', value: 'D' },
 ];
 
 export const materialOptions = [
