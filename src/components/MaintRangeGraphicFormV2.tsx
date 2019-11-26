@@ -39,6 +39,7 @@ const useStyles = makeStyles(
     },
     graphicContainer: {
       position: 'relative',
+      left: 20,
       // marginLeft: theme.spacing(2.5),
     },
     navigator: {
@@ -61,14 +62,14 @@ const useStyles = makeStyles(
       backgroundPosition: '0% 0%',
     },
     B1B2Img: {
-      width: '529px',
-      height: '310px',
+      width: 'calc(529px * 1.7)',
+      height: 'calc(310px * 1.7)',
       // top: -85,
       zIndex: 10,
     },
     B3Img: {
-      width: '533px',
-      height: '263px',
+      width: 'calc(533px * 1.7)',
+      height: 'calc(263px * 1.7)',
       // top: -50,
       zIndex: 10,
     },
@@ -160,7 +161,7 @@ export const MaintRangeGraphicFormV2 = ({ state, handleChange }: IMaintRangeGrap
           sm={12}
           alignItems="center"
           className={classes.graphicContainer}
-          style={{ height: '300px' }}
+          style={{ height: '500px' }}
         >
           <div
             style={{ backgroundImage: `url(../assets/img/B1B2/0.png` }}
@@ -196,7 +197,7 @@ export const MaintRangeGraphicFormV2 = ({ state, handleChange }: IMaintRangeGrap
           sm={12}
           alignItems="center"
           className={classes.graphicContainer}
-          style={{ height: '300px' }}
+          style={{ height: '450px' }}
         >
           <div
             style={{ backgroundImage: `url(../assets/img/B3/0.png` }}

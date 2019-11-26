@@ -71,7 +71,7 @@ const useStyles = makeStyles(
 
 export const menu = [
   {
-    text: '護單管理',
+    text: '維護單管理',
     target: '',
     icon: <AssignmentIndRounded color="inherit" fontSize="large" />,
     subMenu: [
@@ -103,7 +103,18 @@ export const menu = [
     text: '材料管理',
     target: '/',
     icon: <SettingsApplicationsRounded color="inherit" fontSize="large" />,
-    subMenu: [],
+    subMenu: [
+      {
+        text: '供應商履歷',
+        target: '/',
+        subMenu: [],
+      },
+      {
+        text: '盤點履歷',
+        target: '/',
+        subMenu: [],
+      },
+    ],
   },
 ];
 
