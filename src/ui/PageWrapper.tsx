@@ -110,7 +110,7 @@ export const menu = [
         subMenu: [],
       },
       {
-        text: '盤點履歷',
+        text: '盤點作業',
         target: '/',
         subMenu: [],
       },
