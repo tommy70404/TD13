@@ -8,6 +8,7 @@ import HomeWorkRounded from '@material-ui/icons/HomeWorkRounded';
 import SettingsApplicationsRounded from '@material-ui/icons/SettingsApplicationsRounded';
 import ExpandMoreRounded from '@material-ui/icons/ExpandMoreRounded';
 import ExpandLessRounded from '@material-ui/icons/ExpandLessRounded';
+import * as MuiIcons from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Box,
@@ -32,6 +33,10 @@ interface IPageWrapperProps {
 
 const useStyles = makeStyles(
   theme => ({
+    '@keyframes slide': {
+      from: {transform: 'translateX(200%)'},
+      to: {transform: 'translateX(-100%)'}
+  },
     header: {
       color: '#424242',
     },
@@ -65,6 +70,23 @@ const useStyles = makeStyles(
       height: '100vh',
       zIndex: -1,
     },
+    boardcastWrapper: {
+      ...theme.shape,
+      width: 600,
+      height: 50,
+      background: 'rgba(255, 255, 255, 0.9)',
+      marginLeft: 'auto',
+    },
+    boardcastSignal: {
+      width: 50,
+    },
+    boardcastTextContainer: {
+      position:'relative',
+      overflow: 'hidden',
+      '& > *' : {
+        animation: '$slide 10s linear infinite'
+      }
+    }
   }),
   { name: 'PageWrapper' },
 );
@@ -142,6 +164,16 @@ export const PageWrapper = ({ title }: IPageWrapperProps) => {
             {/* <IconButton onClick={() => setFull(prev => !prev)} style={{ visibility: 'hidden' }}>
             {(isFull && <FullscreenExitIcon />) || <FullscreenIcon />}
           </IconButton> */}
+            <Grid item container xs="auto" wrap="nowrap" className={classes.boardcastWrapper}>
+              <Grid item container xs="auto" justify="center" alignItems="center" className={classes.boardcastSignal}>
+                <MuiIcons.WarningRounded color="error" fontSize="large" />
+              </Grid>
+              <Grid item container alignItems="center" className={classes.boardcastTextContainer}>
+                <Typography color="error" variant="h5">
+                  目前有 2 項 TD 位置狀態需檢查。
+                </Typography>
+              </Grid>
+            </Grid>
           </Grid>
         </Box>
       </AppBar>

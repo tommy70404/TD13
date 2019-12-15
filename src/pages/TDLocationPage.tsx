@@ -169,7 +169,7 @@ export const TDLocationPage = () => {
       const cpPrev = [...prev];
       cpPrev.forEach(section => {
         section.item.forEach(i => {
-          i.time = i.time > 0 && i.time - 100 > 0 ? i.time - 100 : 0;
+          i.time = i.time > 0 && i.time - 1 > 0 ? i.time - 1 : 0;
         });
       });
       return cpPrev;
