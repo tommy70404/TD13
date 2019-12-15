@@ -91,7 +91,13 @@ export const menu = [
     text: 'TD 管理',
     target: '/',
     icon: <ViewListRounded color="inherit" fontSize="large" />,
-    subMenu: [],
+    subMenu: [
+      {
+        text: '位置圖',
+        target: '/TD/locations',
+        subMenu: [],
+      },
+    ],
   },
   {
     text: '廠商管理',
