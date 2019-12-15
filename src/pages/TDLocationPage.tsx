@@ -23,11 +23,11 @@ const useStyles = makeStyles(
       ...theme.shape,
       minHeight: 400,
       position: 'relative',
-      border: 'dashed 6px #9b9b9b',
+      border: 'dashed 4px #9b9b9b',
       padding: theme.spacing(4, 2.5),
       transition: '.3s all ease-in-out',
       '&.active': {
-        border: `solid 6px ${theme.palette.primary.main}`,
+        border: `solid 4px ${theme.palette.primary.main}`,
         '& $sectionTitle': {
           background: `${theme.palette.primary.main}`,
         },
@@ -53,15 +53,15 @@ const useStyles = makeStyles(
       padding: 0,
       color: 'white',
       boxSizing: 'border-box',
-      border: `solid 6px transparent`,
+      border: `solid 4px transparent`,
       background: '#9b9b9b',
-      minWidth: 120,
+      minWidth: 90,
       maxHeight: 50,
       '&:hover': {
         background: 'white',
         color: theme.palette.primary.main,
         transition: '.3s all ease-in-out',
-        border: `solid 6px ${theme.palette.primary.main}`,
+        border: `solid 4px ${theme.palette.primary.main}`,
       },
       '&.warning': {
         background: '#d0021b',
@@ -69,7 +69,7 @@ const useStyles = makeStyles(
           background: 'white',
           color: '#d0021b',
           transition: '.3s all ease-in-out',
-          border: `solid 6px #d0021b`,
+          border: `solid 4px #d0021b`,
         },
       },
     },
@@ -89,7 +89,7 @@ const useStyles = makeStyles(
         '&:hover': {
           background: darken('#d0021b', 0.3),
           transition: '.3s all ease-in-out',
-          border: `solid 6px #d0021b`,
+          border: `solid 4px #d0021b`,
         },
       },
     },
@@ -222,6 +222,29 @@ export const TDLocationPage = () => {
     });
   };
 
+  const renderRouteView = () => {
+    switch (pageInfo.route) {
+      case 'list':
+        return renderList();
+      case 'section':
+        return renderSingleSection();
+
+      default:
+        return renderList();
+    }
+  };
+
+  const renderList = () => (
+    <Grid container justify="center" alignItems="flex-start" spacing={2}>
+      <Grid item container xs={12} justify="flex-end">
+        <img src={require('../assets/img/navigator.png')} alt="navigator" />
+      </Grid>
+      <Grid item container xs={12} spacing={3} alignItems="stretch">
+        {sections.map(renderSection)}
+      </Grid>
+    </Grid>
+  );
+
   const renderSection = (section: typeof sections[0]) => {
     return (
       <Grid item xs={section.size as any} container key={section.id}>
@@ -236,7 +259,7 @@ export const TDLocationPage = () => {
           // onBlur={handleSectionBlur}
         >
           <div className={classes.sectionTitle} onClick={() => handleSectionNaivgate(section.id)}>
-            <Typography variant="h6">{section.title}</Typography>
+            <Typography variant="h5">{section.title}</Typography>
           </div>
           <Grid
             item
@@ -247,7 +270,7 @@ export const TDLocationPage = () => {
             alignItems="flex-start"
             alignContent="flex-start"
             wrap="wrap"
-            spacing={2}
+            spacing={1}
             style={{ maxHeight: section.size === 4 ? 550 : 350 }}
           >
             {section.item.map((t, i) => (
@@ -261,7 +284,7 @@ export const TDLocationPage = () => {
                     }),
                   }}
                   paperProps={{
-                    style: { maxWidth: 300 },
+                    style: { maxWidth: 280 },
                   }}
                 >
                   <Grid container justify="center" spacing={1}>
@@ -286,29 +309,6 @@ export const TDLocationPage = () => {
       </Grid>
     );
   };
-
-  const renderRouteView = () => {
-    switch (pageInfo.route) {
-      case 'list':
-        return renderList();
-      case 'section':
-        return renderSingleSection();
-
-      default:
-        return renderList();
-    }
-  };
-
-  const renderList = () => (
-    <Grid container justify="center" alignItems="flex-start" spacing={2}>
-      <Grid item container xs={12} justify="flex-end">
-        <img src={require('../assets/img/navigator.png')} alt="navigator" />
-      </Grid>
-      <Grid item container xs={12} spacing={3} alignItems="stretch">
-        {sections.map(renderSection)}
-      </Grid>
-    </Grid>
-  );
 
   const renderSingleSection = () => {
     const targetSection = sections.find(s => s.id === pageInfo.curretnSection);
@@ -338,7 +338,7 @@ export const TDLocationPage = () => {
                       }),
                     }}
                     paperProps={{
-                      style: { maxWidth: 300 },
+                      style: { maxWidth: 280 },
                     }}
                   >
                     <Grid container justify="center" spacing={1}>

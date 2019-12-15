@@ -26,7 +26,7 @@ const useStyles = makeStyles(
     },
     popContentWrapper: {
       width: 'auto',
-      padding: 5,
+      padding: '12px 6px',
     },
   }),
   { name: 'PopField' },
@@ -57,7 +57,7 @@ export const PopField = ({ windowTitle, btnLabel, buttonProps, paperProps, ...pr
             <Close color="inherit" />
           </IconButton>
         </Grid>
-        <Grid item xs={12} className={classes.popContentWrapper} style={{ width: 200 }} onClick={handleClose}>
+        <Grid item xs={12} className={classes.popContentWrapper}  onClick={handleClose}>
           {props.children}
         </Grid>
       </Grid>

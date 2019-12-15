@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { useHistory } from 'react-router-dom';
 import MenuRounded from '@material-ui/icons/MenuRounded';
@@ -26,6 +26,7 @@ import {
 } from '@material-ui/core';
 
 import background from '../assets/img/background.png';
+import { fmtLocalDate } from '../utils/date';
 
 interface IPageWrapperProps {
   title: string;
@@ -34,9 +35,9 @@ interface IPageWrapperProps {
 const useStyles = makeStyles(
   theme => ({
     '@keyframes slide': {
-      from: {transform: 'translateX(200%)'},
-      to: {transform: 'translateX(-100%)'}
-  },
+      from: { transform: 'translateX(50%)' },
+      to: { transform: 'translateX(-100%)' },
+    },
     header: {
       color: '#424242',
     },
@@ -81,15 +82,17 @@ const useStyles = makeStyles(
       width: 50,
     },
     boardcastTextContainer: {
-      position:'relative',
+      position: 'relative',
       overflow: 'hidden',
-      '& > *' : {
-        animation: '$slide 10s linear infinite'
-      }
-    }
+      '& > *': {
+        animation: '$slide 25s linear infinite',
+      },
+    },
   }),
   { name: 'PageWrapper' },
 );
+
+const boardcasts = ['目前有 2 項 TD 位置狀態需檢查', 'TD 13 耐火材管理系統', '當前使用者 Jack'];
 
 export const menu = [
   {
@@ -147,8 +150,17 @@ export const menu = [
 ];
 
 export const PageWrapper = ({ title }: IPageWrapperProps) => {
-  const [state, setstate] = useState({ menu: false });
+  const [state, setstate] = useState({ menu: false, systemTime: Date.now() });
   const classes = useStyles();
+
+  useEffect(() => {
+    const timeworker = setInterval(() => {
+      setstate(prev => ({ ...prev, systemTime: Date.now() }));
+    });
+    return () => {
+      clearInterval(timeworker);
+    };
+  }, []);
 
   return (
     <>
@@ -169,15 +181,18 @@ export const PageWrapper = ({ title }: IPageWrapperProps) => {
                 <MuiIcons.WarningRounded color="error" fontSize="large" />
               </Grid>
               <Grid item container alignItems="center" className={classes.boardcastTextContainer}>
-                <Typography color="error" variant="h5">
-                  目前有 2 項 TD 位置狀態需檢查。
+                <Typography color="error" variant="h5" noWrap style={{ textOverflow: 'initial', overflow: 'visible' }}>
+                  {boardcasts.join('　　　　　') +
+                    '　　　　　' +
+                    '當前時間' +
+                    fmtLocalDate('YYYY/MM/DD HH:mm:ss', state.systemTime)}
                 </Typography>
               </Grid>
             </Grid>
           </Grid>
         </Box>
       </AppBar>
-      <Drawer anchor="left" open={state.menu} onClose={() => setstate({ menu: false })}>
+      <Drawer anchor="left" open={state.menu} onClose={() => setstate(prev => ({ ...prev, menu: false }))}>
         <List className={classes.list}>
           {menu.map(m => (
             <MenuItem key={m.text} item={m} />
