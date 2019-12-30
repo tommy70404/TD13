@@ -106,7 +106,7 @@ export const menu = [
         subMenu: [],
       },
       {
-        text: '查詢維護單',
+        text: '查詢維護單(空)',
         target: '/maintenance/menu',
         subMenu: [],
       },
@@ -125,7 +125,7 @@ export const menu = [
     ],
   },
   {
-    text: '廠商管理',
+    text: '廠商管理(空)',
     target: '/',
     icon: <HomeWorkRounded color="inherit" fontSize="large" />,
     subMenu: [],
@@ -136,12 +136,12 @@ export const menu = [
     icon: <SettingsApplicationsRounded color="inherit" fontSize="large" />,
     subMenu: [
       {
-        text: '供應商履歷',
+        text: '供應商履歷(空)',
         target: '/',
         subMenu: [],
       },
       {
-        text: '盤點作業',
+        text: '盤點作業(空)',
         target: '/',
         subMenu: [],
       },

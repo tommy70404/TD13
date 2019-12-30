@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import DateFnsUtils from '@date-io/date-fns';
-import { CssBaseline } from '@material-ui/core';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 import { FormPage } from './pages/FormPage';
+import { CssBaseline } from './ui/CssBaseline';
 import { AppThemeProvider } from './ui/themeProvider';
 import { FormV2Page } from './pages/FormV2Page';
 import { FormMenuPage } from './pages/FormMenuPage';
