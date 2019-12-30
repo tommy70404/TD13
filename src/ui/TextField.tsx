@@ -1,6 +1,9 @@
-import React from 'react';
-import { Grid, Typography, Box, TextField, makeStyles } from '@material-ui/core';
+import React, { useState } from 'react';
+import RawNumPad from 'react-numpad';
+import { Grid, Typography, Box, TextField, makeStyles, useTheme } from '@material-ui/core';
 import clsx from 'clsx';
+
+const NumPad: any = RawNumPad;
 
 type IMultiTextFieldProps = {
   label?: string;
@@ -32,6 +35,20 @@ const useStyles = makeStyles(
         boxSizing: 'border-box',
         height: 45,
       },
+      '& input': {
+        padding: '14px 8px',
+        height: 45,
+        width: '100%',
+        fontSize: '1.4rem',
+        boxSizing: 'border-box',
+        color: theme.palette.text.primary,
+        border: `1px solid ${theme.palette.grey[400]}`,
+        borderRadius: theme.shape.borderRadius,
+        background: '#fafafa',
+        '&::placeholder': {
+          color: theme.palette.grey[400],
+        },
+      },
     },
     'field-dense': {
       '& .MuiInputBase-input': {
@@ -51,7 +68,7 @@ const useStyles = makeStyles(
 export const MultiTextField = ({
   label,
   onChange,
-  state,
+  // state,
   fields,
   vertical = false,
   textCenter = false,
@@ -59,10 +76,38 @@ export const MultiTextField = ({
   inputProps,
   ...props
 }: IMultiTextFieldProps) => {
+  const [state, setstate] = useState<number[]>([]);
   const classes = useStyles();
+  const theme = useTheme();
 
-  const handleChange = (k: string) => (e: any) => {
-    onChange && onChange(k)(e.target.value);
+  // const handleChange = (k: string) => (e: any) => {
+  //   onChange && onChange(k)(e.target.value);
+  // };
+  const handleChange = (o: number) => (v: any) => {
+    setstate(prev => {
+      prev.splice(o, 1, v);
+      return [...prev];
+    });
+  };
+
+  const padTheme = {
+    header: {
+      primaryColor: theme.palette.primary.main,
+      secondaryColor: theme.palette.divider,
+      highlightColor: '#FFC107',
+      backgroundColor: theme.palette.primary.main,
+    },
+    body: {
+      primaryColor: theme.palette.primary.main,
+      secondaryColor: theme.palette.primary.main,
+      highlightColor: '#FFC107',
+      backgroundColor: '#f9f9f9',
+    },
+    panel: {
+      backgroundColor: theme.palette.primary.main,
+    },
+    global: {
+    }
   };
 
   return (
@@ -95,13 +140,17 @@ export const MultiTextField = ({
                   </Grid>
                 )}
                 <Grid item xs>
-                  <TextField
-                    // value={state[label + '-' + idx] || ''}
-                    defaultValue={(state && state[label + '-' + idx]) || ''}
+                  <NumPad.Number
+                    theme={padTheme}
+                    value={state[idx]}
+                    // defaultValue={(state && state[label + '-' + idx]) || ''}
                     variant="outlined"
                     placeholder={f.placeholder}
-                    onBlur={handleChange(label + '-' + idx)}
+                    onChange={handleChange(idx)}
+                    // onBlur={handleChange(label + '-' + idx)}
+                    position="center"
                     inputProps={inputProps}
+                    sync
                     {...props}
                   />
                 </Grid>
