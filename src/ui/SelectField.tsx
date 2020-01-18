@@ -22,15 +22,20 @@ const useStyles = makeStyles(
   theme => ({
     fieldBase: {
       width: '100%',
-      // minWidth: 150,
+      minWidth: 100,
       '& .MuiSelect-root': {
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: theme.palette.background.paper,
       },
     },
     selectField: {
       '& .MuiInputBase-input': {
         textAlign: 'center',
         height: 'auto',
+        color: theme.palette.primary.main,
+      },
+      '& .MuiSelect-icon': {
+        color: theme.palette.primary.main,
+        right: 0,
       },
       '& fieldset': {
         border: 'none',
@@ -60,7 +65,7 @@ export const SelectField = ({
 }: ISelectFieldField) => {
   const classes = useStyles();
 
-  const handleClick = (e: any) => {
+  const handleChange = (e: any) => {
     onChange && onChange(e.target.value);
   };
 
@@ -77,7 +82,7 @@ export const SelectField = ({
         defaultValue={value || ''}
         displayEmpty
         variant="outlined"
-        onClick={handleClick}
+        onChange={handleChange}
         className={clsx(classes.fieldBase, { [classes.selectField]: !border, [classes['field-dense']]: dense })}
         {...props}
       >

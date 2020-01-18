@@ -106,6 +106,11 @@ export const menu = [
         subMenu: [],
       },
       {
+        text: '工作紀錄單',
+        target: '/maintenance/work_log',
+        subMenu: [],
+      },
+      {
         text: '查詢維護單(空)',
         target: '/maintenance/menu',
         subMenu: [],

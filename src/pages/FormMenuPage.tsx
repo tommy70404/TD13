@@ -19,7 +19,7 @@ const useStyles = makeStyles(
 );
 
 const OPTIONS = [
-  { label: 'B123', to: '/maintenance/td-menu/B123' },
+  { label: 'B123', to: '/maintenance/td_menu/B123' },
   { label: 'S123', to: '' },
   { label: 'S45', to: '' },
   { label: 'S67', to: '' },

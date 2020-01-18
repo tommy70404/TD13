@@ -11,6 +11,9 @@ import { FormMenuPage } from './pages/FormMenuPage';
 import { TDListPage } from './pages/TDListPage';
 import { TDLocationListPage } from './pages/TDLocationListPage';
 import { TDLocationPage } from './pages/TDLocationPage';
+import { WorkLogMenuPage } from './pages/workLog/WorkLogMenuPage';
+import { WorkLogFormMenuPage } from './pages/workLog/WorkLogFormMenuPage';
+import { WorkLogFormPage } from './pages/workLog/WorkLogFormPage';
 
 function App() {
   // useEffect(() => {
@@ -51,21 +54,16 @@ function App() {
             {/* <Route path={['/form_1']}>
               <FormPage />
             </Route> */}
-            <Route path={['/form/:id']}>
-              <FormV2Page />
-            </Route>
-            <Route path={['/', '/maintenance/menu']} exact>
-              <FormMenuPage />
-            </Route>
-            <Route path={['/maintenance/td-menu/:id']}>
-              <TDListPage />
-            </Route>
-            <Route path={['/TD/locations']} exact>
-              <TDLocationListPage />
-            </Route>
-            <Route path={['/TD/locations/:id']} exact>
-              <TDLocationPage />
-            </Route>
+            <Route path={['/form/:id']} exact component={FormV2Page} />
+
+            <Route path={['/', '/maintenance/menu']} exact component={FormMenuPage} />
+            <Route path={['/maintenance/work_log']} exact component={WorkLogMenuPage} />
+            <Route path={['/maintenance/work_log/:id/menu']} exact component={WorkLogFormMenuPage} />
+            <Route path={['/maintenance/work_log/:id/form']} exact component={WorkLogFormPage} />
+            <Route path={['/maintenance/td_menu/:id']} component={TDListPage} />
+
+            <Route path={['/TD/locations']} exact component={TDLocationListPage} />
+            <Route path={['/TD/locations/:id']} exact component={TDLocationPage} />
           </Router>
         </MuiPickersUtilsProvider>
       </CssBaseline>
