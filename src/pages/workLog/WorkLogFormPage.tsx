@@ -22,7 +22,7 @@ const useStyles = makeStyles(
     },
     cardContainer: {
       marginTop: theme.spacing(3),
-      minHeight: 'calc(100vh - 200px)',
+      minHeight: 'calc(100vh - 370px)',
     },
     panel: {
       position: 'relative',
@@ -31,11 +31,18 @@ const useStyles = makeStyles(
       margin: theme.spacing(1.5, 0),
       // '& .MuiExpansionPanel-root.Mui-disabled': {}
     },
-    divider: {
-      margin: theme.spacing(3, 0),
+    dashedDivider: {
+      margin: theme.spacing(2, 0),
       border: 0,
       borderBottomWidth: 2,
       borderBottomStyle: 'dashed',
+      borderColor: theme.palette.primary.main,
+    },
+    solidDivider: {
+      margin: theme.spacing(2, 0),
+      border: 0,
+      borderBottomWidth: 2,
+      borderBottomStyle: 'solid',
       borderColor: theme.palette.primary.main,
     },
     addMore: {
@@ -62,6 +69,16 @@ const useStyles = makeStyles(
         lineHeight: 0.8,
         margin: 0,
       },
+    },
+    footer: {
+      margin: theme.spacing(1, 0),
+    },
+    btn: {
+      fontWeight: theme.typography.fontWeightBold,
+      fontSize: theme.typography.h6.fontSize,
+      color: theme.palette.grey[700],
+      width: 226,
+      height: 56,
     },
   }),
   { name: 'WorkLogFormPage' },
@@ -91,7 +108,7 @@ const alarmBody = `
 `;
 
 export const WorkLogFormPage = () => {
-  const [panelList, setPanelList] = useState<IPanel[]>([]);
+  const [panelList, setPanelList] = useState<IPanel[]>([{ id: Date.now(), workType: 0 }]);
 
   const classes = useStyles();
   const history = useHistory();
@@ -120,6 +137,45 @@ export const WorkLogFormPage = () => {
   const renderBody = (panel: IPanel) => {
     switch (panel.workType) {
       case 1:
+        return (
+          <Grid item container xs={12} wrap="nowrap" justify="space-between" alignItems="center" spacing={3}>
+            <Grid item xs>
+              <MultiTextField
+                label="送修序號"
+                // state={state}
+                // onChange={()=>()}
+                fields={[{ placeholder: 'YYYY-MM-NNN' }]}
+                vertical
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs>
+              <DateField label="送出時間" placeholder="YYYY-MM-DD" withDayTime />
+            </Grid>
+            <Grid item xs>
+              <MultiTextField
+                label="殘剛噸數"
+                // state={state}
+                // onChange={()=>()}
+                fields={[{ placeholder: 'NN' }]}
+                vertical
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs>
+              <DateField label="S/N 拆除時間" placeholder="YYYY-MM-DD" withDayTime />
+            </Grid>
+          </Grid>
+        );
+      case 2:
+        return (
+          <Grid item container xs={12} wrap="nowrap" justify="space-between" alignItems="center" spacing={3}>
+            <Grid item xs={4}>
+              <DateField label="S/N 拆除時間" placeholder="YYYY-MM-DD" withDayTime />
+            </Grid>
+          </Grid>
+        );
+      case 3:
         return (
           <Grid item container xs={12} wrap="nowrap" justify="space-between" alignItems="center" spacing={3}>
             <Grid item xs>
@@ -200,7 +256,7 @@ export const WorkLogFormPage = () => {
                     </Grid>
                   </Grid>
                   {/* header end */}
-                  <hr className={classes.divider} />
+                  <hr className={classes.dashedDivider} />
                   {/* body start */}
                   {renderBody(panel)}
                   {/* body end */}
@@ -222,6 +278,28 @@ export const WorkLogFormPage = () => {
             </Grid>
           </Grid>
           {renderAlarm()}
+          <hr className={classes.solidDivider} />
+
+          {/* footer */}
+          <Grid container justify="space-between" className={classes.footer}>
+            <Grid item container sm="auto" spacing={3} style={{ width: 'auto' }}>
+              <Grid item>
+                <Button variant="contained" className={classes.btn}>
+                  取消
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button variant="contained" className={classes.btn} style={{ backgroundColor: '#78b532' }}>
+                  送出
+                </Button>
+              </Grid>
+            </Grid>
+            <Grid item sm="auto" style={{ width: 'auto' }}>
+              <Button color="primary" variant="contained" className={classes.btn}>
+                儲存
+              </Button>
+            </Grid>
+          </Grid>
         </Container>
       </Box>
     </>

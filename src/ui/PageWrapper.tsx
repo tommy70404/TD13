@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import { useHistory } from 'react-router-dom';
-import MenuRounded from '@material-ui/icons/MenuRounded';
-import AssignmentIndRounded from '@material-ui/icons/AssignmentIndRounded';
-import ViewListRounded from '@material-ui/icons/ViewListRounded';
-import HomeWorkRounded from '@material-ui/icons/HomeWorkRounded';
-import SettingsApplicationsRounded from '@material-ui/icons/SettingsApplicationsRounded';
-import ExpandMoreRounded from '@material-ui/icons/ExpandMoreRounded';
-import ExpandLessRounded from '@material-ui/icons/ExpandLessRounded';
+import {
+  MenuRounded,
+  AssignmentIndRounded,
+  ViewListRounded,
+  HomeWorkRounded,
+  SettingsApplicationsRounded,
+  ExpandMoreRounded,
+  ExpandLessRounded,
+  MeetingRoomRounded,
+  AccountCircleRounded,
+} from '@material-ui/icons';
 import * as MuiIcons from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -22,11 +26,13 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
+  Avatar,
   Collapse,
 } from '@material-ui/core';
 
 import background from '../assets/img/background.png';
 import { fmtLocalDate } from '../utils/date';
+import { thinScrollbarStyle } from './helpers/styleHelpers';
 
 interface IPageWrapperProps {
   title: string;
@@ -41,10 +47,15 @@ const useStyles = makeStyles(
     header: {
       color: '#424242',
     },
-    list: {
-      paddingTop: theme.spacing(3),
-      height: '100%',
+    drawer: {
+      ...thinScrollbarStyle,
+      minHeight: '100vh',
+      overflowY: 'scroll',
       background: '#9b9b9b',
+    },
+    list: {
+      position: 'relative',
+      paddingTop: theme.spacing(3),
       width: 300,
     },
     listItem: {
@@ -55,10 +66,19 @@ const useStyles = makeStyles(
       '& p:link': {
         textDecoration: 'none',
       },
-      '&:hover': {},
+      '&:hover': {
+        backgroundColor: theme.palette.primary.main,
+        color: 'white',
+      },
     },
     nested: {
       paddingLeft: 62,
+      backgroundColor: theme.palette.grey[300],
+      color: theme.palette.grey[800],
+    },
+    activeItme: {
+      backgroundColor: theme.palette.primary.main,
+      color: 'white',
     },
     background: {
       background: `url(${background})`,
@@ -88,6 +108,21 @@ const useStyles = makeStyles(
         animation: '$slide 25s linear infinite',
       },
     },
+    footer: {
+      position: 'absolute',
+      bottom: 30,
+      width: '100%',
+    },
+    divider: {
+      margin: theme.spacing(2, 2),
+      backgroundColor: theme.palette.grey[300],
+    },
+    accountTitle: {
+      display: 'flex',
+      marginLeft: theme.spacing(1),
+      alignItems: 'center',
+      color: 'white',
+    },
   }),
   { name: 'PageWrapper' },
 );
@@ -96,12 +131,12 @@ const boardcasts = ['目前有 2 項 TD 位置狀態需檢查', 'TD 13 耐火材
 
 export const menu = [
   {
-    text: '維護單管理',
-    target: '',
+    text: '修護單管理',
+    target: '/',
     icon: <AssignmentIndRounded color="inherit" fontSize="large" />,
     subMenu: [
       {
-        text: '新增 / 修改維護單',
+        text: '新增修護單',
         target: '/maintenance/menu',
         subMenu: [],
       },
@@ -112,7 +147,7 @@ export const menu = [
       },
       {
         text: '查詢維護單(空)',
-        target: '/maintenance/menu',
+        target: '/',
         subMenu: [],
       },
     ],
@@ -125,6 +160,11 @@ export const menu = [
       {
         text: '位置圖',
         target: '/TD/locations',
+        subMenu: [],
+      },
+      {
+        text: 'TD狀態列表',
+        target: '/TD/status',
         subMenu: [],
       },
     ],
@@ -152,16 +192,24 @@ export const menu = [
       },
     ],
   },
+  {
+    text: '帳號登出',
+    target: '/',
+    icon: <MeetingRoomRounded color="inherit" fontSize="large" />,
+    subMenu: [],
+  },
 ];
 
 export const PageWrapper = ({ title }: IPageWrapperProps) => {
   const [state, setstate] = useState({ menu: false, systemTime: Date.now() });
+  const history = useHistory();
+
   const classes = useStyles();
 
   useEffect(() => {
     const timeworker = setInterval(() => {
       setstate(prev => ({ ...prev, systemTime: Date.now() }));
-    });
+    }, 1000);
     return () => {
       clearInterval(timeworker);
     };
@@ -198,11 +246,26 @@ export const PageWrapper = ({ title }: IPageWrapperProps) => {
         </Box>
       </AppBar>
       <Drawer anchor="left" open={state.menu} onClose={() => setstate(prev => ({ ...prev, menu: false }))}>
-        <List className={classes.list}>
-          {menu.map(m => (
-            <MenuItem key={m.text} item={m} />
-          ))}
-        </List>
+        <div className={classes.drawer}>
+          <List className={classes.list}>
+            {menu.map(m => (
+              <MenuItem key={m.text} item={m} route={history.location.pathname} />
+            ))}
+          </List>
+          <div className={classes.footer}>
+            <Divider className={classes.divider} />
+            <Grid container justify="center">
+              <Grid item xs="auto">
+                <Avatar>
+                  <AccountCircleRounded style={{ width: 40, height: 40 }} />
+                </Avatar>
+              </Grid>
+              <Typography variant="h6" className={classes.accountTitle}>
+                Jack
+              </Typography>
+            </Grid>
+          </div>
+        </div>
       </Drawer>
       <div className={classes.background} />
     </>
@@ -213,22 +276,36 @@ interface IMenuItem {
   text: string;
   target: string;
   icon?: JSX.Element;
-  subMenu?: IMenuItem[];
+  subMenu: IMenuItem[];
 }
 
 interface IMenuItemProps {
   item: IMenuItem;
+  route: string;
   nested?: boolean;
 }
 
 function MenuItem(props: IMenuItemProps) {
-  const [subMenu, setSubmenu] = useState(false);
+  const isInSubmenu = Boolean(
+    props.route === '/'
+      ? false
+      : props.item.subMenu.find(
+        sub =>
+          sub.target ===
+            props.route
+              .split('/')
+              .splice(0, 3)
+              .join('/'),
+      ),
+  );
+  const [showSubMenu, setShowSubmenu] = useState(isInSubmenu);
   const { item, nested = false } = props;
   const classes = useStyles();
   const history = useHistory();
+  const isActiveItem = useRef(Boolean(item.target.split('/').pop() === props.route.split('/')[2]));
 
   const handleNavClick = (target: string) => {
-    setSubmenu(false);
+    setShowSubmenu(false);
     history.push(target);
   };
 
@@ -238,18 +315,18 @@ function MenuItem(props: IMenuItemProps) {
         <ListItem
           button
           onClick={() => {
-            setSubmenu(prev => !prev);
+            setShowSubmenu(prev => !prev);
           }}
           className={clsx(classes.listItem, { [classes.nested]: nested })}
         >
           {item.icon && <ListItemIcon style={{ color: 'white' }}>{item.icon}</ListItemIcon>}
           <ListItemText disableTypography>{item.text}</ListItemText>
-          {subMenu ? <ExpandLessRounded /> : <ExpandMoreRounded />}
+          {showSubMenu ? <ExpandLessRounded /> : <ExpandMoreRounded />}
         </ListItem>
-        <Collapse in={subMenu} timeout="auto" unmountOnExit>
+        <Collapse in={showSubMenu} timeout="auto" unmountOnExit>
           <List>
             {item.subMenu.map((item, i) => (
-              <MenuItem key={i} item={item} nested />
+              <MenuItem key={i} item={item} route={props.route} nested />
             ))}
           </List>
         </Collapse>
@@ -260,7 +337,7 @@ function MenuItem(props: IMenuItemProps) {
   return (
     <ListItem
       button
-      className={clsx(classes.listItem, { [classes.nested]: nested })}
+      className={clsx(classes.listItem, { [classes.nested]: nested, [classes.activeItme]: isActiveItem.current })}
       onClick={() => handleNavClick(item.target)}
     >
       {item.icon && <ListItemIcon style={{ color: 'white' }}>{item.icon}</ListItemIcon>}
