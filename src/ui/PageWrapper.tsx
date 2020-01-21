@@ -137,7 +137,7 @@ export const menu = [
     subMenu: [
       {
         text: '新增修護單',
-        target: '/maintenance/menu',
+        target: '/maintenance/new',
         subMenu: [],
       },
       {

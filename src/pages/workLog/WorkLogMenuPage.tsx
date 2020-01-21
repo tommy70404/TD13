@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { PageWrapper } from '../../ui/PageWrapper';
 import { Box, Grid, Container, Typography } from '@material-ui/core';
 import { PaperButton } from '../../ui/Button';
+import { NavigatorBar } from '../../ui/NavigatorBar';
 
 const useStyles = makeStyles(
   theme => ({
@@ -41,13 +42,7 @@ export const WorkLogMenuPage = () => {
       <Box marginTop="12px" clone>
         <Container maxWidth="lg">
           {/* 1st section */}
-          <Grid container wrap="nowrap" justify="space-between" alignItems="center" spacing={3} className={classes.row}>
-            <Grid item container xs wrap="nowrap" alignItems="center">
-              <Typography color="primary" variant="h3">
-                工作紀錄單-工區選擇
-              </Typography>
-            </Grid>
-          </Grid>
+          <NavigatorBar title="工作紀錄單-工區選擇" />
           <Grid container justify="center" alignItems="center" spacing={3} className={classes.cardContainer}>
             {OPTIONS.map(o => (
               <Grid item key={o.label}>

@@ -8,12 +8,15 @@ import { CssBaseline } from './ui/CssBaseline';
 import { AppThemeProvider } from './ui/themeProvider';
 import { FormV2Page } from './pages/FormV2Page';
 import { FormMenuPage } from './pages/FormMenuPage';
-import { TDListPage } from './pages/TDListPage';
-import { TDLocationListPage } from './pages/TDLocationListPage';
-import { TDLocationPage } from './pages/TDLocationPage';
+import { TDListPage } from './pages/td/TDListPage';
+import { TDLocationListPage } from './pages/td/TDLocationListPage';
+import { TDLocationPage } from './pages/td/TDLocationPage';
 import { WorkLogMenuPage } from './pages/workLog/WorkLogMenuPage';
 import { WorkLogFormMenuPage } from './pages/workLog/WorkLogFormMenuPage';
 import { WorkLogFormPage } from './pages/workLog/WorkLogFormPage';
+import { TDStatusMenu } from './pages/td/TDStatusMenu';
+import { TDStatusList } from './pages/td/TDStatusList';
+import { TDHistoryList } from './pages/td/TDHistoryList';
 
 function App() {
   // useEffect(() => {
@@ -54,16 +57,20 @@ function App() {
             {/* <Route path={['/form_1']}>
               <FormPage />
             </Route> */}
-            <Route path={['/form/:id']} exact component={FormV2Page} />
 
-            <Route path={['/', '/maintenance/menu']} exact component={FormMenuPage} />
+            <Route path={['/', '/maintenance/new']} exact component={FormMenuPage} />
+            <Route path={['/maintenance/new/:section_id/menu']} component={TDListPage} />
+            <Route path={['/maintenance/new/:section_id/:td_id/form']} exact component={FormV2Page} />
+
             <Route path={['/maintenance/work_log']} exact component={WorkLogMenuPage} />
-            <Route path={['/maintenance/work_log/:id/menu']} exact component={WorkLogFormMenuPage} />
-            <Route path={['/maintenance/work_log/:id/form']} exact component={WorkLogFormPage} />
-            <Route path={['/maintenance/td_menu/:id']} component={TDListPage} />
+            <Route path={['/maintenance/work_log/:section_id/menu']} exact component={WorkLogFormMenuPage} />
+            <Route path={['/maintenance/work_log/:section_id/form']} exact component={WorkLogFormPage} />
 
             <Route path={['/TD/locations']} exact component={TDLocationListPage} />
-            <Route path={['/TD/locations/:id']} exact component={TDLocationPage} />
+            <Route path={['/TD/locations/:section_id']} exact component={TDLocationPage} />
+            <Route path={['/TD/status']} exact component={TDStatusMenu} />
+            <Route path={['/TD/status/:section_id']} exact component={TDStatusList} />
+            <Route path={['/TD/status/:section_id/:td_id']} exact component={TDHistoryList} />
           </Router>
         </MuiPickersUtilsProvider>
       </CssBaseline>

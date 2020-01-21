@@ -1,11 +1,10 @@
 import React from 'react';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { PageWrapper } from '../ui/PageWrapper';
-import { Box, Grid, Container, Typography, IconButton } from '@material-ui/core';
-import { PaperButton } from '../ui/Button';
+import { PageWrapper } from '../../ui/PageWrapper';
+import { Box, Grid, Container, Typography } from '@material-ui/core';
+import { PaperButton } from '../../ui/Button';
+import { NavigatorBar } from '../../ui/NavigatorBar';
 
 const useStyles = makeStyles(
   theme => ({
@@ -15,24 +14,21 @@ const useStyles = makeStyles(
     },
     cardContainer: {
       height: 'calc(100vh - 200px)',
-      padding: '0 100px',
     },
   }),
-  { name: 'TDLocationListPage' },
+  { name: 'TDStatusMenu' },
 );
 
 const OPTIONS = [
-  { label: 'B123', to: '/TD/locations/B123' },
-  { label: 'S123', to: '/TD/locations/S123' },
-  { label: 'S45', to: '/TD/locations/S45' },
-  { label: 'S67', to: '/TD/locations/S67' },
+  { label: 'B123', to: '/TD/status/B123' },
+  { label: 'S123', to: '/TD/status/' },
+  { label: 'S45', to: '/TD/status/' },
+  { label: 'S67', to: '/TD/status/' },
 ];
 
-
-export const TDLocationListPage = () => {
+export const TDStatusMenu = () => {
   const classes = useStyles();
   const history = useHistory();
-  const { id } = useParams();
 
   const handleClick = (target: string) => {
     history.push(target);
@@ -44,13 +40,7 @@ export const TDLocationListPage = () => {
       <Box marginTop="12px" clone>
         <Container maxWidth="lg">
           {/* 1st section */}
-          <Grid container wrap="nowrap" justify="space-between" alignItems="center" spacing={3} className={classes.row}>
-            <Grid item container xs wrap="nowrap" alignItems="center">
-              <Typography color="primary" variant="h3">
-                位置圖
-              </Typography>
-            </Grid>
-          </Grid>
+          <NavigatorBar title="TD狀態-工區選擇" />
           <Grid container justify="center" alignItems="center" className={classes.cardContainer}>
             {OPTIONS.map(o => (
               <PaperButton onClick={() => handleClick(o.to)} key={o.label}>

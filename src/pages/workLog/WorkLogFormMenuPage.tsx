@@ -21,7 +21,7 @@ const useStyles = makeStyles(
 export const WorkLogFormMenuPage = () => {
   const classes = useStyles();
   const history = useHistory();
-  const { id } = useParams();
+  const { section_id } = useParams();
 
   const handleClick = (target: string) => {
     if (target) {
@@ -30,7 +30,7 @@ export const WorkLogFormMenuPage = () => {
   };
 
   const OPTIONS = [
-    { label: '工作紀錄單', to: `/maintenance/work_log/${id}/form` },
+    { label: '工作紀錄單', to: `/maintenance/work_log/${section_id}/form` },
     { label: '工作紀錄單\n(B1+B2)', to: '' },
     { label: '上線前檢查表', to: '' },
   ];

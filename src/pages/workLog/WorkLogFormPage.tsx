@@ -13,6 +13,7 @@ import { BorderFieldSkeleton } from '../../ui/BorderFieldSkeleton';
 import { AddCircleOutlineRounded, WarningRounded, CloseRounded } from '@material-ui/icons';
 import { MultiTextField } from '../../ui/TextField';
 import { DateField } from '../../ui/DateField';
+import { NavigatorBar } from '../../ui/NavigatorBar';
 
 const useStyles = makeStyles(
   theme => ({
@@ -22,7 +23,7 @@ const useStyles = makeStyles(
     },
     cardContainer: {
       marginTop: theme.spacing(3),
-      minHeight: 'calc(100vh - 370px)',
+      minHeight: 'calc(100vh - 400px)',
     },
     panel: {
       position: 'relative',
@@ -112,7 +113,7 @@ export const WorkLogFormPage = () => {
 
   const classes = useStyles();
   const history = useHistory();
-  // const { id } = useParams();
+  const { section_id } = useParams();
 
   const handleSelectChange = (o: number) => (v: number) => {
     setPanelList((prev: any) => {
@@ -132,6 +133,10 @@ export const WorkLogFormPage = () => {
       prev.splice(o, 1);
       return [...prev];
     });
+  };
+
+  const handleNavigate = () => {
+    window.location.href = `/maintenance/work_log/${section_id}/menu`;
   };
 
   const renderBody = (panel: IPanel) => {
@@ -209,13 +214,15 @@ export const WorkLogFormPage = () => {
       <Box marginTop="12px" clone>
         <Container maxWidth="lg" style={{ position: 'relative' }}>
           {/* 1st section */}
-          <Grid container wrap="nowrap" justify="space-between" alignItems="center" spacing={3} className={classes.row}>
+          <NavigatorBar title="工作紀錄單&nbsp;:&nbsp;109/01/09-夜班" />
+
+          {/* <Grid container wrap="nowrap" justify="space-between" alignItems="center" spacing={3} className={classes.row}>
             <Grid item container xs wrap="nowrap" alignItems="center">
               <Typography color="primary" variant="h3">
                 工作紀錄單&nbsp;:&nbsp;109/01/09-夜班
               </Typography>
             </Grid>
-          </Grid>
+          </Grid> */}
           <Grid
             container
             justify="flex-start"
@@ -284,17 +291,22 @@ export const WorkLogFormPage = () => {
           <Grid container justify="space-between" className={classes.footer}>
             <Grid item container sm="auto" spacing={3} style={{ width: 'auto' }}>
               <Grid item>
-                <Button variant="contained" className={classes.btn}>
+                <Button variant="contained" onClick={handleNavigate} className={classes.btn}>
                   取消
                 </Button>
               </Grid>
               <Grid item>
-                <Button variant="contained" className={classes.btn} style={{ backgroundColor: '#78b532' }}>
+                <Button
+                  variant="contained"
+                  onClick={handleNavigate}
+                  className={classes.btn}
+                  style={{ backgroundColor: '#78b532' }}
+                >
                   送出
                 </Button>
               </Grid>
             </Grid>
-            <Grid item sm="auto" style={{ width: 'auto' }}>
+            <Grid item sm="auto" onClick={handleNavigate} style={{ width: 'auto' }}>
               <Button color="primary" variant="contained" className={classes.btn}>
                 儲存
               </Button>

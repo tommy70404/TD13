@@ -3,12 +3,13 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 
 import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles, lighten, darken } from '@material-ui/core/styles';
-import { PageWrapper } from '../ui/PageWrapper';
+import { PageWrapper } from '../../ui/PageWrapper';
 import { Box, Grid, Container, Typography, IconButton, Button } from '@material-ui/core';
-import { PaperButton } from '../ui/Button';
+import { PaperButton } from '../../ui/Button';
 import clsx from 'clsx';
-import { PopField } from '../ui/PopField';
-import { sec2time } from '../utils/timeHelper';
+import { PopField } from '../../ui/PopField';
+import { sec2time } from '../../utils/timeHelper';
+import { NavigatorBar } from '../../ui/NavigatorBar';
 
 const useStyles = makeStyles(
   theme => ({
@@ -162,7 +163,7 @@ export const TDLocationPage = () => {
   const [focusEl, setFocusEl] = useState();
   const classes = useStyles();
   const history = useHistory();
-  const { id } = useParams();
+  const { section_id } = useParams();
 
   function counter() {
     setSections((prev: typeof init_sections) => {
@@ -237,7 +238,7 @@ export const TDLocationPage = () => {
   const renderList = () => (
     <Grid container justify="center" alignItems="flex-start" spacing={2}>
       <Grid item container xs={12} justify="flex-end">
-        <img src={require('../assets/img/navigator.png')} alt="navigator" />
+        <img src={require('../../assets/img/navigator.png')} alt="navigator" />
       </Grid>
       <Grid item container xs={12} spacing={3} alignItems="stretch">
         {sections.map(renderSection)}
@@ -372,16 +373,18 @@ export const TDLocationPage = () => {
       <PageWrapper title="TD13 耐火材管理系統" />
       <Box marginTop="12px" clone>
         <Container maxWidth="lg">
+          <NavigatorBar title={`${section_id} TD 位置圖`} to="/TD/locations" />
+{/* 
           <Grid container wrap="nowrap" justify="space-between" alignItems="center" spacing={3} className={classes.row}>
             <Grid item container xs wrap="nowrap" alignItems="center">
               <IconButton size="small" onClick={handleBack}>
                 <KeyboardArrowLeft color="primary" fontSize="large" style={{ fontSize: '2.5rem' }} />
               </IconButton>
               <Typography color="primary" variant="h3">
-                {id} TD 位置圖
+                {section_id} TD 位置圖
               </Typography>
             </Grid>
-          </Grid>
+          </Grid> */}
           {renderRouteView()}
         </Container>
       </Box>

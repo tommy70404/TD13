@@ -1,10 +1,12 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+
+import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { PageWrapper } from '../ui/PageWrapper';
-import { Box, Grid, Container, Typography } from '@material-ui/core';
-import { PaperButton } from '../ui/Button';
-import { NavigatorBar } from '../ui/NavigatorBar';
+import { PageWrapper } from '../../ui/PageWrapper';
+import { Box, Grid, Container, Typography, IconButton } from '@material-ui/core';
+import { PaperButton } from '../../ui/Button';
+import { NavigatorBar } from '../../ui/NavigatorBar';
 
 const useStyles = makeStyles(
   theme => ({
@@ -14,21 +16,23 @@ const useStyles = makeStyles(
     },
     cardContainer: {
       height: 'calc(100vh - 200px)',
+      padding: '0 100px',
     },
   }),
-  { name: 'FormMenuPage' },
+  { name: 'TDLocationListPage' },
 );
 
 const OPTIONS = [
-  { label: 'B123', to: '/maintenance/new/B123/menu' },
-  { label: 'S123', to: '' },
-  { label: 'S45', to: '' },
-  { label: 'S67', to: '' },
+  { label: 'B123', to: '/TD/locations/B123' },
+  { label: 'S123', to: '/TD/locations/S123' },
+  { label: 'S45', to: '/TD/locations/S45' },
+  { label: 'S67', to: '/TD/locations/S67' },
 ];
 
-export const FormMenuPage = () => {
+export const TDLocationListPage = () => {
   const classes = useStyles();
   const history = useHistory();
+  const { id } = useParams();
 
   const handleClick = (target: string) => {
     history.push(target);
@@ -40,12 +44,12 @@ export const FormMenuPage = () => {
       <Box marginTop="12px" clone>
         <Container maxWidth="lg">
           {/* 1st section */}
-          <NavigatorBar title={`新增 / 修改修護單`} />
-
-          {/* <Grid container wrap="nowrap" justify="space-between" alignItems="center" spacing={3} className={classes.row}>
+          <NavigatorBar title="位置圖" to="/TD/locations" />
+          {/* 
+          <Grid container wrap="nowrap" justify="space-between" alignItems="center" spacing={3} className={classes.row}>
             <Grid item container xs wrap="nowrap" alignItems="center">
               <Typography color="primary" variant="h3">
-                新增 / 修改修護單
+                位置圖
               </Typography>
             </Grid>
           </Grid> */}
