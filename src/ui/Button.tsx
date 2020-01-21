@@ -25,7 +25,7 @@ const useStyles = makeStyles(
     },
     dense: {
       width: 220,
-      height: 80,
+      height: 55,
       padding: 0,
     },
   }),

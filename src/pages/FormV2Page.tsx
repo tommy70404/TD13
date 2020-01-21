@@ -30,6 +30,7 @@ import { FinishDataForm } from '../components/forms/formV2/FinishDataForm';
 import { DateField } from '../ui/DateField';
 import { PageWrapper } from '../ui/PageWrapper';
 import { PopTdInfoButton } from '../components/popup/PopTdInfoButton';
+import { NavigatorBar } from '../ui/NavigatorBar';
 
 const useStyles = makeStyles(
   theme => ({
@@ -102,8 +103,8 @@ export const FormV2Page = () => {
   // const [isFull, setFull] = useState(false);
   const classes = useStyles();
   const history = useHistory();
-  const { id } = useParams();
-  const [td, order] = (id && id.split('-')) || [];
+  const { section_id, td_id } = useParams();
+  // const [td, order] = (section_id && section_id.split('-')) || [];
   // const dataReducer = useReducer(dataReducers, {});
 
   // const handleChange = (k: string) => (v: any) => {
@@ -119,7 +120,25 @@ export const FormV2Page = () => {
       <Box padding="12px" clone>
         <Container maxWidth="lg">
           {/* 1st section */}
-          <Grid container wrap="nowrap" justify="space-between" alignItems="center" spacing={3} className={classes.row}>
+          <NavigatorBar title={`${section_id} TD-${td_id} 耐火材料內襯修護履歷`} to={`/maintenance/new/${section_id}/menu`}>
+            <Grid container justify="space-between" alignItems="center" spacing={3}>
+              <Grid item xs="auto" style={{ width: 186 }}>
+                <PopTdInfoButton />
+              </Grid>
+              <Grid item xs="auto" style={{ width: 186 }}>
+                <Button color="primary" variant="contained" fullWidth className={classes.flatBtn}>
+                  材料表
+                </Button>
+              </Grid>
+              <Grid item xs="auto" style={{ width: 186 }}>
+                <Button color="primary" variant="contained" fullWidth className={classes.flatBtn}>
+                  廠商代號
+                </Button>
+              </Grid>
+            </Grid>
+          </NavigatorBar>
+
+          {/* <Grid container wrap="nowrap" justify="space-between" alignItems="center" spacing={3} className={classes.row}>
             <Grid item container xs wrap="nowrap" alignItems="center">
               <IconButton
                 size="small"
@@ -132,21 +151,8 @@ export const FormV2Page = () => {
               <Typography color="primary" variant="h3">
                 {td} TD-{order} 耐火材料內襯修護履歷
               </Typography>
-            </Grid>
-            <Grid item xs="auto" style={{ width: 186 }}>
-              <PopTdInfoButton />
-            </Grid>
-            <Grid item xs="auto" style={{ width: 186 }}>
-              <Button color="primary" variant="contained" fullWidth className={classes.flatBtn}>
-                材料表
-              </Button>
-            </Grid>
-            <Grid item xs="auto" style={{ width: 186 }}>
-              <Button color="primary" variant="contained" fullWidth className={classes.flatBtn}>
-                廠商代號
-              </Button>
-            </Grid>
-          </Grid>
+            </Grid> */}
+
           {/* 2st section */}
           <Grid container justify="space-between" alignItems="center" spacing={3} className={classes.row}>
             {/* 1st row */}

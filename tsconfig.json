@@ -30,7 +30,8 @@
     "jsx": "react",
     "lib": [
       "es7",
-      "dom"
+      "dom",
+      "es2020.string"
     ],
     "allowJs": true,
     "strict": true,
