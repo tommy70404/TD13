@@ -33,7 +33,7 @@ export const MiscellaneousForm = () => {
     { key: '套環回收', spec: '', unit: 'PC' },
     { key: '氣環回收', spec: '', unit: 'PC' },
     { key: '滑板拆卸', spec: '', unit: 'KG' },
-  ].map(d => createBodyData(d));
+  ].map((d, idx) => createBodyData(d, idx));
 
   return (
     <SectionWrapper icon={<Build color="primary" fontSize="large" />} title="雜項施工">
@@ -44,13 +44,13 @@ export const MiscellaneousForm = () => {
   );
 };
 
-function createBodyData({ key = '', spec = '', unit = '' }) {
+function createBodyData({ key = '', spec = '', unit = '' }, idx: number) {
   return [
     key,
-    <SelectField dense options={venderOptions} />,
+    <SelectField dense options={venderOptions} key={idx} />,
     spec,
-    <MultiTextField dense textCenter fields={[{ placeholder: 'NNNNN' }]} />,
+    <MultiTextField dense textCenter fields={[{ placeholder: 'NNNNN' }]} key={idx} />,
     unit,
-    <MultiTextField dense textCenter fields={[{ placeholder: '' }]} />,
+    <MultiTextField dense textCenter fields={[{ placeholder: '' }]} key={idx} />,
   ];
 }

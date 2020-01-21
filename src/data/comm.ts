@@ -5,19 +5,9 @@ export const venderOptions = [
   { label: '東京', value: 'D' },
 ];
 
-export const materialOptions = [
-  { label: '正常' },
-  { label: '破碎' },
-  { label: '倒塌' },
-  { label: '融蝕' },
-];
+export const materialOptions = [{ label: '正常' }, { label: '破碎' }, { label: '倒塌' }, { label: '融蝕' }];
 
-export const repairReasonOptions = [
-  { label: '正常下線' },
-  { label: '崩落' },
-  { label: '熔毀' },
-  { label: '其他' },
-];
+export const repairReasonOptions = [{ label: '正常下線' }, { label: '崩落' }, { label: '熔毀' }, { label: '其他' }];
 
 export const repairTypeOptions = [
   { label: '小修' },
@@ -27,11 +17,28 @@ export const repairTypeOptions = [
   { label: '其他' },
 ];
 
-export const paintOptions = [
-  { label: '塗附' },
-  { label: '半噴' },
-  { label: '全噴' },
+export const paintOptions = [{ label: '塗附' }, { label: '半噴' }, { label: '全噴' }];
+
+export const userOptions = [
+  { label: '王大明', value: '王大明' },
+  { label: '孫小美', value: '孫小美' },
+  { label: '李大正', value: '李大正' },
+  { label: '陳小春', value: '陳小春' },
 ];
 
 export const spoutOptions = [{ label: '單片式' }, { label: '砌磚式' }];
+
 export const newOldOptions = [{ label: '新品' }, { label: '回收品' }];
+
+export const TdOptions = itemCreator(1, 41);
+
+function itemCreator(from: number, to: number) {
+  // if (to && from) {
+  const rangeCount = to - from + 1;
+  return Array(rangeCount)
+    .fill('')
+    .map((e, i) => {
+      const order = from + i > 9 ? `${from + i}` : `0${from + i}`;
+      return { label: order, value: order };
+    });
+}

@@ -24,17 +24,17 @@ const useStyles = makeStyles(
       width: '100%',
       minWidth: 100,
       '& .MuiSelect-root': {
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: 'transprent',
       },
     },
     selectField: {
       '& .MuiInputBase-input': {
         textAlign: 'center',
         height: 'auto',
-        color: theme.palette.primary.main,
+        color: theme.palette.text.primary,
       },
       '& .MuiSelect-icon': {
-        color: theme.palette.primary.main,
+        color: theme.palette.text.primary,
         right: 0,
       },
       '& fieldset': {

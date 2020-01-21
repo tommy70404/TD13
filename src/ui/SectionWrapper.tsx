@@ -17,8 +17,8 @@ const useStyles = makeStyles(
       marginRight: theme.spacing(2),
     },
     contentDiv: {
-      backgroundColor: theme.palette.grey[200],
-      padding: theme.spacing(5),
+      backgroundColor: theme.palette.background.paper,
+      // padding: theme.spacing(5),
       width: '100%',
       height: '100%',
     },

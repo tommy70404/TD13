@@ -32,8 +32,8 @@ const useStyles = makeStyles(
       },
     },
     row: {
-      '&:nth-of-type(odd)': {
-        backgroundColor: 'white',
+      '&:nth-of-type(even)': {
+        backgroundColor: theme.palette.grey[200],
       },
     },
   }),
@@ -47,7 +47,7 @@ export const Table = ({ headers, body }: ITableProps) => {
       <MuiTableHead className={classes.head}>
         <MuiTableRow>
           {headers.map(h => (
-            <MuiTableCell align="center" style={{ minWidth: h.width || undefined }} key={h.label}>
+            <MuiTableCell align="center" style={{ width: h.width || undefined }} key={h.label}>
               {h.label}
             </MuiTableCell>
           ))}

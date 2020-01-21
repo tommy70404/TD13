@@ -39,7 +39,7 @@ const useStyles = makeStyles(
         padding: '14px 8px',
         height: 45,
         width: '100%',
-        fontSize: '1.4rem',
+        fontSize: '1.2rem',
         boxSizing: 'border-box',
         color: theme.palette.text.primary,
         border: `1px solid ${theme.palette.grey[400]}`,
@@ -132,8 +132,8 @@ export const MultiTextField = ({
             >
               <Grid item container wrap="nowrap" alignItems="center" spacing={2}>
                 {f.prefix && (
-                  <Grid item xs>
-                    <Typography variant="h3" color="primary">
+                  <Grid item xs="auto">
+                    <Typography variant="h3" color="textPrimary">
                       {f.prefix}
                     </Typography>
                   </Grid>
@@ -154,8 +154,8 @@ export const MultiTextField = ({
                   />
                 </Grid>
                 {f.suffix && (
-                  <Grid item xs>
-                    <Typography variant="h3" color="primary">
+                  <Grid item xs="auto">
+                    <Typography variant="h5" color="textPrimary">
                       {f.suffix}
                     </Typography>
                   </Grid>

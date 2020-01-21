@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, HashRouter } from 'react-router-dom';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
@@ -53,7 +53,7 @@ function App() {
     <AppThemeProvider>
       <CssBaseline>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <BrowserRouter basename={process.env.PUBLIC_URL}>
+          <HashRouter basename={process.env.PUBLIC_URL} hashType="slash">
             <Router>
               {/* <Route path={['/form_1']}>
               <FormPage />
@@ -73,7 +73,7 @@ function App() {
               <Route path={['/TD/status/:section_id']} exact component={TDStatusList} />
               <Route path={['/TD/status/:section_id/:td_id']} exact component={TDHistoryList} />
             </Router>
-          </BrowserRouter>
+          </HashRouter>
         </MuiPickersUtilsProvider>
       </CssBaseline>
     </AppThemeProvider>

@@ -25,6 +25,7 @@ const useStyles = makeStyles(
         backgroundColor: theme.palette.background.paper,
       },
       '& .MuiInputBase-input': {
+        fontSize: '1.2rem',
         boxSizing: 'border-box',
         height: 45,
       },

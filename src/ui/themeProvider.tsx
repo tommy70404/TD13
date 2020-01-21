@@ -46,6 +46,9 @@ const appTheme = createMuiTheme({
     primary: {
       main: '#f5a623',
     },
+    text: {
+      primary:'#4a4a4a'
+    }
   },
   typography: {
     fontFamily: ['"Noto Sans TC"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'].join(','),
