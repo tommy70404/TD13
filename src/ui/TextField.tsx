@@ -29,7 +29,7 @@ const useStyles = makeStyles(
     },
     field: {
       '& .MuiInputBase-root': {
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: theme.palette.background.paper,
       },
       '& .MuiInputBase-input': {
         boxSizing: 'border-box',
@@ -44,7 +44,7 @@ const useStyles = makeStyles(
         color: theme.palette.text.primary,
         border: `1px solid ${theme.palette.grey[400]}`,
         borderRadius: theme.shape.borderRadius,
-        background: '#fafafa',
+        background: theme.palette.background.paper,
         '&::placeholder': {
           color: theme.palette.grey[400],
         },
@@ -106,8 +106,7 @@ export const MultiTextField = ({
     panel: {
       backgroundColor: theme.palette.primary.main,
     },
-    global: {
-    }
+    global: {},
   };
 
   return (

@@ -22,7 +22,7 @@ const useStyles = makeStyles(
     },
     field: {
       '& .MuiInputBase-root': {
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: theme.palette.background.paper,
       },
       '& .MuiInputBase-input': {
         boxSizing: 'border-box',

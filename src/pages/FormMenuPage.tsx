@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { PageWrapper } from '../ui/PageWrapper';
 import { Box, Grid, Container, Typography } from '@material-ui/core';
 import { PaperButton } from '../ui/Button';
+import { NavigatorBar } from '../ui/NavigatorBar';
 
 const useStyles = makeStyles(
   theme => ({
@@ -19,7 +20,7 @@ const useStyles = makeStyles(
 );
 
 const OPTIONS = [
-  { label: 'B123', to: '/maintenance/td-menu/B123' },
+  { label: 'B123', to: '/maintenance/new/B123/menu' },
   { label: 'S123', to: '' },
   { label: 'S45', to: '' },
   { label: 'S67', to: '' },
@@ -39,13 +40,15 @@ export const FormMenuPage = () => {
       <Box marginTop="12px" clone>
         <Container maxWidth="lg">
           {/* 1st section */}
-          <Grid container wrap="nowrap" justify="space-between" alignItems="center" spacing={3} className={classes.row}>
+          <NavigatorBar title={`新增 / 修改修護單`} />
+
+          {/* <Grid container wrap="nowrap" justify="space-between" alignItems="center" spacing={3} className={classes.row}>
             <Grid item container xs wrap="nowrap" alignItems="center">
               <Typography color="primary" variant="h3">
                 新增 / 修改修護單
               </Typography>
             </Grid>
-          </Grid>
+          </Grid> */}
           <Grid container justify="center" alignItems="center" className={classes.cardContainer}>
             {OPTIONS.map(o => (
               <PaperButton onClick={() => handleClick(o.to)} key={o.label}>
