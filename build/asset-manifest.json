@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/static/js/main.5c8e5d5b.chunk.js",
-    "main.js.map": "/static/js/main.5c8e5d5b.chunk.js.map",
+    "main.js": "/static/js/main.eb280562.chunk.js",
+    "main.js.map": "/static/js/main.eb280562.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.7a2bde3e.js",
     "runtime-main.js.map": "/static/js/runtime-main.7a2bde3e.js.map",
-    "static/js/2.f3e0ab44.chunk.js": "/static/js/2.f3e0ab44.chunk.js",
-    "static/js/2.f3e0ab44.chunk.js.map": "/static/js/2.f3e0ab44.chunk.js.map",
+    "static/js/2.1067bc0b.chunk.js": "/static/js/2.1067bc0b.chunk.js",
+    "static/js/2.1067bc0b.chunk.js.map": "/static/js/2.1067bc0b.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.fb10c10c394d778725414892eaeaa719.js": "/precache-manifest.fb10c10c394d778725414892eaeaa719.js",
+    "precache-manifest.69af9956561a15c0fb127abf4c18ace3.js": "/precache-manifest.69af9956561a15c0fb127abf4c18ace3.js",
     "service-worker.js": "/service-worker.js",
     "static/media/NotoSansTC-Bold.otf": "/static/media/NotoSansTC-Bold.998c7dda.otf",
     "static/media/NotoSansTC-Medium.otf": "/static/media/NotoSansTC-Medium.7a7f0d79.otf",
@@ -17,7 +17,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.7a2bde3e.js",
-    "static/js/2.f3e0ab44.chunk.js",
-    "static/js/main.5c8e5d5b.chunk.js"
+    "static/js/2.1067bc0b.chunk.js",
+    "static/js/main.eb280562.chunk.js"
   ]
 }
