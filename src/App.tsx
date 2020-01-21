@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, BrowserRouter } from 'react-router-dom';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
@@ -53,25 +53,27 @@ function App() {
     <AppThemeProvider>
       <CssBaseline>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <Router>
-            {/* <Route path={['/form_1']}>
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <Router>
+              {/* <Route path={['/form_1']}>
               <FormPage />
             </Route> */}
 
-            <Route path={['/', '/maintenance/new']} exact component={FormMenuPage} />
-            <Route path={['/maintenance/new/:section_id/menu']} component={TDListPage} />
-            <Route path={['/maintenance/new/:section_id/:td_id/form']} exact component={FormV2Page} />
+              <Route path={['/', '/maintenance/new']} exact component={FormMenuPage} />
+              <Route path={['/maintenance/new/:section_id/menu']} component={TDListPage} />
+              <Route path={['/maintenance/new/:section_id/:td_id/form']} exact component={FormV2Page} />
 
-            <Route path={['/maintenance/work_log']} exact component={WorkLogMenuPage} />
-            <Route path={['/maintenance/work_log/:section_id/menu']} exact component={WorkLogFormMenuPage} />
-            <Route path={['/maintenance/work_log/:section_id/form']} exact component={WorkLogFormPage} />
+              <Route path={['/maintenance/work_log']} exact component={WorkLogMenuPage} />
+              <Route path={['/maintenance/work_log/:section_id/menu']} exact component={WorkLogFormMenuPage} />
+              <Route path={['/maintenance/work_log/:section_id/form']} exact component={WorkLogFormPage} />
 
-            <Route path={['/TD/locations']} exact component={TDLocationListPage} />
-            <Route path={['/TD/locations/:section_id']} exact component={TDLocationPage} />
-            <Route path={['/TD/status']} exact component={TDStatusMenu} />
-            <Route path={['/TD/status/:section_id']} exact component={TDStatusList} />
-            <Route path={['/TD/status/:section_id/:td_id']} exact component={TDHistoryList} />
-          </Router>
+              <Route path={['/TD/locations']} exact component={TDLocationListPage} />
+              <Route path={['/TD/locations/:section_id']} exact component={TDLocationPage} />
+              <Route path={['/TD/status']} exact component={TDStatusMenu} />
+              <Route path={['/TD/status/:section_id']} exact component={TDStatusList} />
+              <Route path={['/TD/status/:section_id/:td_id']} exact component={TDHistoryList} />
+            </Router>
+          </BrowserRouter>
         </MuiPickersUtilsProvider>
       </CssBaseline>
     </AppThemeProvider>
