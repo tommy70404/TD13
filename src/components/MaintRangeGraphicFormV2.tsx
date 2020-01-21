@@ -7,21 +7,21 @@ interface IMaintRangeGrapgicFormV2Props {
   handleChange?: (k: string) => (v: any) => void;
 }
 
-function importAll(r: any) {
-  let images: any = [];
-  r.keys().forEach((item: any, index: number) => {
-    images.push(item.replace('./', ''));
-  });
-  return images;
-}
+// function importAll(r: any) {
+//   const images: any = [];
+//   r.keys().forEach((item: any, index: number) => {
+//     images.push(item.replace('./', ''));
+//   });
+//   return images;
+// }
 
 // 遍例指定資料夾，並抓出特定檔案
-const images_B1B2 = importAll(require.context('../assets/img/B1B2/', false, /\.(png|jpe?g|svg)$/)).sort(
-  (a: string, b: string) => parseInt(a.match(/[0-9]*/)![0]) - parseInt(b.match(/[0-9]*/)![0]),
-);
-const images_B3 = importAll(require.context('../assets/img/B3/', false, /\.(png|jpe?g|svg)$/)).sort(
-  (a: string, b: string) => parseInt(a.match(/[0-9]*/)![0]) - parseInt(b.match(/[0-9]*/)![0]),
-);
+// const images_B1B2 = importAll(require.context('../assets/img/B1B2/', false, /\.(png|jpe?g|svg)$/)).sort(
+//   (a: string, b: string) => parseInt(a.match(/[0-9]*/)![0]) - parseInt(b.match(/[0-9]*/)![0]),
+// );
+// const images_B3 = importAll(require.context('../assets/img/B3/', false, /\.(png|jpe?g|svg)$/)).sort(
+//   (a: string, b: string) => parseInt(a.match(/[0-9]*/)![0]) - parseInt(b.match(/[0-9]*/)![0]),
+// );
 
 const useStyles = makeStyles(
   theme => ({
@@ -43,7 +43,7 @@ const useStyles = makeStyles(
       // marginLeft: theme.spacing(2.5),
     },
     navigator: {
-      backgroundImage: 'url(../assets/img/navigator.png)',
+      backgroundImage: 'url(/assets/img/navigator.png)',
       // position: 'absolute',
       // top: 38,
       // right: 100,
@@ -164,7 +164,7 @@ export const MaintRangeGraphicFormV2 = ({ state, handleChange }: IMaintRangeGrap
           style={{ height: '500px' }}
         >
           <div
-            style={{ backgroundImage: `url(../assets/img/B1B2/0.png` }}
+            style={{ backgroundImage: `url(/assets/img/B1B2/0.png` }}
             className={clsx([classes.graphicBtn, classes.B1B2Img])}
           />
           <svg
@@ -200,7 +200,7 @@ export const MaintRangeGraphicFormV2 = ({ state, handleChange }: IMaintRangeGrap
           style={{ height: '450px' }}
         >
           <div
-            style={{ backgroundImage: `url(../assets/img/B3/0.png` }}
+            style={{ backgroundImage: `url(/assets/img/B3/0.png` }}
             className={clsx([classes.graphicBtn, classes.B3Img])}
           />
           <svg
