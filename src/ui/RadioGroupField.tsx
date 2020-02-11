@@ -5,7 +5,7 @@ import clsx from 'clsx';
 interface IRadioGroupFieldProps {
   options: {
     value?: any;
-    label: string;
+    label: string | JSX.Element;
   }[];
   value?: any;
   onChange?: (v: any) => void;
@@ -16,8 +16,8 @@ interface IRadioGroupFieldProps {
 
 const useStyles = makeStyles(
   theme => ({
-    wrapper: {
-      padding: theme.spacing(2),
+    fieldWrapper: {
+      padding: theme.spacing(1),
     },
     radioGroup: {
       '&.MuiFormGroup-root': {
@@ -30,6 +30,9 @@ const useStyles = makeStyles(
       '& .MuiSvgIcon-root': {
         width: 30,
         height: 30,
+      },
+      '& .MuiFormControlLabel-label': {
+        whiteSpace: 'nowrap',
       },
       '& .MuiTypography-body1': {
         fontSize: theme.typography.h5.fontSize,
@@ -59,7 +62,7 @@ export const RadioGroupField = ({
   };
 
   return (
-    <Grid container alignItems="center" className={classes.wrapper}>
+    <Grid container alignItems="center" className={classes.fieldWrapper}>
       <Grid item xs={vertical ? 12 : 'auto'} className={clsx({ [classes.vertical]: vertical })}>
         <Typography variant="h4" color="primary" className={classes.label}>
           {label}
@@ -73,7 +76,7 @@ export const RadioGroupField = ({
                 value={o.value || o.label + '-' + idx}
                 control={<Radio color="primary" />}
                 label={o.label}
-                key={o.label}
+                key={idx}
               />
             ))}
           </RadioGroup>

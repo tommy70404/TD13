@@ -1,11 +1,13 @@
 import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, PropTypes } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { SelectField } from './SelectField';
+import { PaletteOptions, SimplePaletteColorOptions } from '@material-ui/core/styles/createPalette';
 
 interface IBorderFieldSkeletonProps {
   title: string;
   field: JSX.Element;
+  color?: PropTypes.Color;
   reverse?: boolean;
 }
 
@@ -14,11 +16,14 @@ const useStyles = makeStyles(
     ({
       container: {
         width: 'auto',
-        borderColor: theme.palette.primary.main,
-        backgroundColor: theme.palette.primary.main,
+        borderColor: ({ color }: any) =>
+          (theme.palette[color as keyof PaletteOptions] as SimplePaletteColorOptions).main,
+        backgroundColor: ({ color }: any) =>
+          (theme.palette[color as keyof PaletteOptions] as SimplePaletteColorOptions).main,
         borderWidth: 2,
         borderStyle: 'solid',
         borderRadius: theme.shape.borderRadius,
+        height: 54,
       },
       title: {
         padding: theme.spacing(0, 2),
@@ -30,23 +35,32 @@ const useStyles = makeStyles(
       },
       fieldWrapper: {
         backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(0, 4),
-        borderTopRightRadius: (reverse: boolean) => (reverse ? 0 : theme.shape.borderRadius),
-        borderBottomRightRadius: (reverse: boolean) => (reverse ? 0 : theme.shape.borderRadius),
-        borderTopLeftRadius: (reverse: boolean) => (reverse ? theme.shape.borderRadius : 0),
-        borderBottomLeftRadius: (reverse: boolean) => (reverse ? theme.shape.borderRadius : 0),
+        padding: theme.spacing(0, 0),
+        display: 'flex',
+        borderTopRightRadius: ({ reverse }: any) => (reverse ? 0 : theme.shape.borderRadius),
+        borderBottomRightRadius: ({ reverse }: any) => (reverse ? 0 : theme.shape.borderRadius),
+        borderTopLeftRadius: ({ reverse }: any) => (reverse ? theme.shape.borderRadius : 0),
+        borderBottomLeftRadius: ({ reverse }: any) => (reverse ? theme.shape.borderRadius : 0),
+        '& > *': {
+          margin: 'auto auto',
+        },
       },
     } as any),
   { name: 'BorderFieldSkeleton' },
 );
 
-export const BorderFieldSkeleton = ({ title, field, reverse = false }: IBorderFieldSkeletonProps) => {
-  const classes: any = useStyles(reverse);
+export const BorderFieldSkeleton = ({
+  title,
+  field,
+  color = 'primary',
+  reverse = false,
+}: IBorderFieldSkeletonProps) => {
+  const classes: any = useStyles({ reverse, color });
   return (
     <Grid container className={classes.container}>
       {!reverse && (
         <Grid item className={classes.title}>
-          <Typography variant="h5" align="center">
+          <Typography variant="h4" align="center">
             {title}
           </Typography>
         </Grid>
@@ -56,7 +70,7 @@ export const BorderFieldSkeleton = ({ title, field, reverse = false }: IBorderFi
       </Grid>
       {reverse && (
         <Grid item className={classes.title}>
-          <Typography variant="h5" align="center">
+          <Typography variant="h4" align="center">
             {title}
           </Typography>
         </Grid>

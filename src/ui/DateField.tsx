@@ -4,7 +4,7 @@ import zhTW from 'date-fns/locale/zh-CN';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, DatePicker, TimePicker } from '@material-ui/pickers';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, useTheme } from '@material-ui/core';
 
 interface IDateFieldProps {
   onChange?: (value: any) => any;
@@ -17,7 +17,7 @@ interface IDateFieldProps {
 
 const useStyles = makeStyles(
   theme => ({
-    filedWrapper: {
+    fieldWrapper: {
       padding: theme.spacing(1),
     },
     field: {
@@ -46,6 +46,7 @@ export const DateField = ({
   ...props
 }: IDateFieldProps) => {
   const [state, setstate] = useState({ date: null, time: null });
+  const theme = useTheme();
   const classes = useStyles();
   const handleChange = (k: string) => (d: any) => {
     onChange && onChange(new Date(d));
@@ -58,18 +59,18 @@ export const DateField = ({
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={zhTW}>
-      <Grid container alignItems="center" className={classes.filedWrapper}>
+      <Grid container alignItems="center" className={classes.fieldWrapper}>
         {label && (
-          <Grid item xs={vertical ? 12 : undefined} style={{ marginBottom: 0 }}>
+          <Grid item xs={vertical ? 12 : undefined} style={{ marginBottom: 10 }}>
             <Typography variant="h4" color="primary">
               {label}
             </Typography>
           </Grid>
         )}
-        <Grid item container xs={12} wrap="nowrap" spacing={1}>
-          <Grid item xs style={{ width: 'auto' }}>
+        <Grid item container xs={12} wrap="nowrap" >
+          <Grid item xs style={{ width: 'auto', marginRight: theme.spacing(1) }}>
             <DatePicker
-              margin="normal"
+              margin="none"
               inputVariant="outlined"
               value={state.date}
               onChange={handleChange('date')}
@@ -86,7 +87,7 @@ export const DateField = ({
           {withDayTime && (
             <Grid item xs={5}>
               <TimePicker
-                margin="normal"
+                margin="none"
                 inputVariant="outlined"
                 value={state.time}
                 onChange={handleChange('time')}

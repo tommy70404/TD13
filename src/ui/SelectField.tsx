@@ -16,39 +16,49 @@ interface ISelectFieldField extends SelectProps {
   vertical?: boolean;
   border?: boolean;
   dense?: boolean;
+  center?: boolean;
 }
 
 const useStyles = makeStyles(
-  theme => ({
-    fieldBase: {
-      width: '100%',
-      minWidth: 100,
-      '& .MuiSelect-root': {
-        backgroundColor: 'transprent',
+  theme =>
+    ({
+      fieldWrapper: {
+        padding: ({ dense }: any) => theme.spacing(dense ? 0 : 1, 1),
       },
-    },
-    selectField: {
-      '& .MuiInputBase-input': {
-        textAlign: 'center',
-        height: 'auto',
-        color: theme.palette.text.primary,
+      fieldBase: {
+        width: '100%',
+        minWidth: 100,
+        '&& .MuiSelect-root': {
+          boxSizing: 'border-box',
+          padding: '14px 8px',
+          height: 45,
+          backgroundColor: 'transparent',
+        },
       },
-      '& .MuiSelect-icon': {
-        color: theme.palette.text.primary,
-        right: 0,
+      selectField: {
+        '& .MuiInputBase-input': {
+          textAlign: ({ center }: any) => (center ? 'center' : 'left'),
+          height: 'auto',
+          color: theme.palette.text.primary,
+        },
+        '& .MuiSelect-icon': {
+          color: theme.palette.text.primary,
+          right: 0,
+        },
       },
-      '& fieldset': {
-        border: 'none',
+      nonborder: {
+        '& fieldset': {
+          border: 'none',
+        },
       },
-    },
-    'field-dense': {
-      '& .MuiSelect-root': {
-        boxSizing: 'border-box',
-        height: 32,
-        padding: '6px 24px 6px 0',
+      'field-dense': {
+        '& .MuiSelect-root': {
+          boxSizing: 'border-box',
+          height: 32,
+          padding: '6px 24px 6px 0',
+        },
       },
-    },
-  }),
+    } as any),
   { name: 'SelectFieldField' },
 );
 
@@ -61,16 +71,17 @@ export const SelectField = ({
   vertical = false,
   border = false,
   dense = false,
+  center = false,
   ...props
 }: ISelectFieldField) => {
-  const classes = useStyles();
+  const classes: any = useStyles({ center, dense });
 
   const handleChange = (e: any) => {
     onChange && onChange(e.target.value);
   };
 
   return (
-    <Grid container justify="center" alignItems="center">
+    <Grid container justify={center ? 'center' : 'flex-start'} alignItems="center" className={classes.fieldWrapper}>
       {label && (
         <Grid item xs={vertical ? 12 : undefined} style={{ marginBottom: 10 }}>
           <Typography variant="h4" color="primary">
@@ -79,11 +90,15 @@ export const SelectField = ({
         </Grid>
       )}
       <Select
+        margin="none"
         defaultValue={value || ''}
         displayEmpty
         variant="outlined"
         onChange={handleChange}
-        className={clsx(classes.fieldBase, { [classes.selectField]: !border, [classes['field-dense']]: dense })}
+        className={clsx(classes.fieldBase, classes.selectField, {
+          [classes.nonborder]: !border,
+          [classes['field-dense']]: dense,
+        })}
         {...props}
       >
         <MenuItem value="" disabled>

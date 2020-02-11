@@ -2,24 +2,44 @@ import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { PageWrapper } from '../../ui/PageWrapper';
-import { Box, Grid, Container, Paper, Typography, Divider, Button, IconButton } from '@material-ui/core';
+import {
+  Box,
+  Grid,
+  Container,
+  Paper,
+  Typography,
+  Divider,
+  Button,
+  IconButton,
+  useTheme,
+  Checkbox,
+} from '@material-ui/core';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 // import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
-import { PaperButton } from '../../ui/Button';
+import { PaperButton, ComfirmPopupButton } from '../../ui/Button';
 import { SelectField } from '../../ui/SelectField';
 import { BorderFieldSkeleton } from '../../ui/BorderFieldSkeleton';
-import { AddCircleOutlineRounded, WarningRounded, CloseRounded } from '@material-ui/icons';
+import {
+  AddCircleOutlineRounded,
+  WarningRounded,
+  CloseRounded,
+  DeleteForeverRounded,
+  RemoveCircleOutlineRounded,
+} from '@material-ui/icons';
 import { MultiTextField } from '../../ui/TextField';
 import { DateField } from '../../ui/DateField';
 import { NavigatorBar } from '../../ui/NavigatorBar';
-import { repairTypeOptions, venderOptions } from '../../data/comm';
+import { venderOptions, repairReasonOptions, materialOptions } from '../../data/comm';
 import { RadioGroupField } from '../../ui/RadioGroupField';
 import { TableForm } from '../../ui/TableForm';
 import { CurrentShiftTotalForm } from '../../components/forms/workLog/CurrentShiftTotalForm';
 import { OnDutyForm } from '../../components/forms/workLog/OnDutyForm';
 import { TodoForm } from '../../components/forms/workLog/TodoForm';
+import { BurnCondGraphField } from '../../components/popup/BurnCondGraphField';
+import { ResidueGraphField } from '../../components/popup/ResidueGraphField';
+import { WorkLogGraphicForm } from '../../components/WorkLogGraphicForm';
 
 const useStyles = makeStyles(
   theme => ({
@@ -92,20 +112,63 @@ const useStyles = makeStyles(
   { name: 'WorkLogFormPage' },
 );
 
+interface IContent {
+  id: string;
+  修別: string;
+  [key: string]: any;
+}
+
 interface IPanel {
-  id: number;
+  id: string;
   workType: number;
+  contents: IContent[];
   [key: string]: any;
 }
 
 const workOptions = [
-  { label: '1.送修資料', value: 1 },
-  { label: '2.殘鋼倒除', value: 2 },
-  { label: '3.上蓋送出', value: 3 },
-  { label: '4.修別與廠商', value: 4 },
+  { label: '1.下線TD', value: 1 },
+  { label: '2.殘剛到除', value: 2 },
+  { label: '3.上蓋時間', value: 3 },
+  { label: '4.送出時間', value: 4 },
+  { label: '5.修護範圍', value: 5 },
   // { label: '5.本班統計', value: 5 },
   // { label: '6.交辦事項', value: 6 },
   // { label: '7.出勤紀錄', value: 7 },
+];
+
+const stateHandingFields = [
+  {
+    label: '倒次',
+    control: () => <MultiTextField fields={[{ placeholder: 'NN' }]} style={{ width: 102, padding: 4 }} />,
+  },
+  {
+    label: '燒結',
+    control: () => <BurnCondGraphField title="燒結" />,
+  },
+  {
+    label: '太薄',
+    control: () => <Checkbox size="medium" color="primary" />,
+  },
+  {
+    label: '凹襯',
+    control: () => <Checkbox size="medium" color="primary" />,
+  },
+  {
+    label: '沖區',
+    control: () => <Checkbox size="medium" color="primary" />,
+  },
+  {
+    label: '澆水',
+    control: () => <Checkbox size="medium" color="primary" />,
+  },
+  {
+    label: '厚渣',
+    control: () => <ResidueGraphField title="厚渣" />,
+  },
+  {
+    label: '頂撞',
+    control: () => <Checkbox size="medium" color="primary" />,
+  },
 ];
 
 const repairTypeField = [
@@ -129,6 +192,30 @@ const paintTypeField = [
     control: () => <MultiTextField textCenter fields={[{ placeholder: 'NN' }]} style={{ padding: 8 }} />,
   },
 ];
+function getColorLabel(text: string, color: string) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <p style={{ display: 'inline-block', margin: 0 }}>{text}</p>
+      <p style={{ background: color, width: 110, height: 30, display: 'inline-block', marginLeft: 8 }}></p>
+    </div>
+  );
+}
+
+const repairTypeWithColorOptions = [
+  { label: getColorLabel('小修', '#f4ce91'), value: '小修' },
+  { label: getColorLabel('中修', '#f5a623'), value: '中修' },
+  { label: getColorLabel('大修', '#8d5b09'), value: '大修' },
+  { label: '全修', value: '全修' },
+  { label: '其他', value: '其他' },
+];
+
+enum repairTypeColorMap {
+  '小修' = '#f4ce91',
+  '中修' = '#f5a623',
+  '大修' = '#8d5b09',
+  '全修' = '#f5a623',
+  '其他' = '#f5a623',
+}
 
 const alarmText = '注意事項';
 const alarmBody = `
@@ -138,28 +225,76 @@ const alarmBody = `
 `;
 
 export const WorkLogFormPage = () => {
-  const [panelList, setPanelList] = useState<IPanel[]>([{ id: Date.now(), workType: 0 }]);
+  const [panelList, setPanelList] = useState<IPanel[]>([
+    { id: 'panel' + Date.now(), workType: 2, contents: [{ id: '1', 修別: '小修' }] },
+  ]);
 
   const classes = useStyles();
+  const theme = useTheme();
   const history = useHistory();
   const { section_id } = useParams();
 
+  const handleContentChange = (panelId: string) => (contentId: string) => (key: string) => (value: any) => {
+    setPanelList(prev => {
+      const targetPanelIdx = panelList.findIndex(panel => panel.id === panelId);
+      if (targetPanelIdx !== -1) {
+        const targetContentIdx = panelList[targetPanelIdx].contents.findIndex(content => content.id === contentId);
+        if (targetContentIdx !== -1) {
+          prev[targetPanelIdx].contents[targetPanelIdx] = {
+            ...prev[targetPanelIdx].contents[targetPanelIdx],
+            [key]: value,
+          };
+        }
+      }
+      return [...prev];
+    });
+  };
+
   const handleSelectChange = (o: number) => (v: number) => {
     setPanelList((prev: any) => {
-      prev.splice(o, 1, { ...prev[o], workType: v });
+      prev.splice(o, 1, { ...prev[o], workType: v, contents: [{ id: 'content' + Date.now() }] });
+      return [...prev];
+    });
+  };
+
+  const handlePanelContentAdd = (contentId: string) => {
+    setPanelList((prev: any) => {
+      const targetPanelIdx = panelList.findIndex(panel => panel.id === contentId);
+      if (targetPanelIdx !== -1) {
+        const newContents = [...prev[targetPanelIdx].contents, { id: 'content' + Date.now() }];
+        prev.splice(targetPanelIdx, 1, { ...prev[targetPanelIdx], contents: newContents });
+      }
+      return [...prev];
+    });
+  };
+
+  const handlePanelContentRemove = (panelId: string, contentId: string) => {
+    setPanelList((prev: any) => {
+      const targetPanelIdx = panelList.findIndex(panel => panel.id === panelId);
+      const targetPanel = panelList.find(panel => panel.id === panelId);
+      if (targetPanelIdx !== -1 && targetPanel) {
+        const targetPanelContentIdx = targetPanel.contents.findIndex(content => content.id === contentId);
+        if (targetPanelContentIdx !== -1) {
+          prev[targetPanelIdx].contents.splice(targetPanelContentIdx, 1);
+        }
+      }
       return [...prev];
     });
   };
 
   const handlePanelAdd = () => {
     setPanelList((prev: any) => {
-      prev.push({ id: Date.now(), workType: 0 });
+      prev.push({ id: 'panel' + Date.now(), workType: 0, contents: [] });
       return [...prev];
     });
   };
-  const handlePanelRemove = (o: number) => {
+
+  const handlePanelRemove = (panelId: string) => {
     setPanelList((prev: any) => {
-      prev.splice(o, 1);
+      const targetPanelIdx = panelList.findIndex(panel => panel.id === panelId);
+      if (targetPanelIdx !== -1) {
+        prev.splice(targetPanelIdx, 1);
+      }
       return [...prev];
     });
   };
@@ -168,68 +303,110 @@ export const WorkLogFormPage = () => {
     window.location.href = `/maintenance/work_log/${section_id}/menu`;
   };
 
-  const renderBody = (panel: IPanel) => {
+  const renderBody = (panel: IPanel, content: IContent) => {
     switch (panel.workType) {
       case 1:
         return (
-          <Grid item container xs={12} wrap="nowrap" justify="space-between" alignItems="center" spacing={1}>
-            <Grid item xs>
-              <MultiTextField
-                label="送修序號"
-                // state={state}
-                // onChange={()=>()}
-                fields={[{ placeholder: 'YYYY-MM-NNN' }]}
-                vertical
-                fullWidth
-              />
+          <>
+            <Grid item container xs={12} wrap="nowrap">
+              <Grid item xs>
+                <MultiTextField
+                  label="送修序號"
+                  // state={state}
+                  // onChange={()=>()}
+                  fields={[{ placeholder: 'YYYY-MM-NNN' }]}
+                  vertical
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs>
+                <DateField label="送修時間" placeholder="YYYY-MM-DD" withDayTime />
+              </Grid>
+              <Grid item xs>
+                <RadioGroupField label="殘剛量" options={[{ label: '大於10噸' }, { label: '小於10噸' }]} vertical />
+              </Grid>
+              <Grid item xs>
+                <DateField label="澆水冷卻時間" placeholder="YYYY-MM-DD" withDayTime />
+              </Grid>
             </Grid>
-            <Grid item xs>
-              <DateField label="送修時間" placeholder="YYYY-MM-DD" withDayTime />
+            <Grid item container xs={12} wrap="nowrap">
+              <Grid item xs={3}>
+                <MultiTextField
+                  label="送修序號"
+                  // state={state}
+                  // onChange={()=>()}
+                  fields={[{ placeholder: 'NNN', suffix: '回' }]}
+                  vertical
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <RadioGroupField label="殘剛量" options={repairReasonOptions} vertical />
+              </Grid>
             </Grid>
-            <Grid item xs>
-              <MultiTextField
-                label="殘剛噸數"
-                // state={state}
-                // onChange={()=>()}
-                fields={[{ placeholder: 'NN' }]}
-                vertical
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs>
-              <DateField label="S/N 拆卸時間" placeholder="YYYY-MM-DD" withDayTime />
-            </Grid>
-          </Grid>
+          </>
         );
       case 2:
         return (
-          <Grid item container xs={12} wrap="nowrap" justify="space-between" alignItems="center" spacing={1}>
-            <Grid item xs={4}>
-              <DateField label="殘剛到除時間" placeholder="YYYY-MM-DD" withDayTime />
+          <>
+            <Grid item container xs={12} wrap="nowrap">
+              <Grid item xs>
+                <DateField label="殘剛到除時間" placeholder="YYYY-MM-DD" withDayTime />
+              </Grid>
+              <Grid item xs>
+                <SelectField
+                  border={true}
+                  label="擋牆材料廠商"
+                  defaultText="廠商中文名稱"
+                  variant="outlined"
+                  options={venderOptions}
+                />
+              </Grid>
+              <Grid item xs>
+                <RadioGroupField label="檔牆狀況" options={materialOptions} vertical />
+              </Grid>
             </Grid>
-          </Grid>
+            <Grid item container xs={12} wrap="nowrap">
+              <Grid item xs>
+                <TableForm label="處理狀況" fields={stateHandingFields} vertical />
+              </Grid>
+            </Grid>
+          </>
         );
       case 3:
         return (
-          <Grid item container xs={12} wrap="nowrap" justify="space-between" alignItems="center" spacing={1}>
-            <Grid item xs>
+          <>
+            <Grid item xs={3}>
               <DateField label="上蓋時間" placeholder="YYYY-MM-DD" withDayTime />
             </Grid>
-            <Grid item xs>
-              <DateField label="送出時間" placeholder="YYYY-MM-DD" withDayTime />
-            </Grid>
-          </Grid>
+          </>
         );
       case 4:
         return (
-          <Grid item container xs={12} justify="space-between" alignItems="center" spacing={1}>
+          <>
+            <Grid item xs={3}>
+              <DateField label="送出時間" placeholder="YYYY-MM-DD" withDayTime />
+            </Grid>
+          </>
+        );
+      case 5:
+        return (
+          <>
             <Grid item container xs={12} wrap="nowrap">
               <Grid item xs>
-                <RadioGroupField label="修別" options={repairTypeOptions} vertical />
+                <RadioGroupField
+                  label="修別"
+                  onChange={handleContentChange(panel.id)(content.id)('修別')}
+                  options={repairTypeWithColorOptions}
+                  vertical
+                />
               </Grid>
-              <Grid item xs>
-                <RadioGroupField label="流鋼嘴座換" options={[{ label: '有' }, { label: '無' }]} vertical />
-              </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <WorkLogGraphicForm
+                tdNumber={2}
+                color={repairTypeColorMap[content['修別'] as keyof typeof repairTypeColorMap]}
+              />
             </Grid>
             <Grid item container xs={12} wrap="nowrap">
               <Grid item xs>
@@ -241,6 +418,9 @@ export const WorkLogFormPage = () => {
             </Grid>
             <Grid item container xs={12} wrap="nowrap">
               <Grid item xs={3}>
+                <RadioGroupField label="流鋼嘴座換" options={[{ label: '有' }, { label: '無' }]} vertical />
+              </Grid>
+              <Grid item xs={3}>
                 <MultiTextField
                   label="水量"
                   // state={state}
@@ -251,7 +431,7 @@ export const WorkLogFormPage = () => {
                 />
               </Grid>
             </Grid>
-          </Grid>
+          </>
         );
       default:
         return null;
@@ -290,36 +470,107 @@ export const WorkLogFormPage = () => {
                 {/* panel start */}
                 <Paper className={classes.panel}>
                   {/* header start */}
-                  <IconButton
-                    onClick={() => handlePanelRemove(pIdx)}
-                    style={{ position: 'absolute', top: 5, right: 5 }}
-                  >
-                    <CloseRounded color="primary" />
-                  </IconButton>
-                  <Grid container spacing={3}>
-                    <Grid item xs="auto">
+                  <Grid container spacing={3} justify="space-between" alignItems="center">
+                    <Grid item xs="auto" style={{ width: 'auto' }}>
                       <BorderFieldSkeleton
-                        title="TD號碼"
+                        color="secondary"
+                        title="工作項目"
                         field={
                           <SelectField
-                            options={Array(40)
-                              .fill('')
-                              .map((e, idx) => ({ value: idx, label: idx.toString() }))}
+                            onChange={handleSelectChange(pIdx)}
+                            dense
+                            center
+                            options={workOptions}
+                            style={{ minWidth: 150 }}
                           />
                         }
                       />
                     </Grid>
-                    <Grid item>
-                      <BorderFieldSkeleton
-                        title="工作項目"
-                        field={<SelectField onChange={handleSelectChange(pIdx)} options={workOptions} />}
-                      />
+
+                    <Grid item container xs="auto" spacing={3} style={{ width: 'auto' }}>
+                      <Grid item xs="auto" style={{ width: 'auto' }}>
+                        <Button
+                          onClick={() => {
+                            handlePanelContentAdd(panel.id);
+                          }}
+                          variant="contained"
+                          color="secondary"
+                          style={{ color: 'white', width: 200, height: 54, ...theme.typography.h3 }}
+                        >
+                          <AddCircleOutlineRounded style={{ marginRight: theme.spacing(1), fontSize: '40px' }} />
+                          新增TD
+                        </Button>
+                      </Grid>
+                      <Grid item xs="auto" style={{ width: 'auto' }}>
+                        <ComfirmPopupButton
+                          onClick={() => {
+                            handlePanelRemove(panel.id);
+                          }}
+                        >
+                          <Button
+                            variant="contained"
+                            // onClick={() => {
+                            //   handlePanelRemove(panel.id);
+                            // }}
+                            style={{
+                              backgroundColor: theme.palette.error.main,
+                              color: 'white',
+                              ...theme.typography.h3,
+                            }}
+                          >
+                            <DeleteForeverRounded style={{ marginRight: theme.spacing(1), fontSize: '40px' }} />
+                            刪除工項
+                          </Button>
+                        </ComfirmPopupButton>
+                      </Grid>
                     </Grid>
                   </Grid>
                   {/* header end */}
-                  <hr className={classes.dashedDivider} />
                   {/* body start */}
-                  {renderBody(panel)}
+                  {panel.contents.map(content => (
+                    <>
+                      <hr className={classes.dashedDivider} />
+
+                      <Grid
+                        item
+                        container
+                        xs={12}
+                        justify="space-between"
+                        alignItems="center"
+                        spacing={1}
+                        style={{ position: 'relative' }}
+                        key={content.id}
+                      >
+                        <Grid item container xs={12}>
+                          <Grid item xs="auto">
+                            <BorderFieldSkeleton
+                              title="TD號碼"
+                              field={
+                                <SelectField
+                                  options={Array(40)
+                                    .fill('')
+                                    .map((e, idx) => ({ value: idx, label: idx.toString() }))}
+                                  dense
+                                  center
+                                  style={{ minWidth: 150 }}
+                                />
+                              }
+                            />
+                            <ComfirmPopupButton
+                              iconButton
+                              onClick={() => handlePanelContentRemove(panel.id, content.id)}
+                              style={{ position: 'absolute', top: 5, right: 5 }}
+                            >
+                              {/* <IconButton> */}
+                              <RemoveCircleOutlineRounded color="error" style={{ fontSize: '40px' }} />
+                              {/* </IconButton> */}
+                            </ComfirmPopupButton>
+                          </Grid>
+                        </Grid>
+                        {renderBody(panel, content)}
+                      </Grid>
+                    </>
+                  ))}
                   {/* body end */}
                 </Paper>
               </Grid>

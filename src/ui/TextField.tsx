@@ -24,7 +24,7 @@ type IMultiTextFieldProps = {
 // notes: it's uncontroll field
 const useStyles = makeStyles(
   theme => ({
-    filedWrapper: {
+    fieldWrapper: {
       padding: theme.spacing(1),
     },
     field: {
@@ -110,7 +110,7 @@ export const MultiTextField = ({
   };
 
   return (
-    <Grid container alignItems="center" className={classes.filedWrapper}>
+    <Grid container alignItems="center" className={classes.fieldWrapper}>
       {label && (
         <Grid item xs={vertical ? 12 : undefined} style={{ marginBottom: 10 }}>
           <Typography variant="h4" color="primary">
