@@ -133,7 +133,7 @@ export const MultiTextField = ({
               <Grid item container wrap="nowrap" alignItems="center" spacing={2}>
                 {f.prefix && (
                   <Grid item xs="auto">
-                    <Typography variant="h3" color="textPrimary">
+                    <Typography variant="subtitle1" color="textPrimary">
                       {f.prefix}
                     </Typography>
                   </Grid>
@@ -155,7 +155,7 @@ export const MultiTextField = ({
                 </Grid>
                 {f.suffix && (
                   <Grid item xs="auto">
-                    <Typography variant="h5" color="textPrimary">
+                    <Typography variant="subtitle1" color="textPrimary">
                       {f.suffix}
                     </Typography>
                   </Grid>

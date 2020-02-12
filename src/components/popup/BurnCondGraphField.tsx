@@ -13,7 +13,7 @@ interface IBurnCondGraphFieldProps {
 const useStyles = makeStyles(
   theme => ({
     popperPaper: {
-      width: 'auto',
+      width: 500,
       padding: theme.spacing(0),
     },
     poperTitleRow: {
@@ -139,11 +139,10 @@ export const BurnCondGraphField = ({ onChange, value, title, ...props }: IBurnCo
           xs={12}
           justify="space-around"
           alignItems="stretch"
-          spacing={2}
           className={classes.btnWrapper}
         >
           {TYPE_OPTIONS.map(o => (
-            <Grid item xs key={o.label}>
+            <Grid item xs style={{ padding: 4 }} key={o.label}>
               <Button
                 disableRipple
                 onClick={() => handleTypeBtnClick(o.label)}
@@ -164,7 +163,9 @@ export const BurnCondGraphField = ({ onChange, value, title, ...props }: IBurnCo
               className={clsx(classes.optionsBtn, {
                 active: activeOption === o.label,
               })}
-              style={{ background: `url(/assets/img/burn_condense_options/${activeOption === o.label ? o.imgActive : o.img})` }}
+              style={{
+                background: `url(/assets/img/burn_condense_options/${activeOption === o.label ? o.imgActive : o.img})`,
+              }}
               key={o.label}
             />
           ))}
@@ -176,12 +177,12 @@ export const BurnCondGraphField = ({ onChange, value, title, ...props }: IBurnCo
   return (
     <>
       <Button aria-describedby={id} onClick={handleClick}>
-        <Typography variant="h5" className={classes.btn} >
+        <Typography variant="h5" className={classes.btn}>
           {props.children || (activeType || '') + '-' + (activeOption || '') || LEVEL_OPTIONS[0].label}
         </Typography>
       </Button>
       <Popover id={id} open={open} anchorEl={anchorEl} onClose={handleClose}>
-        <Paper className={classes.popperPaper}>{renderGrphicOptions()}</Paper>
+        <div className={classes.popperPaper}>{renderGrphicOptions()}</div>
       </Popover>
     </>
   );

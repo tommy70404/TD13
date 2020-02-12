@@ -59,25 +59,28 @@ const appTheme = createMuiTheme({
   typography: {
     fontFamily: ['"Noto Sans TC"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'].join(','),
     h1: {
-      fontWeight: 'bolder',
+      fontWeight: 500,
     },
     h2: {
-      fontWeight: 'bolder',
+      fontWeight: 500,
     },
     h3: {
       fontSize: 30,
-      fontWeight: 'bolder',
+      fontWeight: 500,
     },
     h4: {
       fontSize: 26,
-      fontWeight: 'bolder',
+      fontWeight: 500,
     },
     h5: {
       fontSize: 22,
-      fontWeight: 'bolder',
+      fontWeight: 500,
     },
     h6: {
-      fontWeight: 'bolder',
+      fontWeight: 500,
+    },
+    subtitle1: {
+      fontSize: 24,
     },
   },
 });

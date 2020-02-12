@@ -27,6 +27,10 @@ interface IMaintRangeGrapgicFormV2Props {
 
 const useStyles = makeStyles(
   theme => ({
+    wrapper: {
+      height: 'auto',
+      padding: theme.spacing(1),
+    },
     circleLabel: {
       width: 150,
       height: 50,
@@ -83,7 +87,12 @@ const useStyles = makeStyles(
 // const B1B2ImgArr = ['B1B2.png', 'B1B2W.png', 'B1B2N.png', 'B1B2E.png', 'B1B2S.png'];
 // const B3ImgArr = ['B3.png', 'B3W.png', 'B3N.png', 'B3E.png', 'B3S.png'];
 
-export const WorkLogGraphicForm = ({ state, handleChange, tdNumber = 1, color }: IMaintRangeGrapgicFormV2Props) => {
+export const WorkLogGraphicForm = ({
+  state,
+  handleChange,
+  tdNumber = 1,
+  color = '#f5a623',
+}: IMaintRangeGrapgicFormV2Props) => {
   const [innerState, setInnerState] = useState<any>({});
   const classes = useStyles();
 
@@ -149,7 +158,7 @@ export const WorkLogGraphicForm = ({ state, handleChange, tdNumber = 1, color }:
     });
 
   return (
-    <Grid container style={{ height: 'auto' }}>
+    <Grid container className={classes.wrapper}>
       {(tdNumber < 31 || tdNumber > 42) && (
         <Grid item container sm={12}>
           <Grid item container sm={6} alignItems="flex-start" style={{ width: 'auto' }}>

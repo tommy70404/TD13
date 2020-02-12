@@ -40,6 +40,7 @@ import { TodoForm } from '../../components/forms/workLog/TodoForm';
 import { BurnCondGraphField } from '../../components/popup/BurnCondGraphField';
 import { ResidueGraphField } from '../../components/popup/ResidueGraphField';
 import { WorkLogGraphicForm } from '../../components/WorkLogGraphicForm';
+import clsx from 'clsx';
 
 const useStyles = makeStyles(
   theme => ({
@@ -56,6 +57,9 @@ const useStyles = makeStyles(
       width: '100%',
       padding: theme.spacing(3),
       margin: theme.spacing(1.5, 0),
+      '&.odd': {
+        background: theme.palette.grey[100],
+      },
       // '& .MuiExpansionPanel-root.Mui-disabled': {}
     },
     dashedDivider: {
@@ -126,11 +130,11 @@ interface IPanel {
 }
 
 const workOptions = [
-  { label: '1.下線TD', value: 1 },
-  { label: '2.殘剛到除', value: 2 },
-  { label: '3.上蓋時間', value: 3 },
-  { label: '4.送出時間', value: 4 },
-  { label: '5.修護範圍', value: 5 },
+  { label: '1. 下線TD', value: 1 },
+  { label: '2. 殘剛到除', value: 2 },
+  { label: '3. 上蓋時間', value: 3 },
+  { label: '4. 送出時間', value: 4 },
+  { label: '5. 修護範圍', value: 5 },
   // { label: '5.本班統計', value: 5 },
   // { label: '6.交辦事項', value: 6 },
   // { label: '7.出勤紀錄', value: 7 },
@@ -146,11 +150,11 @@ const stateHandingFields = [
     control: () => <BurnCondGraphField title="燒結" />,
   },
   {
-    label: '太薄',
+    label: '殘鋼太薄',
     control: () => <Checkbox size="medium" color="primary" />,
   },
   {
-    label: '凹襯',
+    label: '背襯凹陷',
     control: () => <Checkbox size="medium" color="primary" />,
   },
   {
@@ -178,7 +182,7 @@ const repairTypeField = [
   },
   {
     label: '數量',
-    control: () => <MultiTextField textCenter fields={[{ placeholder: 'NN' }]} style={{ padding: 8 }} />,
+    control: () => <MultiTextField textCenter fields={[{ placeholder: 'NN', suffix: 'kg' }]} style={{ padding: 8 }} />,
   },
 ];
 
@@ -189,7 +193,7 @@ const paintTypeField = [
   },
   {
     label: '數量',
-    control: () => <MultiTextField textCenter fields={[{ placeholder: 'NN' }]} style={{ padding: 8 }} />,
+    control: () => <MultiTextField textCenter fields={[{ placeholder: 'NN', suffix: 'kg' }]} style={{ padding: 8 }} />,
   },
 ];
 function getColorLabel(text: string, color: string) {
@@ -225,9 +229,7 @@ const alarmBody = `
 `;
 
 export const WorkLogFormPage = () => {
-  const [panelList, setPanelList] = useState<IPanel[]>([
-    { id: 'panel' + Date.now(), workType: 2, contents: [{ id: '1', 修別: '小修' }] },
-  ]);
+  const [panelList, setPanelList] = useState<IPanel[]>([{ id: 'panel' + Date.now(), workType: 0, contents: [] }]);
 
   const classes = useStyles();
   const theme = useTheme();
@@ -332,7 +334,7 @@ export const WorkLogFormPage = () => {
             <Grid item container xs={12} wrap="nowrap">
               <Grid item xs={3}>
                 <MultiTextField
-                  label="送修序號"
+                  label="回數"
                   // state={state}
                   // onChange={()=>()}
                   fields={[{ placeholder: 'NNN', suffix: '回' }]}
@@ -341,7 +343,7 @@ export const WorkLogFormPage = () => {
                 />
               </Grid>
               <Grid item xs={3}>
-                <RadioGroupField label="殘剛量" options={repairReasonOptions} vertical />
+                <RadioGroupField label="修護原因" options={repairReasonOptions} vertical />
               </Grid>
             </Grid>
           </>
@@ -351,7 +353,7 @@ export const WorkLogFormPage = () => {
           <>
             <Grid item container xs={12} wrap="nowrap">
               <Grid item xs>
-                <DateField label="殘剛到除時間" placeholder="YYYY-MM-DD" withDayTime />
+                <DateField label="殘鋼到除時間" placeholder="YYYY-MM-DD" withDayTime />
               </Grid>
               <Grid item xs>
                 <SelectField
@@ -468,7 +470,7 @@ export const WorkLogFormPage = () => {
             {panelList.map((panel, pIdx) => (
               <Grid item container xs={12} alignItems="center" key={panel.id}>
                 {/* panel start */}
-                <Paper className={classes.panel}>
+                <Paper className={clsx(classes.panel, { odd: pIdx % 2 === 1 })}>
                   {/* header start */}
                   <Grid container spacing={3} justify="space-between" alignItems="center">
                     <Grid item xs="auto" style={{ width: 'auto' }}>
@@ -480,6 +482,7 @@ export const WorkLogFormPage = () => {
                             onChange={handleSelectChange(pIdx)}
                             dense
                             center
+                            themeColor="secondary"
                             options={workOptions}
                             style={{ minWidth: 150 }}
                           />
@@ -550,6 +553,7 @@ export const WorkLogFormPage = () => {
                                   options={Array(40)
                                     .fill('')
                                     .map((e, idx) => ({ value: idx, label: idx.toString() }))}
+                                  themeColor="primary"
                                   dense
                                   center
                                   style={{ minWidth: 150 }}

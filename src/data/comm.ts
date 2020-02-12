@@ -8,9 +8,9 @@ export const venderOptions = [
 
 
 // radio options
-export const materialOptions = [{ label: '正常' }, { label: '破碎' }, { label: '倒塌' }, { label: '融蝕' }];
+export const materialOptions = [{ label: '正常' }, { label: '破碎' }, { label: '倒塌' }, { label: '熔蝕' }];
 
-export const repairReasonOptions = [{ label: '正常下線' }, { label: '崩落' }, { label: '熔毀' }];
+export const repairReasonOptions = [{ label: '正常下線' }, { label: '崩落' }, { label: '熔損' }];
 
 export const repairTypeOptions = [
   { label: '小修' },

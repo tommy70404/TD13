@@ -1,7 +1,9 @@
-import React from 'react';
-import { makeStyles, Grid, Select, MenuItem, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
+import { makeStyles, Grid, Select, MenuItem, Typography, PropTypes } from '@material-ui/core';
 import { SelectProps } from '@material-ui/core/Select';
 import clsx from 'clsx';
+import { SimplePaletteColorOptions } from '@material-ui/core/styles';
+import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 
 interface ISelectFieldField extends SelectProps {
   value?: any;
@@ -10,6 +12,7 @@ interface ISelectFieldField extends SelectProps {
     value: any;
     label: string;
   }[];
+  themeColor?: PropTypes.Color;
   label?: string;
   defaultText?: string;
   children?: React.ReactNode;
@@ -17,6 +20,7 @@ interface ISelectFieldField extends SelectProps {
   border?: boolean;
   dense?: boolean;
   center?: boolean;
+  transparent?: boolean;
 }
 
 const useStyles = makeStyles(
@@ -32,7 +36,14 @@ const useStyles = makeStyles(
           boxSizing: 'border-box',
           padding: '14px 8px',
           height: 45,
-          backgroundColor: 'transparent',
+          color: ({ themeColor }: any) =>
+            themeColor
+              ? (theme.palette[themeColor as keyof PaletteOptions] as SimplePaletteColorOptions).main
+              : undefined,
+          backgroundColor: ({ transparent }: any) => (transparent ? 'transparent' : theme.palette.background.paper),
+          '&.placeholder': {
+            color: '#bbbbbb',
+          },
         },
       },
       selectField: {
@@ -68,16 +79,20 @@ export const SelectField = ({
   defaultText,
   onChange,
   label,
+  themeColor,
   vertical = false,
   border = false,
   dense = false,
   center = false,
+  transparent = false,
   ...props
 }: ISelectFieldField) => {
-  const classes: any = useStyles({ center, dense });
+  const classes: any = useStyles({ center, dense, transparent, themeColor });
+  const [state, setstate] = useState('');
 
   const handleChange = (e: any) => {
     onChange && onChange(e.target.value);
+    setstate(e.target.value);
   };
 
   return (
@@ -99,6 +114,9 @@ export const SelectField = ({
           [classes.nonborder]: !border,
           [classes['field-dense']]: dense,
         })}
+        inputProps={{
+          className: clsx({ placeholder: state === '' }),
+        }}
         {...props}
       >
         <MenuItem value="" disabled>

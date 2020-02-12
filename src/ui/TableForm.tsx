@@ -7,7 +7,7 @@ const useStyles = makeStyles(
     'overview-wrapper': {
       marginBottom: '8px',
       textAlign: 'center',
-      padding: theme.spacing(1.5),
+      padding: theme.spacing(1),
     },
     'overview-container': {
       border: `1px solid ${theme.palette.divider}`,
